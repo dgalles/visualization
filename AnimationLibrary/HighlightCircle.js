@@ -29,6 +29,9 @@
 
 var HighlightCircle = function(objectID, color, radius)
 {
+	// call superclass' constructor
+	HighlightCircle.superclass.constructor.call(this);
+
 	this.objectID = objectID;
 	this.radius = radius;
 	this.thickness = 4;
@@ -36,9 +39,6 @@ var HighlightCircle = function(objectID, color, radius)
 	this.x = 0;
 	this.y = 0;
 	this.alpha = 1;
-
-	// call superclass' constructor
-	HighlightCircle.superclass.constructor.call(this);
 }
 HighlightCircle.inheritFrom(AnimatedObject);
 

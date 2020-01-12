@@ -26,6 +26,9 @@
 
 function AnimatedLinkedList(id, val, wth, hgt, linkPer, verticalOrientation, linkPosEnd, numLab, fillColor, edgeColor)
 {
+	// call superclass' constructor, which calls init
+	AnimatedLinkedList.superclass.constructor.call(this);
+
 	this.w = wth;
 	this.h = hgt;
 	this.backgroundColor = fillColor;
@@ -38,11 +41,7 @@ function AnimatedLinkedList(id, val, wth, hgt, linkPer, verticalOrientation, lin
 	
 	this.numLabels = numLab;
 	this.objectID = id;	
-
-	// call superclass' constructor, which calls init
-	AnimatedLinkedList.superclass.constructor.call(this);
 }
-
 AnimatedLinkedList.inheritFrom(AnimatedObject);
 
 
