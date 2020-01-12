@@ -817,9 +817,9 @@ DPChange.prototype.memoizedChange = function(value)
 	this.cmd("SetText", functionCallID,  "change(" + String(value)+ ", [" +String(DPChange.COINS[this.coinIndex]) +"])	= " + String(final[0]));
 	return this.commands;
 	
-	this.currentY = DPChange.RECURSIVE_START_Y;
+	// this.currentY = DPChange.RECURSIVE_START_Y;
 	
-	return this.commands;
+	// return this.commands;
 }
 
 
