@@ -55,9 +55,7 @@ function BPlusTree(am, w, h)
 
 }
 
-BPlusTree.prototype = new Algorithm();
-BPlusTree.prototype.varructor = BPlusTree;
-BPlusTree.superclass = Algorithm.prototype;
+BPlusTree.inheritFrom(Algorithm);
 
 
 

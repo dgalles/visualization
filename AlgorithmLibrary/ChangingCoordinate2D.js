@@ -32,9 +32,7 @@ function ChangeCoordinate2D(am, w, h)
 }
 
 
-ChangeCoordinate2D.prototype = new Algorithm();
-ChangeCoordinate2D.prototype.constructor = ChangeCoordinate2D;
-ChangeCoordinate2D.superclass = Algorithm.prototype;
+ChangeCoordinate2D.inheritFrom(Algorithm);
 
 ChangeCoordinate2D.XAxisYPos = 300;
 ChangeCoordinate2D.XAxisStart = 100;
@@ -503,13 +501,13 @@ ChangeCoordinate2D.prototype.addControls =  function()
 {
 	this.controls = [];
 	
-	addLabelToAlgorithmBar("x");
+	this.addLabelToAlgorithmBar("x");
 						   
 	this.xField = this.addControlToAlgorithmBar("Text", "");
 	this.xField.onkeydown = this.returnSubmitFloat(this.xField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.xField);
 	
-	addLabelToAlgorithmBar("y");
+	this.addLabelToAlgorithmBar("y");
 	
 	this.yField = this.addControlToAlgorithmBar("Text", "");
 	this.yField.onkeydown = this.returnSubmitFloat(this.yField,  this.transformPointCallback.bind(this), 4, true);

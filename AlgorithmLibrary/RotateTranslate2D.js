@@ -32,9 +32,7 @@ function RotateTranslate2D(am, w, h)
 }
 
 
-RotateTranslate2D.prototype = new Algorithm();
-RotateTranslate2D.prototype.constructor = RotateTranslate2D;
-RotateTranslate2D.superclass = Algorithm.prototype;
+RotateTranslate2D.inheritFrom(Algorithm);
 
 RotateTranslate2D.XAxisYPos = 300;
 RotateTranslate2D.XAxisStart = 100;
@@ -271,20 +269,20 @@ RotateTranslate2D.prototype.addControls =  function()
 {
 	this.controls = [];
 	
-	addLabelToAlgorithmBar("Rotation Angle");
+	this.addLabelToAlgorithmBar("Rotation Angle");
 						   
 	this.rotationField = this.addControlToAlgorithmBar("Text", "");
 	this.rotationField.onkeydown = this.returnSubmitFloat(this.rotationField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.rotationField);
 	
-	addLabelToAlgorithmBar("Translate X");
+	this.addLabelToAlgorithmBar("Translate X");
 	
 	this.scaleXField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleXField.onkeydown = this.returnSubmitFloat(this.scaleXField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.scaleXField);
 
 	
-	addLabelToAlgorithmBar("Translate Y");
+	this.addLabelToAlgorithmBar("Translate Y");
 	
 	this.scaleYField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleYField.onkeydown = this.returnSubmitFloat(this.scaleYField,  this.transformCallback.bind(this), 4, true);

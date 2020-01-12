@@ -32,9 +32,7 @@ function LeftistHeap(am, w, h)
 	
 }
 
-LeftistHeap.prototype = new Algorithm();
-LeftistHeap.prototype.constructor = LeftistHeap;
-LeftistHeap.superclass = Algorithm.prototype;
+LeftistHeap.inheritFrom(Algorithm);
 
 LeftistHeap.LINK_COLOR = "#007700";
 LeftistHeap.HIGHLIGHT_CIRCLE_COLOR = "#007700";

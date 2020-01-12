@@ -49,9 +49,7 @@ function DisjointSet(am, w, h)
 	
 }
 
-DisjointSet.prototype = new Algorithm();
-DisjointSet.prototype.constructor = DisjointSet;
-DisjointSet.superclass = Algorithm.prototype;
+DisjointSet.inheritFrom(Algorithm);
 
 DisjointSet.prototype.init = function(am, w, h)
 {

@@ -28,8 +28,11 @@
 
 function Floyd(am, w, h)
 {
-	this.init(am, w, h);
+	// call superclass' constructor, which calls init
+	Floyd.superclass.constructor.call(this, am, w, h);
 }
+
+Floyd.inheritFrom(Graph);
 
 
 Floyd.SMALL_COST_TABLE_WIDTH = 30;
@@ -72,10 +75,6 @@ Floyd.LARGE_NODE_3_Y_POS = 500;
 
 Floyd.LARGE_MESSAGE_X = 300;
 Floyd.LARGE_MESSAGE_Y = 450;
-
-Floyd.prototype = new Graph();
-Floyd.prototype.constructor = Floyd;
-Floyd.superclass = Graph.prototype;
 
 Floyd.prototype.addControls =  function()
 {		

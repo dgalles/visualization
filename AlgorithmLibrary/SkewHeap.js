@@ -32,9 +32,7 @@ function SkewHeap(am, w, h)
 	
 }
 
-SkewHeap.prototype = new Algorithm();
-SkewHeap.prototype.constructor = SkewHeap;
-SkewHeap.superclass = Algorithm.prototype;
+SkewHeap.inheritFrom(Algorithm);
 
 SkewHeap.LINK_COLOR = "#007700";
 SkewHeap.HIGHLIGHT_CIRCLE_COLOR = "#007700";

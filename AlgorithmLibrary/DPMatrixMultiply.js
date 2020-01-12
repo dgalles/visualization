@@ -31,10 +31,7 @@ function DPMatrixMultiply(am, w, h)
 	this.init(am, w, h);
 	
 }
-
-DPMatrixMultiply.prototype = new Algorithm();
-DPMatrixMultiply.prototype.constructor = DPMatrixMultiply;
-DPMatrixMultiply.superclass = Algorithm.prototype;
+DPMatrixMultiply.inheritFrom(Algorithm);
 
 DPMatrixMultiply.TABLE_ELEM_WIDTH = 40;
 DPMatrixMultiply.TABLE_ELEM_HEIGHT = 30;
@@ -115,12 +112,12 @@ DPMatrixMultiply.prototype.init = function(am, w, h)
 DPMatrixMultiply.prototype.addControls =  function()
 {
 	this.controls = [];
-	addLabelToAlgorithmBar("S1:");
+	this.addLabelToAlgorithmBar("S1:");
 	this.S1Field = this.addControlToAlgorithmBar("Text", "");
 	this.S1Field.onkeydown = this.returnSubmit(this.S1Field,  this.emptyCallback.bind(this), DPMatrixMultiply.MAX_SEQUENCE_LENGTH, false);
 	this.controls.push(this.S1Field);
 
-	addLabelToAlgorithmBar("S2:");
+	this.addLabelToAlgorithmBar("S2:");
 	this.S2Field = this.addControlToAlgorithmBar("Text", "");
 	this.S2Field.onkeydown = this.returnSubmit(this.S2Field,  this.emptyCallback.bind(this), DPMatrixMultiply.MAX_SEQUENCE_LENGTH, false);
 	this.controls.push(this.S2Field);

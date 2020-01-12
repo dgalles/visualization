@@ -30,10 +30,7 @@ function MyAlgorithm(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-MyAlgorithm.prototype = new Algorithm();
-MyAlgorithm.prototype.constructor = MyAlgorithm;
-MyAlgorithm.superclass = Algorithm.prototype;
+MyAlgorithm.inheritFrom(Algorithm);
 
 MyAlgorithm.prototype.init = function(am, w, h)
 {

@@ -141,10 +141,7 @@ function MyAlgorithm(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-MyAlgorithm.prototype = new Algorithm();
-MyAlgorithm.prototype.constructor = MyAlgorithm;
-MyAlgorithm.superclass = Algorithm.prototype;
+MyAlgorithm.inheritFrom(Algorithm);
 </pre>
 </div>
 
@@ -812,10 +809,7 @@ function SimpleStack(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-SimpleStack.prototype = new Algorithm();
-SimpleStack.prototype.constructor = SimpleStack;
-SimpleStack.superclass = Algorithm.prototype;
+SimpleStack.inheritFrom(Algorithm);
 </div>
 </pre>
 

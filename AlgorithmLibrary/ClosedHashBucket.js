@@ -27,9 +27,10 @@
 
 function ClosedHashBucket(am, w, h)
 {
-	this.init(am, w, h);
-
+	// call superclass' constructor, which calls init
+	ClosedHashBucket.superclass.constructor.call(this, am, w, h);
 }
+ClosedHashBucket.inheritFrom(Hash);
 
 var ARRAY_ELEM_WIDTH = 90;
 var ARRAY_ELEM_HEIGHT = 30;
@@ -64,9 +65,6 @@ var INDEX_COLOR = "#0000FF";
 
 
 
-ClosedHashBucket.prototype = new Hash();
-ClosedHashBucket.prototype.constructor = ClosedHashBucket;
-ClosedHashBucket.superclass = Hash.prototype;
 
 
 ClosedHashBucket.prototype.init = function(am, w, h)

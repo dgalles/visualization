@@ -26,8 +26,12 @@
 
 function TopoSortDFS(am, w, h)
 {
-	this.init(am, w, h);
+	// call superclass' constructor, which calls init
+	TopoSortDFS.superclass.constructor.call(this, am, w, h);
 }
+
+TopoSortDFS.inheritFrom(Graph);
+
 
 
 TopoSortDFS.ORDERING_INITIAL_X = 300;
@@ -73,10 +77,6 @@ TopoSortDFS.HIGHLIGHT_CIRCLE_COLOR = "#000000";
 TopoSortDFS.DFS_TREE_COLOR = "#0000FF";
 
 
-
-TopoSortDFS.prototype = new Graph();
-TopoSortDFS.prototype.constructor = TopoSortDFS;
-TopoSortDFS.superclass = Graph.prototype;
 
 TopoSortDFS.prototype.addControls =  function()
 {		

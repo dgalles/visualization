@@ -53,9 +53,7 @@ function BinomialQueue(am, w, h)
 	
 }
 
-BinomialQueue.prototype = new Algorithm();
-BinomialQueue.prototype.constructor = BinomialQueue;
-BinomialQueue.superclass = Algorithm.prototype;
+BinomialQueue.inheritFrom(Algorithm);
 
 		
 		

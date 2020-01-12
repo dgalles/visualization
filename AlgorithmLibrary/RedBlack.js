@@ -29,10 +29,7 @@ function RedBlack(am, w, h)
 	this.init(am, w, h);
 
 }
-
-RedBlack.prototype = new Algorithm();
-RedBlack.prototype.constructor = RedBlack;
-RedBlack.superclass = Algorithm.prototype;
+RedBlack.inheritFrom(Algorithm);
 
 RedBlack.prototype.init = function(am, w, h)
 {

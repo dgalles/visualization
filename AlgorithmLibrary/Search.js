@@ -107,9 +107,7 @@ function Search(am, w, h)
     
 }
 
-Search.prototype = new Algorithm();
-Search.prototype.constructor = Search;
-Search.superclass = Algorithm.prototype;
+Search.inheritFrom(Algorithm);
 
 
 Search.LINEAR_CODE = [ ["def ", "linearSearch(listData, value)"],

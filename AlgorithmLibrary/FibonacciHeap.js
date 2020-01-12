@@ -59,9 +59,7 @@ function FibonacciHeap(am, w, h)
 	
 }
 
-FibonacciHeap.prototype = new Algorithm();
-FibonacciHeap.prototype.constructor = FibonacciHeap;
-FibonacciHeap.superclass = Algorithm.prototype;
+FibonacciHeap.inheritFrom(Algorithm);
 
 		
 		

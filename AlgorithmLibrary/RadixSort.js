@@ -51,9 +51,7 @@ var MAX_DATA_VALUE = 999;
 
 
 
-RadixSort.prototype = new Algorithm();
-RadixSort.prototype.constructor = RadixSort;
-RadixSort.superclass = Algorithm.prototype;
+RadixSort.inheritFrom(Algorithm);
 
 RadixSort.prototype.init = function(am, w, h)
 {

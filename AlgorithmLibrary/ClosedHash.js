@@ -27,9 +27,10 @@
 
 function ClosedHash(am, w, h)
 {
-	this.init(am, w, h);
-
+	// call superclass' constructor, which calls init
+	ClosedHash.superclass.constructor.call(this, am, w, h);
 }
+ClosedHash.inheritFrom(Hash);
 
 var ARRAY_ELEM_WIDTH = 90;
 var ARRAY_ELEM_HEIGHT = 30;
@@ -57,10 +58,6 @@ var ARRAY_Y_POS = 350;
 var INDEX_COLOR = "#0000FF";
 
 
-
-ClosedHash.prototype = new Hash();
-ClosedHash.prototype.constructor = ClosedHash;
-ClosedHash.superclass = Hash.prototype;
 
 
 ClosedHash.prototype.init = function(am, w, h)

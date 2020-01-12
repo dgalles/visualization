@@ -50,9 +50,7 @@ var COUNTER_ARRAY_SIZE = MAX_DATA_VALUE + 1;
 var ARRAY_SIZE  = 30;
 
 
-CountingSort.prototype = new Algorithm();
-CountingSort.prototype.constructor = CountingSort;
-CountingSort.superclass = Algorithm.prototype;
+CountingSort.inheritFrom(Algorithm);
 
 CountingSort.prototype.init = function(am, w, h)
 {

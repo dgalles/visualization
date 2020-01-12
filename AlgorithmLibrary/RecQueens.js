@@ -28,13 +28,11 @@
 
 function Queens(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	Queens.superclass.constructor.call(this, am, w, h);
 }
 
-Queens.prototype = new Recursive();
-Queens.prototype.constructor = Queens;
-Queens.superclass = Recursive.prototype;
+Queens.inheritFrom(Recursive);
 
 Queens.CALC_QUEENS_ACTIVATION_FIELDS = ["  size  ", "  board  "];
 Queens.QUEENS_ACTIVATION_FIELDS = ["  board  ", "  current  ", "  size  ", "  i  ", "  done  "];
@@ -109,7 +107,7 @@ Queens.prototype.init = function(am, w, h)
 Queens.prototype.addControls =  function()
 {
 	this.controls = [];
-	addLabelToAlgorithmBar("Board size:  (1-8)");
+	this.addLabelToAlgorithmBar("Board size:  (1-8)");
 
 	this.sizeField = this.addControlToAlgorithmBar("Text", "");
 	this.sizeField.onkeydown = this.returnSubmit(this.sizeField,  this.queensCallback.bind(this), 2, true);

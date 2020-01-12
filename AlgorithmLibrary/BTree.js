@@ -57,9 +57,7 @@ function BTree(am, w, h)
 
 }
 
-BTree.prototype = new Algorithm();
-BTree.prototype.varructor = BTree;
-BTree.superclass = Algorithm.prototype;
+BTree.inheritFrom(Algorithm);
 
 
 

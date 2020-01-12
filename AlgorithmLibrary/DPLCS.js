@@ -31,10 +31,7 @@ function DPLCS(am, w, h)
 	this.init(am, w, h);
 	
 }
-
-DPLCS.prototype = new Algorithm();
-DPLCS.prototype.constructor = DPLCS;
-DPLCS.superclass = Algorithm.prototype;
+DPLCS.inheritFrom(Algorithm);
 
 DPLCS.TABLE_ELEM_WIDTH = 40;
 DPLCS.TABLE_ELEM_HEIGHT = 30;
@@ -114,12 +111,12 @@ DPLCS.prototype.init = function(am, w, h)
 DPLCS.prototype.addControls =  function()
 {
 	this.controls = [];
-	addLabelToAlgorithmBar("S1:");
+	this.addLabelToAlgorithmBar("S1:");
 	this.S1Field = this.addControlToAlgorithmBar("Text", "");
 	this.S1Field.onkeydown = this.returnSubmit(this.S1Field,  this.emptyCallback.bind(this), DPLCS.MAX_SEQUENCE_LENGTH, false);
 	this.controls.push(this.S1Field);
 
-	addLabelToAlgorithmBar("S2:");
+	this.addLabelToAlgorithmBar("S2:");
 	this.S2Field = this.addControlToAlgorithmBar("Text", "");
 	this.S2Field.onkeydown = this.returnSubmit(this.S2Field,  this.emptyCallback.bind(this), DPLCS.MAX_SEQUENCE_LENGTH, false);
 	this.controls.push(this.S2Field);

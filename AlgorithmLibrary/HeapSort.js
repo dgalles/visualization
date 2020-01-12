@@ -30,10 +30,7 @@ function HeapSort(am)
 	this.init(am);
 
 }
-
-HeapSort.prototype = new Algorithm();
-HeapSort.prototype.constructor = HeapSort;
-HeapSort.superclass = Algorithm.prototype;
+HeapSort.inheritFrom(Algorithm);
 
 
 

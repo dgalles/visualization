@@ -49,10 +49,7 @@ function Huffman(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-Huffman.prototype = new Algorithm();
-Huffman.prototype.constructor = Huffman;
-Huffman.superclass = Algorithm.prototype;
+Huffman.inheritFrom(Algorithm);
 
 Huffman.prototype.init = function(am, w, h)
 {

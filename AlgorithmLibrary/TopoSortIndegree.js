@@ -26,8 +26,12 @@
 
 function TopoSortIndegree(am, w, h)
 {
-	this.init(am, w, h);
+	// call superclass' constructor, which calls init
+	TopoSortIndegree.superclass.constructor.call(this, am, w, h);
 }
+
+TopoSortIndegree.inheritFrom(Graph);
+
 
 
 
@@ -57,10 +61,6 @@ TopoSortIndegree.MESSAGE_LABEL_2_Y = 40;
 TopoSortIndegree.HIGHLIGHT_CIRCLE_COLOR = "#000000";
 TopoSortIndegree.MESSAGE_COLOR = "#0000FF";
 
-
-TopoSortIndegree.prototype = new Graph();
-TopoSortIndegree.prototype.constructor = TopoSortIndegree;
-TopoSortIndegree.superclass = Graph.prototype;
 
 TopoSortIndegree.prototype.addControls =  function()
 {		

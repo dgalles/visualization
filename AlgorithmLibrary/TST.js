@@ -54,10 +54,7 @@ function Ternary(am, w, h)
 {
         this.init(am, w, h);
 }
-
-Ternary.prototype = new Algorithm();
-Ternary.prototype.constructor = Ternary;
-Ternary.superclass = Algorithm.prototype;
+Ternary.inheritFrom(Algorithm);
 
 Ternary.prototype.init = function(am, w, h)
 {

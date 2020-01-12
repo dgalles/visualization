@@ -30,10 +30,7 @@ function SimpleStack(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-SimpleStack.prototype = new Algorithm();
-SimpleStack.prototype.constructor = SimpleStack;
-SimpleStack.superclass = Algorithm.prototype;
+SimpleStack.inheritFrom(Algorithm);
 
 
 SimpleStack.ELEMENT_WIDTH = 30;

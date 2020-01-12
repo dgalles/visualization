@@ -58,9 +58,7 @@ function QueueArray(am, w, h)
 	
 }
 
-QueueArray.prototype = new Algorithm();
-QueueArray.prototype.constructor = QueueArray;
-QueueArray.superclass = Algorithm.prototype;
+QueueArray.inheritFrom(Algorithm);
 
 
 QueueArray.prototype.init = function(am, w, h)

@@ -60,9 +60,7 @@ var QUICKSORT_LINE_COLOR = "#FF0000";
 
 
 
-ComparisonSort.prototype = new Algorithm();
-ComparisonSort.prototype.constructor = ComparisonSort;
-ComparisonSort.superclass = Algorithm.prototype;
+ComparisonSort.inheritFrom(Algorithm);
 
 ComparisonSort.prototype.init = function(am, w, h)
 {

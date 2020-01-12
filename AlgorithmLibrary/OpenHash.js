@@ -28,9 +28,10 @@
 
 function OpenHash(am, w, h)
 {
-	this.init(am, w, h);
-
+	// call superclass' constructor, which calls init
+	OpenHash.superclass.constructor.call(this, am, w, h);
 }
+OpenHash.inheritFrom(Hash);
 
 
 var POINTER_ARRAY_ELEM_WIDTH = 70;
@@ -54,9 +55,6 @@ var INDEX_COLOR = "#0000FF";
 
 
 
-OpenHash.prototype = new Hash();
-OpenHash.prototype.constructor = OpenHash;
-OpenHash.superclass = Hash.prototype;
 
 
 OpenHash.prototype.init = function(am, w, h)

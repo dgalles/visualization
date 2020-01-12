@@ -36,10 +36,11 @@ var HighlightCircle = function(objectID, color, radius)
 	this.x = 0;
 	this.y = 0;
 	this.alpha = 1;
-}
 
-HighlightCircle.prototype = new AnimatedObject();
-HighlightCircle.prototype.constructor = HighlightCircle;
+	// call superclass' constructor
+	HighlightCircle.superclass.constructor.call(this);
+}
+HighlightCircle.inheritFrom(AnimatedObject);
 
 
 HighlightCircle.prototype.draw = function(ctx)
@@ -71,8 +72,7 @@ function UndoDeleteHighlightCircle(objectID, x, y, circleColor, r, layer, alpha)
 	this.alpha = alpha
 }
 		
-UndoDeleteHighlightCircle.prototype = new UndoBlock();
-UndoDeleteHighlightCircle.prototype.constructor = UndoDeleteHighlightCircle;
+UndoDeleteHighlightCircle.inheritFrom(UndoBlock);
 
 UndoDeleteHighlightCircle.prototype.undoInitialStep = function(world)
 {

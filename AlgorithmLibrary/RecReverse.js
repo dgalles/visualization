@@ -28,13 +28,10 @@
 
 function Reverse(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	Reverse.superclass.constructor.call(this, am, w, h);
 }
-
-Reverse.prototype = new Recursive();
-Reverse.prototype.constructor = Reverse;
-Reverse.superclass = Recursive.prototype;
+Reverse.inheritFrom(Recursive);
 
 Reverse.ACTIVATION_FIELDS = ["word ", "subProblem ", "subSolution ", "solution "];
 

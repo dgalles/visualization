@@ -41,17 +41,17 @@ var HIGHLIGHT_CIRCLE_COLOR = "#000000";
 
 function DijkstraPrim(am, runningDijkstra, w, h)
 {
-	this.init(am, runningDijkstra, w, h);
-	
+	this.runningDijkstra = runningDijkstra;
+
+	// call superclass' constructor, which calls init
+	DijkstraPrim.superclass.constructor.call(this, am, w, h);	
 }
 
-DijkstraPrim.prototype = new Graph();
-DijkstraPrim.prototype.constructor = DijkstraPrim;
-DijkstraPrim.superclass = Graph.prototype;
+DijkstraPrim.inheritFrom(Graph);
 
 DijkstraPrim.prototype.addControls =  function()
 {		
-	addLabelToAlgorithmBar("Start Vertex: ");
+	this.addLabelToAlgorithmBar("Start Vertex: ");
 	this.startField = this.addControlToAlgorithmBar("Text", "");
 	this.startField.onkeydown = this.returnSubmit(this.startField,  this.startCallback.bind(this), 2, true);
 	this.startField.size = 2
@@ -72,7 +72,6 @@ DijkstraPrim.prototype.addControls =  function()
 
 DijkstraPrim.prototype.init = function(am, runningDijkstra, w, h)
 {
-	this.runningDijkstra = runningDijkstra;
 	this.showEdgeCosts = true;
 	DijkstraPrim.superclass.init.call(this, am, w, h, false, false); // TODO:  add no edge label flag to this?
 	// Setup called in base class init function

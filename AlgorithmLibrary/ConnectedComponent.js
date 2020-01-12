@@ -74,13 +74,11 @@ var DFS_TREE_COLOR = "#0000FF";
 
 function ConnectedComponent(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	ConnectedComponent.superclass.constructor.call(this, am, w, h);
 }
 
-ConnectedComponent.prototype = new Graph();
-ConnectedComponent.prototype.constructor = ConnectedComponent;
-ConnectedComponent.superclass = Graph.prototype;
+ConnectedComponent.inheritFrom(Graph);
 
 ConnectedComponent.prototype.addControls =  function()
 {		

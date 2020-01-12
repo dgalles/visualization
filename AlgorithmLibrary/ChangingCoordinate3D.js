@@ -32,9 +32,7 @@ function ChangeCoordinate3D(am, w, h)
 }
 
 
-ChangeCoordinate3D.prototype = new Algorithm();
-ChangeCoordinate3D.prototype.constructor = ChangeCoordinate3D;
-ChangeCoordinate3D.superclass = Algorithm.prototype;
+ChangeCoordinate3D.inheritFrom(Algorithm);
 
 ChangeCoordinate3D.XAxisYPos = 300;
 ChangeCoordinate3D.XAxisStart = 100;
@@ -586,20 +584,20 @@ ChangeCoordinate3D.prototype.addControls =  function()
 {
 	this.controls = [];
 	
-	addLabelToAlgorithmBar("x");
+	this.addLabelToAlgorithmBar("x");
 						   
 	this.xField = this.addControlToAlgorithmBar("Text", "");
 	this.xField.onkeydown = this.returnSubmitFloat(this.xField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.xField);
 	
-	addLabelToAlgorithmBar("y");
+	this.addLabelToAlgorithmBar("y");
 	
 	this.yField = this.addControlToAlgorithmBar("Text", "");
 	this.yField.onkeydown = this.returnSubmitFloat(this.yField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.yField);
 	
 	
-	addLabelToAlgorithmBar("z");
+	this.addLabelToAlgorithmBar("z");
 	
 	this.zField = this.addControlToAlgorithmBar("Text", "");
 	this.zField.onkeydown = this.returnSubmitFloat(this.zField,  this.transformPointCallback.bind(this), 4, true);

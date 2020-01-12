@@ -42,19 +42,17 @@ var QUEUE_START_Y = 50;
 var QUEUE_SPACING = 30;
 
 
-function DFS(am)
+function DFS(am, w, h)
 {
-	this.init(am);
-	
+	// call superclass' constructor, which calls init
+	DFS.superclass.constructor.call(this, am, w, h);
 }
 
-DFS.prototype = new Graph();
-DFS.prototype.constructor = DFS;
-DFS.superclass = Graph.prototype;
+DFS.inheritFrom(Graph);
 
 DFS.prototype.addControls =  function()
 {		
-	addLabelToAlgorithmBar("Start Vertex: ");
+	this.addLabelToAlgorithmBar("Start Vertex: ");
 	this.startField = this.addControlToAlgorithmBar("Text", "");
 	this.startField.onkeydown = this.returnSubmit(this.startField,  this.startCallback.bind(this), 2, true);
 	this.startButton = this.addControlToAlgorithmBar("Button", "Run DFS");

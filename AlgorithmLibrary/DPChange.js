@@ -32,9 +32,7 @@ function DPChange(am, w, h)
 	
 }
 
-DPChange.prototype = new Algorithm();
-DPChange.prototype.constructor = DPChange;
-DPChange.superclass = Algorithm.prototype;
+DPChange.inheritFrom(Algorithm);
 
 DPChange.TABLE_ELEM_WIDTH = 30;
 DPChange.TABLE_ELEM_HEIGHT = 30;

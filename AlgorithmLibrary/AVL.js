@@ -29,10 +29,7 @@ function AVL(am, w, h)
 	this.init(am, w, h);
 
 }
-
-AVL.prototype = new Algorithm();
-AVL.prototype.constructor = AVL;
-AVL.superclass = Algorithm.prototype;
+AVL.inheritFrom(Algorithm);
 
 
 // Various constants

@@ -56,9 +56,7 @@ var ARRAY_SIZE_SMALL  = 30;
 var ARRAY_Y_POS = 350;
 
 
-BucketSort.prototype = new Algorithm();
-BucketSort.prototype.constructor = BucketSort;
-BucketSort.superclass = Algorithm.prototype;
+BucketSort.inheritFrom(Algorithm);
 
 BucketSort.prototype.init = function(am, w, h)
 {

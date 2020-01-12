@@ -62,9 +62,7 @@ function QueueLL(am, w, h)
 	
 }
 
-QueueLL.prototype = new Algorithm();
-QueueLL.prototype.constructor = QueueLL;
-QueueLL.superclass = Algorithm.prototype;
+QueueLL.inheritFrom(Algorithm);
 
 
 QueueLL.prototype.init = function(am, w, h)

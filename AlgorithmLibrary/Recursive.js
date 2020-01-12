@@ -28,14 +28,13 @@
 
 function Recursive(am, w, h)
 {
-	if (am != undefined)
-		this.init(am, w, h);
-	
-}
+	// this shouldn't happen if subclassing is done properly
+	if (!am)
+		throw "this shouldn't happen";
 
-Recursive.prototype = new Algorithm();
-Recursive.prototype.constructor = Recursive;
-Recursive.superclass = Algorithm.prototype;
+	this.init(am, w, h);
+}
+Recursive.inheritFrom(Algorithm);
 
 
 Recursive.CODE_START_X = 10;

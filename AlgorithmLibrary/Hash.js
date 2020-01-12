@@ -27,16 +27,13 @@
 
 function Hash(am, w, h)
 {
-	if (am == undefined)
-	{
-		return;
-	}
+	// this shouldn't happen if subclassing is done properly
+	if (!am)
+		throw "this shouldn't happen";
+
 	this.init(am, w, h);
 }
-
-Hash.prototype = new Algorithm();
-Hash.prototype.constructor = Hash;
-Hash.superclass = Algorithm.prototype;
+Hash.inheritFrom(Algorithm);
 
 var MAX_HASH_LENGTH = 10;
 

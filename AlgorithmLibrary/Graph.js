@@ -29,16 +29,14 @@
 
 function Graph(am, w, h, dir, dag)
 {
-	if (am == undefined)
-	{
-		return;
-	}
+	// this shouldn't happen if subclassing is done properly
+	if (!am)
+		throw "this shouldn't happen";
+
 	this.init(am, w, h, dir,dag);
 }
 
-Graph.prototype = new Algorithm();
-Graph.prototype.constructor = Graph;
-Graph.superclass = Algorithm.prototype;
+Graph.inheritFrom(Algorithm);
 
 var LARGE_ALLOWED = [[false, true, true, false, true, false, false, true, false, false, false, false, false, false, true, false, false, false],
 									[true, false, true, false, true, true,  false, false, false, false, false, false, false, false, false, false, false, false],

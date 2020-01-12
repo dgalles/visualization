@@ -30,10 +30,7 @@ function Heap(am)
 	this.init(am);
 
 }
-
-Heap.prototype = new Algorithm();
-Heap.prototype.constructor = Heap;
-Heap.superclass = Algorithm.prototype;
+Heap.inheritFrom(Algorithm);
 
 
 

@@ -52,10 +52,7 @@ function RadixTree(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-RadixTree.prototype = new Algorithm();
-RadixTree.prototype.constructor = RadixTree;
-RadixTree.superclass = Algorithm.prototype;
+RadixTree.inheritFrom(Algorithm);
 
 RadixTree.prototype.init = function(am, w, h)
 {

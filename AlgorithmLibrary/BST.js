@@ -48,10 +48,7 @@ function BST(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-BST.prototype = new Algorithm();
-BST.prototype.constructor = BST;
-BST.superclass = Algorithm.prototype;
+BST.inheritFrom(Algorithm);
 
 BST.prototype.init = function(am, w, h)
 {

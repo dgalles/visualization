@@ -28,8 +28,12 @@
 
 function Kruskal(am, w, h)
 {
-	this.init(am, w, h);
+	// call superclass' constructor, which calls init
+	Kruskal.superclass.constructor.call(this, am, w, h);
 }
+
+Kruskal.inheritFrom(Graph);
+
 
 
 Kruskal.HIGHLIGHT_CIRCLE_COLOR = "#000000";
@@ -59,10 +63,6 @@ Kruskal.HIGHLIGHT_CIRCLE_COLOR = "#000000";
  Kruskal.HIGHLIGHT_CIRCLE_COLOR_1 = "#FFAAAA";
  Kruskal.HIGHLIGHT_CIRCLE_COLOR_2 = "#FF0000";
 
-
-Kruskal.prototype = new Graph();
-Kruskal.prototype.constructor = Kruskal;
-Kruskal.superclass = Graph.prototype;
 
 Kruskal.prototype.addControls =  function()
 {		

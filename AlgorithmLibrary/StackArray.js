@@ -51,9 +51,7 @@ function StackArray(am, w, h)
 	
 }
 
-StackArray.prototype = new Algorithm();
-StackArray.prototype.constructor = StackArray;
-StackArray.superclass = Algorithm.prototype;
+StackArray.inheritFrom(Algorithm);
 
 
 StackArray.prototype.init = function(am, w, h)

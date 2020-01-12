@@ -58,9 +58,7 @@ function StackLL(am, w, h)
 	
 }
 
-StackLL.prototype = new Algorithm();
-StackLL.prototype.constructor = StackLL;
-StackLL.superclass = Algorithm.prototype;
+StackLL.inheritFrom(Algorithm);
 
 
 StackLL.prototype.init = function(am, w, h)

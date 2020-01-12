@@ -48,10 +48,7 @@ function SPLAYTREE(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-SPLAYTREE.prototype = new Algorithm();
-SPLAYTREE.prototype.constructor = SPLAYTREE;
-SPLAYTREE.superclass = Algorithm.prototype;
+SPLAYTREE.inheritFrom(Algorithm);
 
 SPLAYTREE.prototype.init = function(am, w, h)
 {

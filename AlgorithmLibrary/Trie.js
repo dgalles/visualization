@@ -53,10 +53,7 @@ function Trie(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-Trie.prototype = new Algorithm();
-Trie.prototype.constructor = Trie;
-Trie.superclass = Algorithm.prototype;
+Trie.inheritFrom(Algorithm);
 
 Trie.prototype.init = function(am, w, h)
 {

@@ -30,10 +30,7 @@ function TestAlgorithm(am)
 	this.init(am);
 
 }
-
-TestAlgorithm.prototype = new Algorithm();
-TestAlgorithm.prototype.constructor = TestAlgorithm;
-TestAlgorithm.superclass = Algorithm.prototype;
+TestAlgorithm.inheritFrom(Algorithm);
 
 TestAlgorithm.prototype.init = function(am)
 {

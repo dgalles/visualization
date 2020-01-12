@@ -32,9 +32,7 @@ function DPFib(am, w, h)
 	
 }
 
-DPFib.prototype = new Algorithm();
-DPFib.prototype.constructor = DPFib;
-DPFib.superclass = Algorithm.prototype;
+DPFib.inheritFrom(Algorithm);
 
 DPFib.TABLE_ELEM_WIDTH = 40;
 DPFib.TABLE_ELEM_HEIGHT = 30;

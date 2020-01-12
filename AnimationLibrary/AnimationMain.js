@@ -390,6 +390,8 @@ function initCanvas(canvas, generalControlBar, algorithmControlBar)
 
 function AnimationManager(objectManager)
 {
+	AnimationManager.superclass.constructor.call(this);
+
 	// Holder for all animated objects.
 	// All animation is done by manipulating objects in\
 	// this container
@@ -1298,8 +1300,7 @@ function AnimationManager(objectManager)
 	
 }
 
-AnimationManager.prototype = new EventListener();
-AnimationManager.prototype.constructor = AnimationManager;
+AnimationManager.inheritFrom(EventListener);
 
 AnimationManager.prototype.addControlToAnimationBar = function(type,name,containerType)
 {

@@ -26,6 +26,9 @@
 
 function AnimatedLabel(id, val, center, initialWidth, ctx)
 {
+	// call superclass' constructor
+	AnimatedLabel.superclass.constructor.call(this);
+
 	this.centering = center;
 	this.label = val;
 	this.highlighted = false;
@@ -50,9 +53,7 @@ function AnimatedLabel(id, val, center, initialWidth, ctx)
         this.centerWidth = -1;
         this.highlightIndex = -1;
 }
-
-AnimatedLabel.prototype = new AnimatedObject();
-AnimatedLabel.prototype.constructor = AnimatedLabel;
+AnimatedLabel.inheritFrom(AnimatedObject);
 
 AnimatedLabel.prototype.alwaysOnTop = true;
 
@@ -441,8 +442,7 @@ function UndoDeleteLabel(id, lab, x, y, centered, color, l, hli)
         this.dirty = true;
 }
 
-UndoDeleteLabel.prototype = new UndoBlock();
-UndoDeleteLabel.prototype.constructor = UndoDeleteLabel;
+UndoDeleteLabel.inheritFrom(UndoBlock);
 
 UndoDeleteLabel.prototype.undoInitialStep = function(world)
 {

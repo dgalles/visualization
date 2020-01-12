@@ -28,13 +28,10 @@
 
 function RecFact(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	RecFact.superclass.constructor.call(this, am, w, h);
 }
-
-RecFact.prototype = new Recursive();
-RecFact.prototype.constructor = RecFact;
-RecFact.superclass = Recursive.prototype;
+RecFact.inheritFrom(Recursive);
 
 
 RecFact.MAX_VALUE = 20;

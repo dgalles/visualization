@@ -27,14 +27,17 @@
 
 function AnimatedBTreeNode(id, widthPerElem, h, numElems,  fillColor, edgeColor)
 {
-	fillColor = (fillColor == undefined)? "#FFFFFF" : fillColor;
-	edgeColor = (edgeColor == undefined)? "#000000" : edgeColor;
-	this.init(id, widthPerElem, h, numElems,  fillColor, edgeColor);
-}
+	this.objectID = id;
+	this.widthPerElement = widthPerElem;
+	this.nodeHeight = h;
+	this.numLabels = numElems;
+	this.backgroundColor = (fillColor == undefined)? "#FFFFFF" : fillColor;
+	this.foregroundColor = (edgeColor == undefined)? "#000000" : edgeColor;
 
-AnimatedBTreeNode.prototype = new AnimatedObject();
-AnimatedBTreeNode.prototype.constructor = AnimatedBTreeNode;
-AnimatedBTreeNode.superclass = AnimatedObject.prototype;
+	// call superclass' constructor, which calls init
+	AnimatedBTreeNode.superclass.constructor.call(this);
+}
+AnimatedBTreeNode.inheritFrom(AnimatedObject);
 
 AnimatedBTreeNode.MIN_WIDTH = 10;
 AnimatedBTreeNode.EDGE_POINTER_DISPLACEMENT = 5;
@@ -42,18 +45,8 @@ AnimatedBTreeNode.EDGE_POINTER_DISPLACEMENT = 5;
 
 AnimatedBTreeNode.prototype.init = function(id, widthPerElem, h, numElems,  fillColor, edgeColor)
 {
-	
-	var  MIN_WIDTH = 10;
 	AnimatedBTreeNode.superclass.init.call(this);
-	this.objectID = id;
-	
-	
-	this.backgroundColor = fillColor;
-	this.foregroundColor = edgeColor;
-	
-	this.widthPerElement = widthPerElem;
-	this.nodeHeight = h;
-	this.numLabels = numElems;
+
 	this.labels = new Array(this.numLabels);
 	this.labelColors = new Array(this.numLabels);
 	for (var i = 0; i < this.numLabels; i++)
@@ -288,8 +281,7 @@ function UndoDeleteBTreeNode(id, numLab, labelText, x, y, wPerElement, nHeight, 
 	this.highlighted = highlighted;
 }
 		
-UndoDeleteBTreeNode.prototype = new UndoBlock();
-UndoDeleteBTreeNode.prototype.constructor = UndoDeleteBTreeNode;
+UndoDeleteBTreeNode.inheritFrom(UndoBlock);
 	
 UndoDeleteBTreeNode.prototype.undoInitialStep = function(world)
 {

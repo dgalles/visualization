@@ -27,6 +27,9 @@
 
 var AnimatedCircle = function(objectID, objectLabel)
 {
+	// call superclass' constructor
+	AnimatedCircle.superclass.constructor.call(this);
+
 	this.objectID = objectID;
 	this.label = objectLabel;
 	this.radius = 20;
@@ -41,9 +44,7 @@ var AnimatedCircle = function(objectID, objectLabel)
 	this.backgroundColor  = '#EEFFEE';
  */
 }
-
-AnimatedCircle.prototype = new AnimatedObject();
-AnimatedCircle.prototype.constructor = AnimatedCircle;
+AnimatedCircle.inheritFrom(AnimatedObject);
 
 AnimatedCircle.prototype.getTailPointerAttachPos = function(fromX, fromY, anchorPoint)
 {
@@ -193,8 +194,7 @@ function UndoDeleteCircle(id, lab, x, y, foregroundColor, backgroundColor, l, ra
         this.radius = radius;
 }
 		
-UndoDeleteCircle.prototype = new UndoBlock();
-UndoDeleteCircle.prototype.constructor = UndoDeleteCircle;
+UndoDeleteCircle.inheritFrom(UndoBlock);
 
 UndoDeleteCircle.prototype.undoInitialStep = function(world)
 {

@@ -56,8 +56,7 @@ function UndoMove(id, fmX, fmy, tx, ty)
 }
 
 
-UndoMove.prototype = new UndoBlock();
-UndoMove.prototype.constructor = UndoMove;
+UndoMove.inheritFrom(UndoBlock);
 
 UndoMove.prototype.addUndoAnimation = function (animationList)
 {
@@ -75,8 +74,7 @@ function UndoCreate(id)
 	this.objectID = id;
 }
 
-UndoCreate.prototype = new UndoBlock();
-UndoCreate.prototype.constructor = UndoCreate;
+UndoCreate.inheritFrom(UndoBlock);
 
 	
 UndoCreate.prototype.undoInitialStep = function(world)
@@ -94,8 +92,7 @@ function UndoHighlight(id, val)
 	this.highlightValue = val;
 }
 
-UndoHighlight.prototype = new UndoBlock();
-UndoHighlight.prototype.constructor = UndoHighlight;
+UndoHighlight.inheritFrom(UndoBlock);
 
 UndoHighlight.prototype.undoInitialStep = function(world)
 {
@@ -113,8 +110,7 @@ function UndoSetHeight(id, val)
 	this.height = val;
 }
 
-UndoSetHeight.prototype = new UndoBlock();
-UndoSetHeight.prototype.constructor = UndoSetHeight;
+UndoSetHeight.inheritFrom(UndoBlock);
 
 UndoSetHeight.prototype.undoInitialStep = function(world)
 {
@@ -131,8 +127,7 @@ function UndoSetWidth(id, val)
 	this.width = val;
 }
 
-UndoSetWidth.prototype = new UndoBlock();
-UndoSetWidth.prototype.constructor = UndoSetWidth;
+UndoSetWidth.inheritFrom(UndoBlock);
 
 UndoSetWidth.prototype.undoInitialStep = function(world)
 {
@@ -161,8 +156,7 @@ function UndoSetNumElements(obj, newNumElems)
 	}	
 }
 
-UndoSetNumElements.prototype = new UndoBlock();
-UndoSetNumElements.prototype.constructor = UndoSetNumElements;
+UndoSetNumElements.inheritFrom(UndoBlock);
 
 
 UndoSetNumElements.prototype.undoInitialStep = function(world)
@@ -189,8 +183,7 @@ function UndoSetAlpha(id, alph)
 	this.alphaVal = alph;
 }
 
-UndoSetAlpha.prototype = new UndoBlock();
-UndoSetAlpha.prototype.constructor = UndoSetAlpha;
+UndoSetAlpha.inheritFrom(UndoBlock);
 
 UndoSetAlpha.prototype.undoInitialStep = function(world) 
 {
@@ -207,8 +200,7 @@ function UndoSetNull(id, nv)
 	this.nullVal = nv;
 }
 
-UndoSetNull.prototype = new UndoBlock();
-UndoSetNull.prototype.constructor = UndoSetNull;
+UndoSetNull.inheritFrom(UndoBlock);
 
 UndoSetNull.prototype.undoInitialStep = function(world) 
 {
@@ -225,8 +217,7 @@ function UndoSetForegroundColor(id, color)
 	this.color = color;
 }
 
-UndoSetForegroundColor.prototype = new UndoBlock();
-UndoSetForegroundColor.prototype.constructor = UndoSetForegroundColor;
+UndoSetForegroundColor.inheritFrom(UndoBlock);
 
 UndoSetForegroundColor.prototype.undoInitialStep =  function (world)
 {
@@ -243,8 +234,7 @@ function UndoSetBackgroundColor(id, color)
 	this.color = color;
 }
 
-UndoSetBackgroundColor.prototype = new UndoBlock();
-UndoSetBackgroundColor.prototype.constructor = UndoSetBackgroundColor;
+UndoSetBackgroundColor.inheritFrom(UndoBlock);
 
 UndoSetBackgroundColor.prototype.undoInitialStep =  function (world)
 {
@@ -263,8 +253,7 @@ function UndoSetHighlightIndex(id, index)
 	this.index = index;
 }
 
-UndoSetHighlightIndex.prototype = new UndoBlock();
-UndoSetHighlightIndex.prototype.constructor = UndoSetHighlightIndex;
+UndoSetHighlightIndex.inheritFrom(UndoBlock);
 
 UndoSetHighlightIndex.prototype.undoInitialStep =  function (world)
 {
@@ -286,8 +275,7 @@ function UndoSetText(id, str, index)
 	this.labelIndex = index;
 }
 
-UndoSetText.prototype = new UndoBlock();
-UndoSetText.prototype.constructor = UndoSetText;
+UndoSetText.inheritFrom(UndoBlock);
 
 UndoSetText.prototype.undoInitialStep = function(world)
 {
@@ -306,8 +294,7 @@ function UndoSetTextColor(id, color, index)
 	this.index = index;
 }
 
-UndoSetTextColor.prototype = new UndoBlock();
-UndoSetTextColor.prototype.constructor = UndoSetTextColor;
+UndoSetTextColor.inheritFrom(UndoBlock);
 
 UndoSetTextColor.prototype.undoInitialStep = function(world)
 {
@@ -327,8 +314,7 @@ function UndoHighlightEdge(from, to, val)
 	this.highlightValue = val;
 }
 
-UndoHighlightEdge.prototype = new UndoBlock();
-UndoHighlightEdge.prototype.constructor = UndoHighlightEdge;
+UndoHighlightEdge.inheritFrom(UndoBlock);
 
 UndoHighlightEdge.prototype.undoInitialStep = function(world)
 {
@@ -347,8 +333,7 @@ function UndoSetEdgeColor(from, to, oldColor)
 	this.color = oldColor;
 }
 
-UndoSetEdgeColor.prototype = new UndoBlock();
-UndoSetEdgeColor.prototype.constructor = UndoSetEdgeColor;
+UndoSetEdgeColor.inheritFrom(UndoBlock);
 
 UndoSetEdgeColor.prototype.undoInitialStep = function(world)
 {
@@ -367,8 +352,7 @@ function UndoSetEdgeAlpha(from, to, oldAplha)
 	this.alpha  = oldAplha;
 }
 
-UndoSetEdgeAlpha.prototype = new UndoBlock();
-UndoSetEdgeAlpha.prototype.constructor = UndoSetEdgeAlpha;
+UndoSetEdgeAlpha.inheritFrom(UndoBlock);
 
 UndoSetEdgeAlpha.prototype.undoInitialStep = function(world)
 {
@@ -386,8 +370,7 @@ function UndoSetPosition(id, x, y)
 	this.y = y;
 }
 
-UndoSetPosition.prototype = new UndoBlock();
-UndoSetPosition.prototype.constructor = UndoSetPosition;
+UndoSetPosition.inheritFrom(UndoBlock);
 
 
 UndoSetPosition.prototype.undoInitialStep = function(world)
