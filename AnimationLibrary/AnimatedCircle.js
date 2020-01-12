@@ -108,7 +108,7 @@ AnimatedCircle.prototype.draw = function(ctx)
 	ctx.fill();
 	ctx.stroke();
 	ctx.textAlign = 'center';
-	ctx.font         = this.textHegiht.toString() + 'px sans-serif';
+	ctx.font         = this.textHeight.toString() + 'px sans-serif';
 	ctx.textBaseline   = 'middle'; 
 	ctx.lineWidth = 1;
 	ctx.fillStyle = this.foregroundColor;
