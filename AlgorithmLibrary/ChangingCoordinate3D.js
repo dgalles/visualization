@@ -588,32 +588,32 @@ ChangeCoordinate3D.prototype.addControls =  function()
 	
 	addLabelToAlgorithmBar("x");
 						   
-	this.xField = addControlToAlgorithmBar("Text", "");
+	this.xField = this.addControlToAlgorithmBar("Text", "");
 	this.xField.onkeydown = this.returnSubmitFloat(this.xField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.xField);
 	
 	addLabelToAlgorithmBar("y");
 	
-	this.yField = addControlToAlgorithmBar("Text", "");
+	this.yField = this.addControlToAlgorithmBar("Text", "");
 	this.yField.onkeydown = this.returnSubmitFloat(this.yField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.yField);
 	
 	
 	addLabelToAlgorithmBar("z");
 	
-	this.zField = addControlToAlgorithmBar("Text", "");
+	this.zField = this.addControlToAlgorithmBar("Text", "");
 	this.zField.onkeydown = this.returnSubmitFloat(this.zField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.zField);
 	
 
-	var transformButton = addControlToAlgorithmBar("Button", "Transform Point");
+	var transformButton = this.addControlToAlgorithmBar("Button", "Transform Point");
 	transformButton.onclick = this.transformPointCallback.bind(this);
 	this.controls.push(transformButton);
 	
 	
 	
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Hand Space -> World Space", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Hand Space -> World Space", 
 															 "World Space -> Hand Space", 
 															 ], 
 															"Transform Type");
@@ -632,7 +632,7 @@ ChangeCoordinate3D.prototype.addControls =  function()
 	
 	
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Row Major", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Row Major", 
 															 "Column Major", 
 															 ], 
 															"RankType");
@@ -648,7 +648,7 @@ ChangeCoordinate3D.prototype.addControls =  function()
 	this.colMajorButton.checked = !this.rowMajor;
 	
 	
-	this.showAxisBox = addCheckboxToAlgorithmBar("Show all axes");
+	this.showAxisBox = this.addCheckboxToAlgorithmBar("Show all axes");
 	this.showAxisBox.onclick = this.showAllAxesCallback.bind(this);
 	this.showAxisBox.checked = true;
 	
@@ -656,7 +656,7 @@ ChangeCoordinate3D.prototype.addControls =  function()
 	
 	
 
-	var moveObjectsButton = addControlToAlgorithmBar("Button", "Move Objects");
+	var moveObjectsButton = this.addControlToAlgorithmBar("Button", "Move Objects");
 	moveObjectsButton.onclick = this.moveObjectsCallback.bind(this);
 	
 	this.controls.push(moveObjectsButton);

@@ -80,7 +80,7 @@ Floyd.superclass = Graph.prototype;
 Floyd.prototype.addControls =  function()
 {		
 	
-	this.startButton = addControlToAlgorithmBar("Button", "Run Floyd-Warshall");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run Floyd-Warshall");
 	this.startButton.onclick = this.startCallback.bind(this);
 
 	Floyd.superclass.addControls.call(this);

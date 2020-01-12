@@ -80,7 +80,7 @@ TopoSortDFS.superclass = Graph.prototype;
 
 TopoSortDFS.prototype.addControls =  function()
 {		
-	this.startButton = addControlToAlgorithmBar("Button", "Do Topological Sort");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Do Topological Sort");
 	this.startButton.onclick = this.startCallback.bind(this);
 	TopoSortDFS.superclass.addControls.call(this, false);
 }	

@@ -85,28 +85,28 @@ ComparisonSort.prototype.init = function(am, w, h)
 
 ComparisonSort.prototype.addControls =  function()
 {
-	this.resetButton = addControlToAlgorithmBar("Button", "Randomize Array");
+	this.resetButton = this.addControlToAlgorithmBar("Button", "Randomize Array");
 	this.resetButton.onclick = this.resetCallback.bind(this);
 
-	this.insertSortButton = addControlToAlgorithmBar("Button", "Insertion Sort");
+	this.insertSortButton = this.addControlToAlgorithmBar("Button", "Insertion Sort");
 	this.insertSortButton.onclick = this.insertSortCallback.bind(this);
 
-	this.selectSortButton = addControlToAlgorithmBar("Button", "Selection Sort");
+	this.selectSortButton = this.addControlToAlgorithmBar("Button", "Selection Sort");
 	this.selectSortButton.onclick = this.selectSortCallback.bind(this);
 
-	this.bubbleSortButton = addControlToAlgorithmBar("Button", "Bubble Sort");
+	this.bubbleSortButton = this.addControlToAlgorithmBar("Button", "Bubble Sort");
 	this.bubbleSortButton.onclick = this.bubbleSortCallback.bind(this);
 
-	this.quickSortButton = addControlToAlgorithmBar("Button", "Quick Sort");
+	this.quickSortButton = this.addControlToAlgorithmBar("Button", "Quick Sort");
 	this.quickSortButton.onclick = this.quickSortCallback.bind(this);
 
-	this.mergeSortButton = addControlToAlgorithmBar("Button", "Merge Sort");
+	this.mergeSortButton = this.addControlToAlgorithmBar("Button", "Merge Sort");
 	this.mergeSortButton.onclick = this.mergeSortCallback.bind(this);
 
-	this.shellSortButton = addControlToAlgorithmBar("Button", "Shell Sort");
+	this.shellSortButton = this.addControlToAlgorithmBar("Button", "Shell Sort");
 	this.shellSortButton.onclick = this.shellSortCallback.bind(this);
 
-	this.sizeButton = addControlToAlgorithmBar("Button", "Change Size");
+	this.sizeButton = this.addControlToAlgorithmBar("Button", "Change Size");
 	this.sizeButton.onclick = this.changeSizeCallback.bind(this);
 }
 

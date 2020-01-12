@@ -68,18 +68,18 @@ SimpleStack.prototype.addControls =  function()
 	this.controls = [];
 
 	
-    this.pushField = addControlToAlgorithmBar("Text", "");
+    this.pushField = this.addControlToAlgorithmBar("Text", "");
     this.pushField.onkeydown = this.returnSubmit(this.pushField,  
                                                this.pushCallback.bind(this), // callback to make when return is pressed
                                                4,                           // integer, max number of characters allowed in field
                                                false);                      // boolean, true of only digits can be entered.
 	this.controls.push(this.pushField);
 	
-	this.pushButton = addControlToAlgorithmBar("Button", "Push");
+	this.pushButton = this.addControlToAlgorithmBar("Button", "Push");
 	this.pushButton.onclick = this.pushCallback.bind(this);
 	this.controls.push(this.pushButton);
 	
-	this.popButton = addControlToAlgorithmBar("Button", "Pop");
+	this.popButton = this.addControlToAlgorithmBar("Button", "Pop");
 	this.popButton.onclick = this.popCallback.bind(this);
 	this.controls.push(this.popButton);	
 }

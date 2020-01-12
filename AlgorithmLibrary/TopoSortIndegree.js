@@ -64,7 +64,7 @@ TopoSortIndegree.superclass = Graph.prototype;
 
 TopoSortIndegree.prototype.addControls =  function()
 {		
-	this.startButton = addControlToAlgorithmBar("Button", "Do Topological Sort");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Do Topological Sort");
 	this.startButton.onclick = this.startCallback.bind(this);
 	TopoSortIndegree.superclass.addControls.call(this, false);
 }	

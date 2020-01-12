@@ -84,7 +84,7 @@ ConnectedComponent.superclass = Graph.prototype;
 
 ConnectedComponent.prototype.addControls =  function()
 {		
-	this.startButton = addControlToAlgorithmBar("Button", "Run Connected Component");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run Connected Component");
 	this.startButton.onclick = this.startCallback.bind(this);
 	ConnectedComponent.superclass.addControls.call(this, false);
 }	

@@ -74,15 +74,15 @@ Heap.prototype.init = function(am)
 
 Heap.prototype.addControls =  function()
 {
-	this.insertField = addControlToAlgorithmBar("Text", "");
+	this.insertField = this.addControlToAlgorithmBar("Text", "");
 	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), 4, true);
-	this.insertButton = addControlToAlgorithmBar("Button", "Insert");
+	this.insertButton = this.addControlToAlgorithmBar("Button", "Insert");
 	this.insertButton.onclick = this.insertCallback.bind(this);
-	this.removeSmallestButton = addControlToAlgorithmBar("Button", "Remove Smallest");
+	this.removeSmallestButton = this.addControlToAlgorithmBar("Button", "Remove Smallest");
 	this.removeSmallestButton.onclick = this.removeSmallestCallback.bind(this);
-	this.clearHeapButton = addControlToAlgorithmBar("Button", "Clear Heap");
+	this.clearHeapButton = this.addControlToAlgorithmBar("Button", "Clear Heap");
 	this.clearHeapButton.onclick = this.clearCallback.bind(this);
-	this.buildHeapButton = addControlToAlgorithmBar("Button", "BuildHeap");
+	this.buildHeapButton = this.addControlToAlgorithmBar("Button", "BuildHeap");
 	this.buildHeapButton.onclick = this.buildHeapCallback.bind(this);
 }
 

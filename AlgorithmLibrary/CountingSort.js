@@ -84,10 +84,10 @@ CountingSort.prototype.sizeChanged = function(newWidth, newHeight)
 
 CountingSort.prototype.addControls =  function()
 {
-	this.resetButton = addControlToAlgorithmBar("Button", "Randomize List");
+	this.resetButton = this.addControlToAlgorithmBar("Button", "Randomize List");
 	this.resetButton.onclick = this.resetCallback.bind(this);
 
-	this.countingsSortButton = addControlToAlgorithmBar("Button", "Counting Sort");
+	this.countingsSortButton = this.addControlToAlgorithmBar("Button", "Counting Sort");
 	this.countingsSortButton.onclick = this.countingSortCallback.bind(this);
 
 }

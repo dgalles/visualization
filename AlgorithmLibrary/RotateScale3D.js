@@ -292,25 +292,25 @@ RotateScale3D.prototype.addControls =  function()
 	
 	addLabelToAlgorithmBar("X Angle");
 	
-	this.rotationFieldX = addControlToAlgorithmBar("Text", "");
+	this.rotationFieldX = this.addControlToAlgorithmBar("Text", "");
 	this.rotationFieldX.onkeydown = this.returnSubmitFloat(this.rotationFieldX,  this.rotateCallback.bind(this), 4, true);
 	this.controls.push(this.rotationFieldX);
 
 	addLabelToAlgorithmBar("Y Angle");
 	
-	this.rotationFieldY = addControlToAlgorithmBar("Text", "");
+	this.rotationFieldY = this.addControlToAlgorithmBar("Text", "");
 	this.rotationFieldY.onkeydown = this.returnSubmitFloat(this.rotationFieldY,  this.rotateCallback.bind(this), 4, true);
 	this.controls.push(this.rotationFieldY);
 
 	addLabelToAlgorithmBar("Z Angle");
 	
-	this.rotationFieldZ = addControlToAlgorithmBar("Text", "");
+	this.rotationFieldZ = this.addControlToAlgorithmBar("Text", "");
 	this.rotationFieldZ.onkeydown = this.returnSubmitFloat(this.rotationFieldZ,  this.rotateCallback.bind(this), 4, true);
 	this.controls.push(this.rotationFieldZ);
 	
 	
 	
-	var rotateButton = addControlToAlgorithmBar("Button", "Rotate");
+	var rotateButton = this.addControlToAlgorithmBar("Button", "Rotate");
 	rotateButton.onclick = this.rotateCallback.bind(this);
 	
 	this.controls.push(rotateButton);
@@ -318,31 +318,31 @@ RotateScale3D.prototype.addControls =  function()
 	
 	addLabelToAlgorithmBar("Scale X");
 	
-	this.scaleXField = addControlToAlgorithmBar("Text", "");
+	this.scaleXField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleXField.onkeydown = this.returnSubmitFloat(this.scaleXField,  this.scaleCallback.bind(this), 4, true);
 	this.controls.push(this.scaleXField);
 
 	
 	addLabelToAlgorithmBar("Scale Y");
 	
-	this.scaleYField = addControlToAlgorithmBar("Text", "");
+	this.scaleYField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleYField.onkeydown = this.returnSubmitFloat(this.scaleYField,  this.scaleCallback.bind(this), 4, true);
 	this.controls.push(this.scaleYField);
 	
 	addLabelToAlgorithmBar("Scale Z");
 	
-	this.scaleZField = addControlToAlgorithmBar("Text", "");
+	this.scaleZField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleZField.onkeydown = this.returnSubmitFloat(this.scaleZField,  this.scaleCallback.bind(this), 4, true);
 	this.controls.push(this.scaleZField);
 	
 	
 
-	var scaleButton = addControlToAlgorithmBar("Button", "Scale");
+	var scaleButton = this.addControlToAlgorithmBar("Button", "Scale");
 	scaleButton.onclick = this.scaleCallback.bind(this);
 	
 	this.controls.push(scaleButton);
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Row Major", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Row Major", 
 															 "Column Major", 
 															 ], 
 															"RankType");
@@ -359,7 +359,7 @@ RotateScale3D.prototype.addControls =  function()
 	
 
 	
-	var changeShapeButton = addControlToAlgorithmBar("Button", "Change Shape");
+	var changeShapeButton = this.addControlToAlgorithmBar("Button", "Change Shape");
 	changeShapeButton.onclick = this.changeShapeCallback.bind(this);
 	
 	this.controls.push(changeShapeButton);

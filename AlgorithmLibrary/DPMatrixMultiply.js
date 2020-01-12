@@ -116,24 +116,24 @@ DPMatrixMultiply.prototype.addControls =  function()
 {
 	this.controls = [];
 	addLabelToAlgorithmBar("S1:");
-	this.S1Field = addControlToAlgorithmBar("Text", "");
+	this.S1Field = this.addControlToAlgorithmBar("Text", "");
 	this.S1Field.onkeydown = this.returnSubmit(this.S1Field,  this.emptyCallback.bind(this), DPMatrixMultiply.MAX_SEQUENCE_LENGTH, false);
 	this.controls.push(this.S1Field);
 
 	addLabelToAlgorithmBar("S2:");
-	this.S2Field = addControlToAlgorithmBar("Text", "");
+	this.S2Field = this.addControlToAlgorithmBar("Text", "");
 	this.S2Field.onkeydown = this.returnSubmit(this.S2Field,  this.emptyCallback.bind(this), DPMatrixMultiply.MAX_SEQUENCE_LENGTH, false);
 	this.controls.push(this.S2Field);
 	
-	this.recursiveButton = addControlToAlgorithmBar("Button", "LCS Recursive");
+	this.recursiveButton = this.addControlToAlgorithmBar("Button", "LCS Recursive");
 	this.recursiveButton.onclick = this.recursiveCallback.bind(this);
 	this.controls.push(this.recursiveButton);
 
-	this.tableButton = addControlToAlgorithmBar("Button", "LCS Table");
+	this.tableButton = this.addControlToAlgorithmBar("Button", "LCS Table");
 	this.tableButton.onclick = this.tableCallback.bind(this);
 	this.controls.push(this.tableButton);
 
-	this.memoizedButton = addControlToAlgorithmBar("Button", "LCS Memoized");
+	this.memoizedButton = this.addControlToAlgorithmBar("Button", "LCS Memoized");
 	this.memoizedButton.onclick = this.memoizedCallback.bind(this);
 	this.controls.push(this.memoizedButton);
 		

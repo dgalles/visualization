@@ -148,20 +148,20 @@ Search.prototype.init = function(am, w, h)
 Search.prototype.addControls =  function()
 {
     this.controls = [];
-    this.searchField = addControlToAlgorithmBar("Text", "");
+    this.searchField = this.addControlToAlgorithmBar("Text", "");
     this.searchField.onkeydown = this.returnSubmit(this.searchField,  null,  6, true);
-    this.linearSearchButton = addControlToAlgorithmBar("Button", "Linear Search");
+    this.linearSearchButton = this.addControlToAlgorithmBar("Button", "Linear Search");
     this.linearSearchButton.onclick = this.linearSearchCallback.bind(this);
     this.controls.push(this.searchField);
     this.controls.push(this.linearSearchButton);
 
 
-    this.binarySearchButton = addControlToAlgorithmBar("Button", "Binary Search");
+    this.binarySearchButton = this.addControlToAlgorithmBar("Button", "Binary Search");
     this.binarySearchButton.onclick = this.binarySearchCallback.bind(this);
     this.controls.push(this.binarySearchButton);
     
 
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Small", "Large"], "List Size");
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Small", "Large"], "List Size");
 	this.smallListButton = radioButtonList[0];
 	this.smallListButton.onclick = this.smallListCallback.bind(this);
 	this.largeListButton = radioButtonList[1];

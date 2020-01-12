@@ -78,11 +78,11 @@ Reverse.prototype.init = function(am, w, h)
 Reverse.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.reverseField = addControlToAlgorithmBar("Text", "");
+	this.reverseField = this.addControlToAlgorithmBar("Text", "");
 	this.reverseField.onkeydown = this.returnSubmit(this.reverseField,  this.reverseCallback.bind(this), 10, false);
 	this.controls.push(this.reverseField);
 
-	this.reverseButton = addControlToAlgorithmBar("Button", "Reverse");
+	this.reverseButton = this.addControlToAlgorithmBar("Button", "Reverse");
 	this.reverseButton.onclick = this.reverseCallback.bind(this);
 	this.controls.push(this.reverseButton);
 		

@@ -76,10 +76,10 @@ BucketSort.prototype.init = function(am, w, h)
 
 BucketSort.prototype.addControls =  function()
 {
-	this.resetButton = addControlToAlgorithmBar("Button", "Randomize List");
+	this.resetButton = this.addControlToAlgorithmBar("Button", "Randomize List");
 	this.resetButton.onclick = this.resetCallback.bind(this);
 
-	this.bucketSortButton = addControlToAlgorithmBar("Button", "Bucket Sort");
+	this.bucketSortButton = this.addControlToAlgorithmBar("Button", "Bucket Sort");
 	this.bucketSortButton.onclick = this.bucketSortCallback.bind(this);
 
 }

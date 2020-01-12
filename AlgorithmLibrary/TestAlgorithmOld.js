@@ -48,7 +48,7 @@ TestAlgorithm.prototype.init = function(am)
 
 TestAlgorithm.prototype.addControls =  function()
 {
-	this.doWorkButton = addControlToAlgorithmBar("Button", "Do Work");
+	this.doWorkButton = this.addControlToAlgorithmBar("Button", "Do Work");
 	this.doWorkButton.onclick = this.doWork.bind(this);
 }
 

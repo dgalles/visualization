@@ -106,19 +106,19 @@ DPFib.prototype.init = function(am, w, h)
 DPFib.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.fibField = addControlToAlgorithmBar("Text", "");
+	this.fibField = this.addControlToAlgorithmBar("Text", "");
 	this.fibField.onkeydown = this.returnSubmit(this.fibField,  this.emptyCallback.bind(this), 2, true);
 	this.controls.push(this.fibField);
 
-	this.recursiveButton = addControlToAlgorithmBar("Button", "Fibonacci Recursive");
+	this.recursiveButton = this.addControlToAlgorithmBar("Button", "Fibonacci Recursive");
 	this.recursiveButton.onclick = this.recursiveCallback.bind(this);
 	this.controls.push(this.recursiveButton);
 
-	this.tableButton = addControlToAlgorithmBar("Button", "Fibonacci Table");
+	this.tableButton = this.addControlToAlgorithmBar("Button", "Fibonacci Table");
 	this.tableButton.onclick = this.tableCallback.bind(this);
 	this.controls.push(this.tableButton);
 
-	this.memoizedButton = addControlToAlgorithmBar("Button", "Fibonacci Memoized");
+	this.memoizedButton = this.addControlToAlgorithmBar("Button", "Fibonacci Memoized");
 	this.memoizedButton.onclick = this.memoizedCallback.bind(this);
 	this.controls.push(this.memoizedButton);
 		

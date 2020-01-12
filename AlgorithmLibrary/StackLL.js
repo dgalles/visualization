@@ -77,18 +77,18 @@ StackLL.prototype.init = function(am, w, h)
 StackLL.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.pushField = addControlToAlgorithmBar("Text", "");
+	this.pushField = this.addControlToAlgorithmBar("Text", "");
 	this.pushField.onkeydown = this.returnSubmit(this.pushField,  this.pushCallback.bind(this), 6);
-	this.pushButton = addControlToAlgorithmBar("Button", "Push");
+	this.pushButton = this.addControlToAlgorithmBar("Button", "Push");
 	this.pushButton.onclick = this.pushCallback.bind(this);
 	this.controls.push(this.pushField);
 	this.controls.push(this.pushButton);
 
-	this.popButton = addControlToAlgorithmBar("Button", "Pop");
+	this.popButton = this.addControlToAlgorithmBar("Button", "Pop");
 	this.popButton.onclick = this.popCallback.bind(this);
 	this.controls.push(this.popButton);
 	
-	this.clearButton = addControlToAlgorithmBar("Button", "Clear Stack");
+	this.clearButton = this.addControlToAlgorithmBar("Button", "Clear Stack");
 	this.clearButton.onclick = this.clearCallback.bind(this);
 	this.controls.push(this.clearButton);
 	

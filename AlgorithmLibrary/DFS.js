@@ -55,9 +55,9 @@ DFS.superclass = Graph.prototype;
 DFS.prototype.addControls =  function()
 {		
 	addLabelToAlgorithmBar("Start Vertex: ");
-	this.startField = addControlToAlgorithmBar("Text", "");
+	this.startField = this.addControlToAlgorithmBar("Text", "");
 	this.startField.onkeydown = this.returnSubmit(this.startField,  this.startCallback.bind(this), 2, true);
-	this.startButton = addControlToAlgorithmBar("Button", "Run DFS");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run DFS");
 	this.startButton.onclick = this.startCallback.bind(this);
 	DFS.superclass.addControls.call(this);
 }	

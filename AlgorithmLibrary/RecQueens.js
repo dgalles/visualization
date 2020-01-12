@@ -111,11 +111,11 @@ Queens.prototype.addControls =  function()
 	this.controls = [];
 	addLabelToAlgorithmBar("Board size:  (1-8)");
 
-	this.sizeField = addControlToAlgorithmBar("Text", "");
+	this.sizeField = this.addControlToAlgorithmBar("Text", "");
 	this.sizeField.onkeydown = this.returnSubmit(this.sizeField,  this.queensCallback.bind(this), 2, true);
 	this.controls.push(this.sizeField);
 
-	this.queensButton = addControlToAlgorithmBar("Button", "Queens");
+	this.queensButton = this.addControlToAlgorithmBar("Button", "Queens");
 	this.queensButton.onclick = this.queensCallback.bind(this);
 	this.controls.push(this.queensButton);
 		

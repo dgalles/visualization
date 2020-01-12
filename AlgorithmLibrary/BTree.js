@@ -92,9 +92,9 @@ BTree.prototype.init = function(am, w, h)
 	this.moveLabel1ID = this.nextIndex++;
 	this.moveLabel2ID = this.nextIndex++;
 	
-	animationManager.StartNewAnimation(this.commands);
-	animationManager.skipForward();
-	animationManager.clearHistory();
+	this.animationManager.StartNewAnimation(this.commands);
+	this.animationManager.skipForward();
+	this.animationManager.clearHistory();
 	this.commands = new Array();
 	
 	this.first_print_pos_y = h - 3 * PRINT_VERTICAL_GAP;
@@ -108,35 +108,35 @@ BTree.prototype.addControls =  function()
 {
 	this.controls = [];
 	
-	this.insertField = addControlToAlgorithmBar("Text", "");
+	this.insertField = this.addControlToAlgorithmBar("Text", "");
 	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), 4);
 	this.controls.push(this.insertField);
 	
-	this.insertButton = addControlToAlgorithmBar("Button", "Insert");
+	this.insertButton = this.addControlToAlgorithmBar("Button", "Insert");
 	this.insertButton.onclick = this.insertCallback.bind(this);
 	this.controls.push(this.insertButton);
 	
-	this.deleteField = addControlToAlgorithmBar("Text", "");
+	this.deleteField = this.addControlToAlgorithmBar("Text", "");
 	this.deleteField.onkeydown = this.returnSubmit(this.deleteField,  this.deleteCallback.bind(this), 4);
 	this.controls.push(this.deleteField);
 	
-	this.deleteButton = addControlToAlgorithmBar("Button", "Delete");
+	this.deleteButton = this.addControlToAlgorithmBar("Button", "Delete");
 	this.deleteButton.onclick = this.deleteCallback.bind(this);
 	this.controls.push(this.deleteButton);
 	
-	this.findField = addControlToAlgorithmBar("Text", "");
+	this.findField = this.addControlToAlgorithmBar("Text", "");
 	this.findField.onkeydown = this.returnSubmit(this.findField,  this.findCallback.bind(this), 4);
 	this.controls.push(this.findField);
 	
-	this.findButton = addControlToAlgorithmBar("Button", "Find");
+	this.findButton = this.addControlToAlgorithmBar("Button", "Find");
 	this.findButton.onclick = this.findCallback.bind(this);
 	this.controls.push(this.findButton);
 	
-	this.printButton = addControlToAlgorithmBar("Button", "Print");
+	this.printButton = this.addControlToAlgorithmBar("Button", "Print");
 	this.printButton.onclick = this.printCallback.bind(this);
 	this.controls.push(this.printButton);
 	
-	this.clearButton = addControlToAlgorithmBar("Button", "Clear");
+	this.clearButton = this.addControlToAlgorithmBar("Button", "Clear");
 	this.clearButton.onclick = this.clearCallback.bind(this);
 	this.controls.push(this.clearButton);
 	
@@ -147,7 +147,7 @@ BTree.prototype.addControls =  function()
 		radioButtonNames.push("Max. Degree = " + String(i));
 	}
 	
-	this.maxDegreeRadioButtons = addRadioButtonGroupToAlgorithmBar(radioButtonNames, "MaxDegree");
+	this.maxDegreeRadioButtons = this.addRadioButtonGroupToAlgorithmBar(radioButtonNames, "MaxDegree");
 	
 	this.maxDegreeRadioButtons[0].checked = true;
 	for(i = 0; i < this.maxDegreeRadioButtons.length; i++)
@@ -156,7 +156,7 @@ BTree.prototype.addControls =  function()
 	}
 	
 	
-	this.premptiveSplitBox = addCheckboxToAlgorithmBar("Preemtive Split / Merge (Even max degree only)");
+	this.premptiveSplitBox = this.addCheckboxToAlgorithmBar("Preemtive Split / Merge (Even max degree only)");
 	this.premptiveSplitBox.onclick = this.premtiveSplitCallback.bind(this);
 	
 	
@@ -246,7 +246,7 @@ BTree.prototype.maxDegreeChangedHandler = function(newMaxDegree, event)
 	if (this.max_degree != newMaxDegree)
 	{
 		this.implementAction(this.changeDegree.bind(this), newMaxDegree);
-        	animationManager.skipForward();
+        	this.animationManager.skipForward();
     	        animationManager.clearHistory();
 
 

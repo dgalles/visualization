@@ -73,27 +73,27 @@ Hash.prototype.init = function(am, w, h)
 
 Hash.prototype.addControls = function()
 {
-	this.insertField = addControlToAlgorithmBar("Text", "");
+	this.insertField = this.addControlToAlgorithmBar("Text", "");
 	this.insertField.size = MAX_HASH_LENGTH;
 	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), MAX_HASH_LENGTH, true);
-	this.insertButton = addControlToAlgorithmBar("Button", "Insert");
+	this.insertButton = this.addControlToAlgorithmBar("Button", "Insert");
 	this.insertButton.onclick =  this.insertCallback.bind(this);
 	
-	this.deleteField = addControlToAlgorithmBar("Text", "");
+	this.deleteField = this.addControlToAlgorithmBar("Text", "");
 	this.deleteField.size = MAX_HASH_LENGTH;
 	this.deleteField.onkeydown = this.returnSubmit(this.insertField,  this.deleteCallback.bind(this), MAX_HASH_LENGTH, true);
-	this.deleteButton = addControlToAlgorithmBar("Button", "Delete");
+	this.deleteButton = this.addControlToAlgorithmBar("Button", "Delete");
 	this.deleteButton.onclick =  this.deleteCallback.bind(this);
 
 	
-	this.findField = addControlToAlgorithmBar("Text", "");
+	this.findField = this.addControlToAlgorithmBar("Text", "");
 	this.findField.size = MAX_HASH_LENGTH;
 	this.findField.onkeydown = this.returnSubmit(this.insertField,  this.findCallback.bind(this), MAX_HASH_LENGTH, true);
-	this.findButton = addControlToAlgorithmBar("Button", "Find");
+	this.findButton = this.addControlToAlgorithmBar("Button", "Find");
 	this.findButton.onclick =  this.findCallback.bind(this);
 	
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Hash Integer", "Hash Strings"], "HashType");
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Hash Integer", "Hash Strings"], "HashType");
 	this.hashIntegerButton = radioButtonList[0];
 	this.hashIntegerButton.onclick = this.changeHashTypeCallback.bind(this, true);
 //  this.hashIntegerButton.onclick = this.hashIntegerCallback.bind(this);

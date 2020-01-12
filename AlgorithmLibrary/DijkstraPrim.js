@@ -52,17 +52,17 @@ DijkstraPrim.superclass = Graph.prototype;
 DijkstraPrim.prototype.addControls =  function()
 {		
 	addLabelToAlgorithmBar("Start Vertex: ");
-	this.startField = addControlToAlgorithmBar("Text", "");
+	this.startField = this.addControlToAlgorithmBar("Text", "");
 	this.startField.onkeydown = this.returnSubmit(this.startField,  this.startCallback.bind(this), 2, true);
 	this.startField.size = 2
 	if (this.runningDijkstra)
 	{
-		this.startButton = addControlToAlgorithmBar("Button", "Run Dijkstra");
+		this.startButton = this.addControlToAlgorithmBar("Button", "Run Dijkstra");
 		
 	}
 	else
 	{
-		this.startButton = addControlToAlgorithmBar("Button", "Run Prim");
+		this.startButton = this.addControlToAlgorithmBar("Button", "Run Prim");
 		
 	}
 	this.startButton.onclick = this.startCallback.bind(this);

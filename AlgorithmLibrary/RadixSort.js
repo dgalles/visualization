@@ -82,10 +82,10 @@ RadixSort.prototype.sizeChanged = function(newWidth, newHeight)
 
 RadixSort.prototype.addControls =  function()
 {
-	this.resetButton = addControlToAlgorithmBar("Button", "Randomize List");
+	this.resetButton = this.addControlToAlgorithmBar("Button", "Randomize List");
 	this.resetButton.onclick = this.resetCallback.bind(this);
 
-	this.radixSortButton = addControlToAlgorithmBar("Button", "Radix Sort");
+	this.radixSortButton = this.addControlToAlgorithmBar("Button", "Radix Sort");
 	this.radixSortButton.onclick = this.radixSortCallback.bind(this);
 
 }
@@ -319,7 +319,7 @@ RadixSort.prototype.radixSortCallback = function(event)
 			this.cmd("SetAlpha", this.counterIndices[i], 1);
 		}
 	}
-	animationManager.StartNewAnimation(this.commands);
+	this.animationManager.StartNewAnimation(this.commands);
 	
 }
 

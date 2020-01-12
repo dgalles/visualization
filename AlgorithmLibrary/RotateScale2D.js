@@ -213,30 +213,30 @@ RotateScale2D.prototype.addControls =  function()
 	
 	addLabelToAlgorithmBar("Rotation Angle");
 						   
-	this.rotationField = addControlToAlgorithmBar("Text", "");
+	this.rotationField = this.addControlToAlgorithmBar("Text", "");
 	this.rotationField.onkeydown = this.returnSubmitFloat(this.rotationField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.rotationField);
 	
 	addLabelToAlgorithmBar("Scale X");
 	
-	this.scaleXField = addControlToAlgorithmBar("Text", "");
+	this.scaleXField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleXField.onkeydown = this.returnSubmitFloat(this.scaleXField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.scaleXField);
 
 	
 	addLabelToAlgorithmBar("Scale Y");
 	
-	this.scaleYField = addControlToAlgorithmBar("Text", "");
+	this.scaleYField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleYField.onkeydown = this.returnSubmitFloat(this.scaleYField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.scaleYField);
 	
 
-	var transformButton = addControlToAlgorithmBar("Button", "Transform");
+	var transformButton = this.addControlToAlgorithmBar("Button", "Transform");
 	transformButton.onclick = this.transformCallback.bind(this);
 	
 	this.controls.push(transformButton);
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Row Major", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Row Major", 
 															 "Column Major", 
 															 ], 
 															"RankType");
@@ -251,7 +251,7 @@ RotateScale2D.prototype.addControls =  function()
 	this.rowMajorButton.checked = this.rowMajor;
 	this.colMajorButton.checked = !this.rowMajor;
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["+y Up", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["+y Up", 
 															 "+y Down", 
 															 ], 
 															"yAxisDirection");
@@ -266,7 +266,7 @@ RotateScale2D.prototype.addControls =  function()
 	this.posYUpButton.checked = this.posYUp;
 	this.posYDownButton.checked = !this.posYUp;
 
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Rotate, then scale", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Rotate, then scale", 
 															 "Scale, then rotate", 
 															 ], 
 															"RotateFirst");
@@ -281,7 +281,7 @@ RotateScale2D.prototype.addControls =  function()
 	this.rotateScaleButton.checked = this.rotateFirst;
 	this.scaleRotateButton.checked = !this.rotateFirst;
 	
-	var changeShapeButton = addControlToAlgorithmBar("Button", "Change Shape");
+	var changeShapeButton = this.addControlToAlgorithmBar("Button", "Change Shape");
 	changeShapeButton.onclick = this.changeShapeCallback.bind(this);
 	
 	this.controls.push(changeShapeButton);

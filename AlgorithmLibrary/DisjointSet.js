@@ -94,41 +94,41 @@ DisjointSet.prototype.addControls =  function()
 	this.controls = [];
 	
 	
-	this.findField = addControlToAlgorithmBar("Text", "");
+	this.findField = this.addControlToAlgorithmBar("Text", "");
 	this.findField.onkeydown = this.returnSubmit(this.findField,  this.findCallback.bind(this), 4, true);
 	this.controls.push(this.findField);
 
-	var findButton = addControlToAlgorithmBar("Button", "Find");
+	var findButton = this.addControlToAlgorithmBar("Button", "Find");
 	findButton.onclick = this.findCallback.bind(this);
 	
 	this.controls.push(findButton);
 
 
-	this.unionField1 = addControlToAlgorithmBar("Text", "");
+	this.unionField1 = this.addControlToAlgorithmBar("Text", "");
 	this.unionField1.onkeydown = this.returnSubmit(this.unionField1,  this.unionCallback.bind(this), 4, true);
 	
 	this.controls.push(this.unionField1);
 
 	
-	this.unionField2 = addControlToAlgorithmBar("Text", "");
+	this.unionField2 = this.addControlToAlgorithmBar("Text", "");
 	this.unionField2.onkeydown = this.returnSubmit(this.unionField2,  this.unionCallback.bind(this), 4, true);
 	
-	this.unionButton = addControlToAlgorithmBar("Button", "Union");
+	this.unionButton = this.addControlToAlgorithmBar("Button", "Union");
 	this.unionButton.onclick = this.unionCallback.bind(this);
 
 	this.controls.push(this.unionField2);
 	
-	this.pathCompressionBox = addCheckboxToAlgorithmBar("Path Compression");
+	this.pathCompressionBox = this.addCheckboxToAlgorithmBar("Path Compression");
 	this.pathCompressionBox.onclick = this.pathCompressionChangeCallback.bind(this);
 
 	this.controls.push(this.pathCompressionBox);
 
-	this.unionByRankBox = addCheckboxToAlgorithmBar("Union By Rank");
+	this.unionByRankBox = this.addCheckboxToAlgorithmBar("Union By Rank");
 	this.unionByRankBox.onclick = this.unionByRankChangeCallback.bind(this);
 	
 	this.controls.push(this.unionByRankBox);
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Rank = # of nodes", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Rank = # of nodes", 
 															 "Rank = estimated height", 
 															 ], 
 															"RankType");
@@ -168,9 +168,9 @@ DisjointSet.prototype.setup = function()
 	}
 	
 	
-	animationManager.StartNewAnimation(this.commands);
-	animationManager.skipForward();
-	animationManager.clearHistory();		
+	this.animationManager.StartNewAnimation(this.commands);
+	this.animationManager.skipForward();
+	this.animationManager.clearHistory();		
 	
 }
 

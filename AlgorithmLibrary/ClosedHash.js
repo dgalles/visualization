@@ -82,7 +82,7 @@ ClosedHash.prototype.addControls = function()
 	ClosedHash.superclass.addControls.call(this);
 
 
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Linear Probing: f(i) = i",
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Linear Probing: f(i) = i",
 															 "Quadratic Probing: f(i) = i * i",
 															"Double Hashing: f(i) = i * hash2(elem)"], 
 															"CollisionStrategy");
@@ -342,9 +342,9 @@ ClosedHash.prototype.setup = function()
 		this.cmd("SetForegroundColor", nextID, INDEX_COLOR);
 	}
 	this.cmd("CreateLabel", this.ExplainLabel, "", 10, 25, 0);
-	animationManager.StartNewAnimation(this.commands);
-	animationManager.skipForward();
-	animationManager.clearHistory();
+	this.animationManager.StartNewAnimation(this.commands);
+	this.animationManager.skipForward();
+	this.animationManager.clearHistory();
 	this.resetIndex  = this.nextIndex;
 }
 

@@ -186,12 +186,12 @@ Graph.prototype.addControls = function(addDirection)
 	{
 		addDirection = true;
 	}
-	this.newGraphButton = addControlToAlgorithmBar("Button", "New Graph");
+	this.newGraphButton = this.addControlToAlgorithmBar("Button", "New Graph");
 	this.newGraphButton.onclick =  this.newGraphCallback.bind(this);
 
 	if (addDirection)
 	{
-		var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Directed Graph", "Undirected Graph"], "GraphType");
+		var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Directed Graph", "Undirected Graph"], "GraphType");
 		this.directedGraphButton = radioButtonList[0];
 		this.directedGraphButton.onclick = this.directedGraphCallback.bind(this, true);
 		this.undirectedGraphButton = radioButtonList[1];
@@ -201,14 +201,14 @@ Graph.prototype.addControls = function(addDirection)
 	}
 	
 
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Small Graph", "Large Graph"], "GraphSize");
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Small Graph", "Large Graph"], "GraphSize");
 	this.smallGraphButton = radioButtonList[0];
 	this.smallGraphButton.onclick = this.smallGraphCallback.bind(this);
 	this.largeGraphButton = radioButtonList[1];
 	this.largeGraphButton.onclick = this.largeGraphCallback.bind(this);
 	this.smallGraphButton.checked = true;
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Logical Representation", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Logical Representation", 
 															  "Adjacency List Representation", 
 															  "Adjacency Matrix Representation"
 															], 

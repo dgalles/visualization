@@ -76,9 +76,9 @@ Huffman.prototype.init = function(am, w, h)
 
 Huffman.prototype.addControls =  function()
 {
-	this.encodeField = addControlToAlgorithmBar("Text", "");
+	this.encodeField = this.addControlToAlgorithmBar("Text", "");
 	this.encodeField.onkeydown = this.returnSubmit(this.encodeField,  this.encodeCallback.bind(this), 50);
-	this.encodeButton = addControlToAlgorithmBar("Button", "Encode");
+	this.encodeButton = this.addControlToAlgorithmBar("Button", "Encode");
 	this.encodeButton.onclick = this.encodeCallback.bind(this);
 }
 

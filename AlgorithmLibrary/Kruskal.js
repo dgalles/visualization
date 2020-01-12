@@ -67,7 +67,7 @@ Kruskal.superclass = Graph.prototype;
 Kruskal.prototype.addControls =  function()
 {		
 	
-	this.startButton = addControlToAlgorithmBar("Button", "Run Kruskal");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run Kruskal");
 	this.startButton.onclick = this.startCallback.bind(this);
 
 	Kruskal.superclass.addControls.call(this, false);

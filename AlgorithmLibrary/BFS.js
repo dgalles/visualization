@@ -54,10 +54,10 @@ BFS.superclass = Graph.prototype;
 BFS.prototype.addControls =  function()
 {		
 	addLabelToAlgorithmBar("Start Vertex: ");
-	this.startField = addControlToAlgorithmBar("Text", "");
+	this.startField = this.addControlToAlgorithmBar("Text", "");
 	this.startField.onkeydown = this.returnSubmit(this.startField,  this.startCallback.bind(this), 2, true);
 	this.startField.size = 2;
-	this.startButton = addControlToAlgorithmBar("Button", "Run BFS");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run BFS");
 	this.startButton.onclick = this.startCallback.bind(this);
 	BFS.superclass.addControls.call(this);
 }	
@@ -98,10 +98,10 @@ BFS.prototype.setup = function()
 	this.cmd("CreateLabel", this.nextIndex++, "Parent", PARENT_START_X - AUX_ARRAY_WIDTH, AUX_ARRAY_START_Y - AUX_ARRAY_HEIGHT * 1.5, 0);
 	this.cmd("CreateLabel", this.nextIndex++, "Visited", VISITED_START_X - AUX_ARRAY_WIDTH, AUX_ARRAY_START_Y - AUX_ARRAY_HEIGHT * 1.5, 0);
 	this.cmd("CreateLabel", this.nextIndex++, "BFS Queue", QUEUE_START_X, QUEUE_START_Y - 30, 0);
-	animationManager.setAllLayers([0, this.currentLayer]);
-	animationManager.StartNewAnimation(this.commands);
-	animationManager.skipForward();
-	animationManager.clearHistory();
+	this.animationManager.setAllLayers([0, this.currentLayer]);
+	this.animationManager.StartNewAnimation(this.commands);
+	this.animationManager.skipForward();
+	this.animationManager.clearHistory();
 	this.highlightCircleL = this.nextIndex++;
 	this.highlightCircleAL = this.nextIndex++;
 	this.highlightCircleAM= this.nextIndex++
