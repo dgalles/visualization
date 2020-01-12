@@ -842,7 +842,7 @@ function ObjectManager(canvas)
 		this.Nodes[nodeID].y = newY;
 		/* Don't need to dirty anything, since we repaint everything every frame
 		 (TODO:  Revisit if we do conditional redraws)
-		 }*/
+		*/
 		
 	}
 	

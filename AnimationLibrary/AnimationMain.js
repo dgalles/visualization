@@ -355,7 +355,7 @@ function initCanvas(canvas, generalControlBar, algorithmControlBar)
 
 	animationManager.widthEntry = animationManager.addControlToAnimationBar("Text", canvas.width);
 	animationManager.widthEntry.size = 4;
-	animationManager.widthEntry.onkeydown = this.returnSubmit(animationManager.widthEntry, animationManager.changeSize.bind(animationManager), 4, true);
+	animationManager.widthEntry.onkeydown = returnSubmit(animationManager.widthEntry, animationManager.changeSize.bind(animationManager), 4, true);
 
 	
 	tableEntry = document.createElement("td");
@@ -365,7 +365,7 @@ function initCanvas(canvas, generalControlBar, algorithmControlBar)
 	generalControlBar.appendChild(tableEntry);
 	
 	animationManager.heightEntry = animationManager.addControlToAnimationBar("Text", canvas.height);
-	animationManager.heightEntry.onkeydown = this.returnSubmit(animationManager.heightEntry, animationManager.changeSize.bind(animationManager), 4, true);
+	animationManager.heightEntry.onkeydown = returnSubmit(animationManager.heightEntry, animationManager.changeSize.bind(animationManager), 4, true);
 
 //	heightEntry.size = 4;
 	animationManager.sizeButton = animationManager.addControlToAnimationBar("Button", "Change Canvas Size");
