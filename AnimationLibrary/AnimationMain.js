@@ -26,8 +26,8 @@
 
 // Global timer used for doing animation callbacks.
 //  TODO:  Make this an instance variable of Animation Manager.
-var timer;
-var swapped = false;
+// var timer;
+// var swapped = false;
 
 
 function reorderSibling(node1, node2) 
@@ -39,13 +39,13 @@ function reorderSibling(node1, node2)
 
 function swapControlDiv()
 {
-    swapped = !swapped;
-    if (swapped) {
-	reorderSibling(document.getElementById('canvas'), document.getElementById('generalAnimationControlSection'));
+    this.swapped = !this.swapped;
+    if (this.swapped) {
+	reorderSibling(this.canvas, this.generalControlBar.parentNode);
         setCookie("VisualizationControlSwapped", "true", 30);
 
     } else {
-	reorderSibling(document.getElementById('generalAnimationControlSection'), document.getElementById('canvas'));
+	reorderSibling(this.generalControlBar.parentNode, this.canvas);
         setCookie("VisualizationControlSwapped", "false", 30);
 
     }
@@ -83,20 +83,20 @@ var ANIMATION_SPEED_DEFAULT = 75;
 
 
 // TODO:  Move these out of global space into animation manager?
-var objectManager;
-var animationManager;
-var canvas;
+// var objectManager;
+// var animationManager;
+// var canvas;
 
-var paused = false;
-var playPauseBackButton;
-var skipBackButton;
-var stepBackButton;
-var stepForwardButton;
-var skipForwardButton;
+// var paused = false;
+// var playPauseBackButton;
+// var skipBackButton;
+// var stepBackButton;
+// var stepForwardButton;
+// var skipForwardButton;
 
-var widthEntry;
-var heightEntry;
-var sizeButton;
+// var widthEntry;
+// var heightEntry;
+// var sizeButton;
 
 
 
@@ -144,43 +144,44 @@ function returnSubmit(field, funct, maxsize, intOnly)
 
 function animWaiting()
 {
-	stepForwardButton.disabled = false;
-	if (skipBackButton.disabled == false)
+	this.stepForwardButton.disabled = false;
+	if (this.skipBackButton.disabled == false)
 	{
-		stepBackButton.disabled = false;
+		this.stepBackButton.disabled = false;
 	}
-	objectManager.statusReport.setText("Animation Paused");
-	objectManager.statusReport.setForegroundColor("#FF0000");
+	this.objectManager.statusReport.setText("Animation Paused");
+	this.objectManager.statusReport.setForegroundColor("#FF0000");
 }
 
 function animStarted()
 {
-	skipForwardButton.disabled = false;
-	skipBackButton.disabled = false;
-	stepForwardButton.disabled = true;
-	stepBackButton.disabled = true;
-	objectManager.statusReport.setText("Animation Running");
-	objectManager.statusReport.setForegroundColor("#009900");
+	this.skipForwardButton.disabled = false;
+	this.skipBackButton.disabled = false;
+	this.stepForwardButton.disabled = true;
+	this.stepBackButton.disabled = true;
+	this.objectManager.statusReport.setText("Animation Running");
+	this.objectManager.statusReport.setForegroundColor("#009900");
 }
 
 function animEnded()
 {
-	skipForwardButton.disabled = true;
-	stepForwardButton.disabled = true;
-	if (skipBackButton.disabled == false && paused)
+	this.skipForwardButton.disabled = true;
+	this.stepForwardButton.disabled = true;
+	if (this.skipBackButton.disabled == false && this.paused)
 	{
-		stepBackButton.disabled = false;		
+		this.stepBackButton.disabled = false;		
 	}
-	objectManager.statusReport.setText("Animation Completed");
-	objectManager.statusReport.setForegroundColor("#000000");
+	// this.objectManager.statusReport.setText("Animation Completed");
+	this.objectManager.statusReport.setText("");
+	this.objectManager.statusReport.setForegroundColor("#000000");
 }
 
 
 
 function anumUndoUnavailable()
 {
-	skipBackButton.disabled = true;
-	stepBackButton.disabled = true;
+	this.skipBackButton.disabled = true;
+	this.stepBackButton.disabled = true;
 }
 
 
@@ -188,116 +189,58 @@ function timeout()
 {
 	// We need to set the timeout *first*, otherwise if we
 	// try to clear it later, we get behavior we don't want ...
-    timer = setTimeout('timeout()', 30); 
-	animationManager.update();
-	objectManager.draw();	
+    this.timer = setTimeout(timeout.bind(this), 30); 
+	this.update();
+	this.objectManager.draw();	
         
 }
 
 
-function doStep()
-{
-	animationManager.step();
-}
-
-
-function doSkip()
-{
-	animationManager.skipForward();
-}
-
-
-function doSkipBack()
-{
-	animationManager.skipBack();
-}
-
-
-function doStepBack()
-{
-	animationManager.stepBack();
-}
 function doPlayPause()
 {
-	paused = !paused;
-	if (paused)
+	this.paused = !this.paused;
+	if (this.paused)
 	{
-		playPauseBackButton.setAttribute("value", "play");
-		if (skipBackButton.disabled == false)
+		this.playPauseBackButton.setAttribute("value", "play");
+		if (this.skipBackButton.disabled == false)
 		{
-			stepBackButton.disabled = false;		
+			this.stepBackButton.disabled = false;		
 		}
 		
 	}
 	else
 	{
-		playPauseBackButton.setAttribute("value", "pause");	
+		this.playPauseBackButton.setAttribute("value", "pause");	
 	}
-	animationManager.SetPaused(paused);
+	this.SetPaused(this.paused);
 }
 
 
-function addControl(type, name, location) {
-	
-    var element = document.createElement("input");
-	
-    element.setAttribute("type", type);
-    element.setAttribute("value", name);
-
-	var tableEntry = document.createElement("td");
-	
-	tableEntry.appendChild(element);
-	
-	
-    var controlBar = document.getElementById(tableEntry);
-	
-    //Append the element in page (in span).
-    controlBar.appendChild(element);
-	return element;
- 
-}
-
-function addControlToAnimationBar(type,name,containerType)
+// Creates and returs an AnimationManager
+function initCanvas(canvas, generalControlBar, algorithmControlBar)
 {
-	if (containerType == undefined)
-	{
-			containerType = "input";
-	}
-	var element = document.createElement(containerType);
-	
-        element.setAttribute("type", type);
-        element.setAttribute("value", name);
-	
-	
-	var tableEntry = document.createElement("td");
-	
-	tableEntry.appendChild(element);
-	
-    var controlBar = document.getElementById("GeneralAnimationControls");
-	
-    //Append the element in page (in span).
-    controlBar.appendChild(tableEntry);
-	return element;
-	
-}
+	// UI nodes should be given, otherwise use defaults.
+	// This is the only place where getElementById is used
+	if(!canvas)              canvas              = document.getElementById("canvas");
+	if(!generalControlBar)   generalControlBar   = document.getElementById('GeneralAnimationControls');
+    if(!algorithmControlBar) algorithmControlBar = document.getElementById("AlgorithmSpecificControls");
 
-
-function initCanvas()
-{
-	canvas =  document.getElementById("canvas");
-	objectManager = new ObjectManager();
-	animationManager = new AnimationManager(objectManager);
+	var objectManager = new ObjectManager(canvas);
+	var animationManager = new AnimationManager(objectManager);
+	animationManager.canvas = canvas;
+	animationManager.generalControlBar = generalControlBar;
+	animationManager.algorithmControlBar = algorithmControlBar;
 	
-	skipBackButton = addControlToAnimationBar("Button", "Skip Back");
-	skipBackButton.onclick = animationManager.skipBack.bind(animationManager);
-	stepBackButton = addControlToAnimationBar("Button", "Step Back");
-	stepBackButton.onclick = animationManager.stepBack.bind(animationManager);
-	playPauseBackButton = addControlToAnimationBar("Button", "Pause");
-	playPauseBackButton.onclick = doPlayPause ;
-	stepForwardButton = addControlToAnimationBar("Button", "Step Forward");
-	stepForwardButton.onclick = animationManager.step.bind(animationManager) ;
-	skipForwardButton = addControlToAnimationBar("Button", "Skip Forward");
-	skipForwardButton.onclick = animationManager.skipForward.bind(animationManager);
+	animationManager.skipBackButton = animationManager.addControlToAnimationBar("Button", "Skip Back");
+	animationManager.skipBackButton.onclick = animationManager.skipBack.bind(animationManager);
+	animationManager.stepBackButton = animationManager.addControlToAnimationBar("Button", "Step Back");
+	animationManager.stepBackButton.onclick = animationManager.stepBack.bind(animationManager);
+	animationManager.playPauseBackButton = animationManager.addControlToAnimationBar("Button", "Pause");
+	animationManager.playPauseBackButton.onclick = doPlayPause.bind(animationManager);
+	animationManager.stepForwardButton = animationManager.addControlToAnimationBar("Button", "Step Forward");
+	animationManager.stepForwardButton.onclick = animationManager.step.bind(animationManager) ;
+	animationManager.skipForwardButton = animationManager.addControlToAnimationBar("Button", "Skip Forward");
+	animationManager.skipForwardButton.onclick = animationManager.skipForward.bind(animationManager);
 	
 	
 	var element = document.createElement("div");
@@ -308,7 +251,6 @@ function initCanvas()
 	var tableEntry = document.createElement("td");
 	
 	
-    var controlBar = document.getElementById("GeneralAnimationControls");
 	
 	
 	
@@ -337,7 +279,8 @@ function initCanvas()
 	
 	
     //Append the element in page (in span).
-    controlBar.appendChild(tableEntry);
+	if(generalControlBar)
+    generalControlBar.appendChild(tableEntry);
 		
     //tableEntry.appendChild(element);
 
@@ -351,6 +294,7 @@ function initCanvas()
 		speed = parseInt(speed);
 	}
 	
+	if(generalControlBar) {
 	$(element).slider({
 					  animate: true,
 					  value: speed,
@@ -363,6 +307,7 @@ function initCanvas()
 					  }
 
 					  }); 
+	}
 	
 	animationManager.SetSpeed(speed);
 	
@@ -390,10 +335,10 @@ function initCanvas()
 	}
 
 	var swappedControls=getCookie("VisualizationControlSwapped");
-	swapped = swappedControls == "true"
-        if (swapped)
+	this.swapped = swappedControls == "true"
+        if (this.swapped)
         {
-	    reorderSibling(document.getElementById('canvas'), document.getElementById('generalAnimationControlSection'));
+	    reorderSibling(this.canvas, this.generalControlBar.parentNode);
 	}
 
 	canvas.width = width;
@@ -404,36 +349,38 @@ function initCanvas()
 	tableEntry = document.createElement("td");
 	txtNode = document.createTextNode(" w:"); 
 	tableEntry.appendChild(txtNode);
-	controlBar.appendChild(tableEntry);
+	if(generalControlBar)
+	generalControlBar.appendChild(tableEntry);
 
 
-	widthEntry = addControlToAnimationBar("Text", canvas.width);
-	widthEntry.size = 4;
-	widthEntry.onkeydown = this.returnSubmit(widthEntry, animationManager.changeSize.bind(animationManager), 4, true);
+	animationManager.widthEntry = animationManager.addControlToAnimationBar("Text", canvas.width);
+	animationManager.widthEntry.size = 4;
+	animationManager.widthEntry.onkeydown = this.returnSubmit(animationManager.widthEntry, animationManager.changeSize.bind(animationManager), 4, true);
 
 	
 	tableEntry = document.createElement("td");
 	txtNode = document.createTextNode("       h:"); 
 	tableEntry.appendChild(txtNode);
-	controlBar.appendChild(tableEntry);
+	if(generalControlBar)
+	generalControlBar.appendChild(tableEntry);
 	
-	heightEntry = addControlToAnimationBar("Text", canvas.height);
-	heightEntry.onkeydown = this.returnSubmit(heightEntry, animationManager.changeSize.bind(animationManager), 4, true);
+	animationManager.heightEntry = animationManager.addControlToAnimationBar("Text", canvas.height);
+	animationManager.heightEntry.onkeydown = this.returnSubmit(animationManager.heightEntry, animationManager.changeSize.bind(animationManager), 4, true);
 
 //	heightEntry.size = 4;
-	sizeButton = addControlToAnimationBar("Button", "Change Canvas Size");
+	animationManager.sizeButton = animationManager.addControlToAnimationBar("Button", "Change Canvas Size");
 	
-	sizeButton.onclick = animationManager.changeSize.bind(animationManager) ;
+	animationManager.sizeButton.onclick = animationManager.changeSize.bind(animationManager) ;
 	
 
-        swapButton = addControlToAnimationBar("Button", "Move Controls");
-        swapButton.onclick = swapControlDiv;	
+        animationManager.swapButton = animationManager.addControlToAnimationBar("Button", "Move Controls");
+        animationManager.swapButton.onclick = swapControlDiv.bind(animationManager);	
 	
 	
-	animationManager.addListener("AnimationStarted", this, animStarted);
-	animationManager.addListener("AnimationEnded", this, this.animEnded);
-	animationManager.addListener("AnimationWaiting", this, this.animWaiting);
-	animationManager.addListener("AnimationUndoUnavailable", this, this.anumUndoUnavailable);
+	animationManager.addListener("AnimationStarted", animationManager, animStarted);
+	animationManager.addListener("AnimationEnded", animationManager, animEnded);
+	animationManager.addListener("AnimationWaiting", animationManager, animWaiting);
+	animationManager.addListener("AnimationUndoUnavailable", animationManager, anumUndoUnavailable);
 	objectManager.width = canvas.width;
 	objectManager.height = canvas.height;
 	return animationManager;
@@ -447,8 +394,12 @@ function AnimationManager(objectManager)
 	// All animation is done by manipulating objects in\
 	// this container
 	this.animatedObjects = objectManager;
+	// TODO: change this to animatedObjects later
+	this.objectManager = objectManager;
 
 	// Control variables for stopping / starting animation
+	// TODO: not sure what's the difference between paused and animationPaused
+	this.paused = false;
 	
 	this.animationPaused = false;
 	this.awaitingStep = false;
@@ -533,27 +484,27 @@ function AnimationManager(objectManager)
 	this.changeSize = function()
 	{
 		
-		var width = parseInt(widthEntry.value);
-		var height = parseInt(heightEntry.value);
+		var width = parseInt(this.widthEntry.value);
+		var height = parseInt(this.heightEntry.value);
 		
 		if (width > 100)
 		{
-			canvas.width = width;
+			this.canvas.width = width;
 			this.animatedObjects.width = width;
 			setCookie("VisualizationWidth", String(width), 30);
 			
 		}
 		if (height > 100)
 		{
-			canvas.height = height;
+			this.canvas.height = height;
 			this.animatedObjects.height = height;
 			setCookie("VisualizationHeight", String(height), 30);
 		}
-		width.value = canvas.width;
-		heightEntry.value = canvas.height;
+		width.value = this.canvas.width;
+		this.heightEntry.value = this.canvas.height;
 		
 		this.animatedObjects.draw();
-		this.fireEvent("CanvasSizeChanged",{width:canvas.width, height:canvas.height});		
+		this.fireEvent("CanvasSizeChanged",{width:this.canvas.width, height:this.canvas.height});		
 	}
 	
 	this.startNextBlock = function()
@@ -566,7 +517,7 @@ function AnimationManager(objectManager)
 			this.currentlyAnimating = false;
 			this.awaitingStep = false;
 			this.fireEvent("AnimationEnded","NoData");
-			clearTimeout(timer);
+			clearTimeout(this.timer);
 			this.animatedObjects.update();
 			this.animatedObjects.draw();
 			
@@ -1014,7 +965,7 @@ function AnimationManager(objectManager)
 	//  which represents the animation to start
 	this.StartNewAnimation =  function(commands)
 	{
-		clearTimeout(timer);
+		clearTimeout(this.timer);
 		if (this.AnimationSteps != null)
 		{
 			this.previousAnimationSteps.push(this.AnimationSteps);
@@ -1033,7 +984,7 @@ function AnimationManager(objectManager)
 		this.startNextBlock();
 		this.currentlyAnimating = true;
 		this.fireEvent("AnimationStarted","NoData");
-		timer = setTimeout('timeout()', 30); 
+		this.timer = setTimeout(timeout.bind(this), 30); 
 
 	}
 	
@@ -1045,14 +996,14 @@ function AnimationManager(objectManager)
 		{
 			//  TODO:  Get events working correctly!
 			this.fireEvent("AnimationStarted","NoData");
-			clearTimeout(timer);
+			clearTimeout(this.timer);
 
 			this.awaitingStep = false;
 			this.undoLastBlock();
 			// Re-kick thie timer.  The timer may or may not be running at this point,
 			// so to be safe we'll kill it and start it again.
-			clearTimeout(timer);
-			timer = setTimeout('timeout()', 30); 
+			clearTimeout(this.timer);
+			this.timer = setTimeout(timeout.bind(this), 30); 
 
 			
 		}
@@ -1063,8 +1014,8 @@ function AnimationManager(objectManager)
 			this.undoLastBlock();
 			// Re-kick thie timer.  The timer may or may not be running at this point,
 			// so to be safe we'll kill it and start it again.
-			clearTimeout(timer);
-			timer = setTimeout('timeout()', 30); 
+			clearTimeout(this.timer);
+			this.timer = setTimeout(timeout.bind(this), 30); 
 			
 		}
 		
@@ -1079,8 +1030,8 @@ function AnimationManager(objectManager)
 			this.currentlyAnimating = true;
 			// Re-kick thie timer.  The timer should be going now, but we've had some difficulty with
 			// it timing itself out, so we'll be safe and kick it now.
-			clearTimeout(timer);
-			timer = setTimeout('timeout()', 30); 			
+			clearTimeout(this.timer);
+			this.timer = setTimeout(timeout.bind(this), 30); 			
 		}
 	}
 	
@@ -1094,7 +1045,7 @@ function AnimationManager(objectManager)
 		this.undoAnimationStepIndicesStack = [];
 		this.AnimationSteps = null;
 		this.fireEvent("AnimationUndoUnavailable","NoData");
-		clearTimeout(timer);
+		clearTimeout(this.timer);
 		this.animatedObjects.update();
 		this.animatedObjects.draw();
 		
@@ -1130,7 +1081,7 @@ function AnimationManager(objectManager)
 				keepUndoing = this.finishUndoBlock(this.undoStack.pop());
 				
 			}
-			clearTimeout(timer);
+			clearTimeout(this.timer);
 			this.animatedObjects.update();
 			this.animatedObjects.draw();
 			if (this.undoStack == null || this.undoStack.length == 0)
@@ -1146,7 +1097,7 @@ function AnimationManager(objectManager)
 		this.clearHistory();
 		this.animatedObjects.clearAllObjects();
 		this.animatedObjects.draw();
-		clearTimeout(timer);
+		clearTimeout(this.timer);
 	}
 	
 	this.skipForward = function()
@@ -1185,7 +1136,7 @@ function AnimationManager(objectManager)
 			
 			this.animatedObjects.runFast = false;
 			this.fireEvent("AnimationEnded","NoData");
-			clearTimeout(timer);
+			clearTimeout(this.timer);
 			this.animatedObjects.update();
 			this.animatedObjects.draw();			
 		}
@@ -1218,7 +1169,7 @@ function AnimationManager(objectManager)
 				this.fireEvent("AnimationUndoUnavailable","NoData");
 			}
 			
-			clearTimeout(timer);
+			clearTimeout(this.timer);
 			this.animatedObjects.update();
 			this.animatedObjects.draw();
 			
@@ -1350,7 +1301,32 @@ function AnimationManager(objectManager)
 AnimationManager.prototype = new EventListener();
 AnimationManager.prototype.constructor = AnimationManager;
 
-				
+AnimationManager.prototype.addControlToAnimationBar = function(type,name,containerType)
+{
+	// return a dummy object if we're not using a control bar
+	if(!this.generalControlBar)
+		return {};
+	if (containerType == undefined)
+	{
+			containerType = "input";
+	}
+	var element = document.createElement(containerType);
+	
+        element.setAttribute("type", type);
+        element.setAttribute("value", name);
+	
+	
+	var tableEntry = document.createElement("td");
+	
+	tableEntry.appendChild(element);
+	
+	
+    //Append the element in page (in span).
+    this.generalControlBar.appendChild(tableEntry);
+	return element;
+	
+}				
+
 function SingleAnimation(id, fromX, fromY, toX, toY)
 {
 	this.objectID = id;
