@@ -34,13 +34,13 @@ HeapSort.inheritFrom(Algorithm);
 
 
 
-var ARRAY_SIZE  = 32;
-var ARRAY_ELEM_WIDTH = 30;
-var ARRAY_ELEM_HEIGHT = 25;
-var ARRAY_INITIAL_X = 30;
+HeapSort.ARRAY_SIZE  = 32;
+HeapSort.ARRAY_ELEM_WIDTH = 30;
+HeapSort.ARRAY_ELEM_HEIGHT = 25;
+HeapSort.ARRAY_INITIAL_X = 30;
 
-var ARRAY_Y_POS = 50;
-var ARRAY_LABEL_Y_POS = 70;
+HeapSort.ARRAY_Y_POS = 50;
+HeapSort.ARRAY_LABEL_Y_POS = 70;
 
 
 HeapSort.prototype.init = function(am)
@@ -82,25 +82,25 @@ HeapSort.prototype.addControls =  function()
 
 HeapSort.prototype.createArray = function()
 {
-	this.arrayData = new Array(ARRAY_SIZE);
-	this.arrayLabels = new Array(ARRAY_SIZE);
-	this.arrayRects = new Array(ARRAY_SIZE);
-	this.circleObjs = new Array(ARRAY_SIZE);
-	this.ArrayXPositions = new Array(ARRAY_SIZE);
-	this.oldData = new Array(ARRAY_SIZE);
+	this.arrayData = new Array(HeapSort.ARRAY_SIZE);
+	this.arrayLabels = new Array(HeapSort.ARRAY_SIZE);
+	this.arrayRects = new Array(HeapSort.ARRAY_SIZE);
+	this.circleObjs = new Array(HeapSort.ARRAY_SIZE);
+	this.ArrayXPositions = new Array(HeapSort.ARRAY_SIZE);
+	this.oldData = new Array(HeapSort.ARRAY_SIZE);
 	this.currentHeapSize = 0;
 	
-	for (var i = 1; i < ARRAY_SIZE; i++)
+	for (var i = 1; i < HeapSort.ARRAY_SIZE; i++)
 	{
 		this.arrayData[i] = Math.floor(1 + Math.random()*999);
 		this.oldData[i] = this.arrayData[i];
 		
-		this.ArrayXPositions[i] = ARRAY_INITIAL_X + i *ARRAY_ELEM_WIDTH;
+		this.ArrayXPositions[i] = HeapSort.ARRAY_INITIAL_X + i *HeapSort.ARRAY_ELEM_WIDTH;
 		this.arrayLabels[i] = this.nextIndex++;
 		this.arrayRects[i] = this.nextIndex++;
 		this.circleObjs[i] = this.nextIndex++;
-		this.cmd("CreateRectangle", this.arrayRects[i], this.arrayData[i], ARRAY_ELEM_WIDTH, ARRAY_ELEM_HEIGHT, this.ArrayXPositions[i] , ARRAY_Y_POS)
-		this.cmd("CreateLabel", this.arrayLabels[i], i - 1,  this.ArrayXPositions[i], ARRAY_LABEL_Y_POS);
+		this.cmd("CreateRectangle", this.arrayRects[i], this.arrayData[i], HeapSort.ARRAY_ELEM_WIDTH, HeapSort.ARRAY_ELEM_HEIGHT, this.ArrayXPositions[i] , HeapSort.ARRAY_Y_POS)
+		this.cmd("CreateLabel", this.arrayLabels[i], i - 1,  this.ArrayXPositions[i], HeapSort.ARRAY_LABEL_Y_POS);
 		this.cmd("SetForegroundColor", this.arrayLabels[i], "#0000FF");
 	}
 	this.swapLabel1 = this.nextIndex++;
@@ -121,7 +121,7 @@ HeapSort.prototype.createArray = function()
 HeapSort.prototype.heapsortCallback = function(event)
 {
 	this.commands = this.buildHeap("");
-	for (var i = ARRAY_SIZE - 1; i > 1; i--)
+	for (var i = HeapSort.ARRAY_SIZE - 1; i > 1; i--)
 	{
 		this.swap(i, 1);
 		this.cmd("SetAlpha", this.arrayRects[i], 0.2);
@@ -129,7 +129,7 @@ HeapSort.prototype.heapsortCallback = function(event)
 		this.currentHeapSize = i-1;
 		this.pushDown(1);
 	}
-	for (i = 1; i < ARRAY_SIZE; i++)
+	for (i = 1; i < HeapSort.ARRAY_SIZE; i++)
 	{
 		this.cmd("SetAlpha", this.arrayRects[i], 1);
 	}
@@ -146,7 +146,7 @@ HeapSort.prototype.randomizeCallback = function(ignored)
 HeapSort.prototype.randomizeArray = function()
 {
 	this.commands = new Array();
-	for (var i = 1; i < ARRAY_SIZE; i++)
+	for (var i = 1; i < HeapSort.ARRAY_SIZE; i++)
 	{
 		this.arrayData[i] = Math.floor(1 + Math.random()*999);
 		this.cmd("SetText", this.arrayRects[i], this.arrayData[i]);
@@ -161,7 +161,7 @@ HeapSort.prototype.randomizeArray = function()
 
 HeapSort.prototype.reset = function()
 {
-	for (var i = 1; i < ARRAY_SIZE; i++)
+	for (var i = 1; i < HeapSort.ARRAY_SIZE; i++)
 	{
 		
 		this.arrayData[i]= this.oldData[i];
@@ -177,12 +177,12 @@ HeapSort.prototype.swap = function(index1, index2)
 	this.cmd("SetText", this.arrayRects[index2], "");
 	this.cmd("SetText", this.circleObjs[index1], "");
 	this.cmd("SetText", this.circleObjs[index2], "");
-	this.cmd("CreateLabel", this.swapLabel1, this.arrayData[index1], this.ArrayXPositions[index1],ARRAY_Y_POS);
-	this.cmd("CreateLabel", this.swapLabel2, this.arrayData[index2], this.ArrayXPositions[index2],ARRAY_Y_POS);
+	this.cmd("CreateLabel", this.swapLabel1, this.arrayData[index1], this.ArrayXPositions[index1],HeapSort.ARRAY_Y_POS);
+	this.cmd("CreateLabel", this.swapLabel2, this.arrayData[index2], this.ArrayXPositions[index2],HeapSort.ARRAY_Y_POS);
 	this.cmd("CreateLabel", this.swapLabel3, this.arrayData[index1], this.HeapXPositions[index1],this.HeapYPositions[index1]);
 	this.cmd("CreateLabel", this.swapLabel4, this.arrayData[index2], this.HeapXPositions[index2],this.HeapYPositions[index2]);
-	this.cmd("Move", this.swapLabel1, this.ArrayXPositions[index2],ARRAY_Y_POS)
-	this.cmd("Move", this.swapLabel2, this.ArrayXPositions[index1],ARRAY_Y_POS)
+	this.cmd("Move", this.swapLabel1, this.ArrayXPositions[index2],HeapSort.ARRAY_Y_POS)
+	this.cmd("Move", this.swapLabel2, this.ArrayXPositions[index1],HeapSort.ARRAY_Y_POS)
 	this.cmd("Move", this.swapLabel3, this.HeapXPositions[index2],this.HeapYPositions[index2])
 	this.cmd("Move", this.swapLabel4, this.HeapXPositions[index1],this.HeapYPositions[index1])
 	var tmp = this.arrayData[index1];
@@ -257,7 +257,7 @@ HeapSort.prototype.pushDown = function(index)
 HeapSort.prototype.buildHeap = function(ignored)
 {
 	this.commands = new Array();
-	for (var i = 1; i < ARRAY_SIZE; i++)
+	for (var i = 1; i < HeapSort.ARRAY_SIZE; i++)
 	{
 		this.cmd("CreateCircle", this.circleObjs[i], this.arrayData[i], this.HeapXPositions[i], this.HeapYPositions[i]);
 		this.cmd("SetText", this.arrayRects[i], this.arrayData[i]);
@@ -268,7 +268,7 @@ HeapSort.prototype.buildHeap = function(ignored)
 		
 	}
 	this.cmd("Step");
-	this.currentHeapSize = ARRAY_SIZE - 1;
+	this.currentHeapSize = HeapSort.ARRAY_SIZE - 1;
 	var nextElem = this.currentHeapSize;
 	while(nextElem > 0)
 	{

@@ -35,25 +35,25 @@ function Hash(am, w, h)
 }
 Hash.inheritFrom(Algorithm);
 
-var MAX_HASH_LENGTH = 10;
+Hash.MAX_HASH_LENGTH = 10;
 
 
-var HASH_NUMBER_START_X = 200;
-var HASH_X_DIFF = 7;
-var HASH_NUMBER_START_Y = 10;
-var HASH_ADD_START_Y = 30;
-var HASH_INPUT_START_X = 60;
-var HASH_INPUT_X_DIFF = 7;
-var HASH_INPUT_START_Y = 45;
-var HASH_ADD_LINE_Y = 42;
-var HASH_RESULT_Y = 50;
-var ELF_HASH_SHIFT = 10;
+Hash.HASH_NUMBER_START_X = 200;
+Hash.HASH_X_DIFF = 7;
+Hash.HASH_NUMBER_START_Y = 10;
+Hash.HASH_ADD_START_Y = 30;
+Hash.HASH_INPUT_START_X = 60;
+Hash.HASH_INPUT_X_DIFF = 7;
+Hash.HASH_INPUT_START_Y = 45;
+Hash.HASH_ADD_LINE_Y = 42;
+Hash.HASH_RESULT_Y = 50;
+Hash.ELF_HASH_SHIFT = 10;
 
-var HASH_LABEL_X = 300;
-var HASH_LABEL_Y = 30;
-var HASH_LABEL_DELTA_X = 50;
+Hash.HASH_LABEL_X = 300;
+Hash.HASH_LABEL_Y = 30;
+Hash.HASH_LABEL_DELTA_X = 50;
 
-var HIGHLIGHT_COLOR = "#0000FF";
+Hash.HIGHLIGHT_COLOR = "#0000FF";
 
 
 
@@ -71,21 +71,21 @@ Hash.prototype.init = function(am, w, h)
 Hash.prototype.addControls = function()
 {
 	this.insertField = this.addControlToAlgorithmBar("Text", "");
-	this.insertField.size = MAX_HASH_LENGTH;
-	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), MAX_HASH_LENGTH, true);
+	this.insertField.size = Hash.MAX_HASH_LENGTH;
+	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), Hash.MAX_HASH_LENGTH, true);
 	this.insertButton = this.addControlToAlgorithmBar("Button", "Insert");
 	this.insertButton.onclick =  this.insertCallback.bind(this);
 	
 	this.deleteField = this.addControlToAlgorithmBar("Text", "");
-	this.deleteField.size = MAX_HASH_LENGTH;
-	this.deleteField.onkeydown = this.returnSubmit(this.insertField,  this.deleteCallback.bind(this), MAX_HASH_LENGTH, true);
+	this.deleteField.size = Hash.MAX_HASH_LENGTH;
+	this.deleteField.onkeydown = this.returnSubmit(this.insertField,  this.deleteCallback.bind(this), Hash.MAX_HASH_LENGTH, true);
 	this.deleteButton = this.addControlToAlgorithmBar("Button", "Delete");
 	this.deleteButton.onclick =  this.deleteCallback.bind(this);
 
 	
 	this.findField = this.addControlToAlgorithmBar("Text", "");
-	this.findField.size = MAX_HASH_LENGTH;
-	this.findField.onkeydown = this.returnSubmit(this.insertField,  this.findCallback.bind(this), MAX_HASH_LENGTH, true);
+	this.findField.size = Hash.MAX_HASH_LENGTH;
+	this.findField.onkeydown = this.returnSubmit(this.insertField,  this.findCallback.bind(this), Hash.MAX_HASH_LENGTH, true);
 	this.findButton = this.addControlToAlgorithmBar("Button", "Find");
 	this.findButton.onclick =  this.findCallback.bind(this);
 	
@@ -120,16 +120,16 @@ Hash.prototype.changeHashType = function(newHashingIntegerValue)
 	if (this.hashingIntegers)
 	{
 		this.hashIntegerButton.checked = true;
-		this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), MAX_HASH_LENGTH, true);
-		this.deleteField.onkeydown = this.returnSubmit(this.insertField,  this.deleteCallback.bind(this), MAX_HASH_LENGTH, true);
-		this.findField.onkeydown = this.returnSubmit(this.insertField,  this.findCallback.bind(this), MAX_HASH_LENGTH, true);
+		this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), Hash.MAX_HASH_LENGTH, true);
+		this.deleteField.onkeydown = this.returnSubmit(this.insertField,  this.deleteCallback.bind(this), Hash.MAX_HASH_LENGTH, true);
+		this.findField.onkeydown = this.returnSubmit(this.insertField,  this.findCallback.bind(this), Hash.MAX_HASH_LENGTH, true);
 	}
 	else
 	{
 		this.hashStringButton.checked = true;	
-		this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), MAX_HASH_LENGTH, false);
-		this.deleteField.onkeydown = this.returnSubmit(this.insertField,  this.deleteCallback.bind(this), MAX_HASH_LENGTH, false);
-		this.findField.onkeydown = this.returnSubmit(this.insertField,  this.findCallback.bind(this), MAX_HASH_LENGTH, false);
+		this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), Hash.MAX_HASH_LENGTH, false);
+		this.deleteField.onkeydown = this.returnSubmit(this.insertField,  this.deleteCallback.bind(this), Hash.MAX_HASH_LENGTH, false);
+		this.findField.onkeydown = this.returnSubmit(this.insertField,  this.findCallback.bind(this), Hash.MAX_HASH_LENGTH, false);
 	}
 	return this.resetAll();
 }
@@ -145,10 +145,10 @@ Hash.prototype.doHash = function(input)
 		var index = parseInt(input) % this.table_size;
 		this.currHash =  parseInt(input);
 				
-		this.cmd("CreateLabel", labelID1, input + " % " + String(this.table_size) + " = " , HASH_LABEL_X, HASH_LABEL_Y);
-		this.cmd("CreateLabel", labelID2,index,  HASH_LABEL_X + HASH_LABEL_DELTA_X, HASH_LABEL_Y);
+		this.cmd("CreateLabel", labelID1, input + " % " + String(this.table_size) + " = " , Hash.HASH_LABEL_X, Hash.HASH_LABEL_Y);
+		this.cmd("CreateLabel", labelID2,index,  Hash.HASH_LABEL_X + Hash.HASH_LABEL_DELTA_X, Hash.HASH_LABEL_Y);
 		this.cmd("Step");
-		this.cmd("CreateHighlightCircle", highlightID, HIGHLIGHT_COLOR, HASH_LABEL_X + HASH_LABEL_DELTA_X, HASH_LABEL_Y);
+		this.cmd("CreateHighlightCircle", highlightID, Hash.HIGHLIGHT_COLOR, Hash.HASH_LABEL_X + Hash.HASH_LABEL_DELTA_X, Hash.HASH_LABEL_Y);
 		this.cmd("Move", highlightID, this.indexXPos[index], this.indexYPos[index]);
 		this.cmd("Step");
 		this.cmd("Delete", labelID1);
@@ -170,7 +170,7 @@ Hash.prototype.doHash = function(input)
 		{
 			wordToHashID[i] = this.nextIndex++;
 			wordToHash[i] = input.charAt(i);
-			this.cmd("CreateLabel", wordToHashID[i], wordToHash[i], HASH_INPUT_START_X + i * HASH_INPUT_X_DIFF, HASH_INPUT_START_Y, 0);
+			this.cmd("CreateLabel", wordToHashID[i], wordToHash[i], Hash.HASH_INPUT_START_X + i * Hash.HASH_INPUT_X_DIFF, Hash.HASH_INPUT_START_Y, 0);
 		}
 		var digits = new Array(32);
 		var hashValue = new Array(32);
@@ -201,7 +201,7 @@ Hash.prototype.doHash = function(input)
 		{
 			for (j = 0; j < 32; j++)
 			{
-				this.cmd("CreateLabel", digits[j],hashValue[j], HASH_NUMBER_START_X + j * HASH_X_DIFF, HASH_NUMBER_START_Y, 0);					
+				this.cmd("CreateLabel", digits[j],hashValue[j], Hash.HASH_NUMBER_START_X + j * Hash.HASH_X_DIFF, Hash.HASH_NUMBER_START_Y, 0);					
 			}
 			this.cmd("Delete", wordToHashID[i]);
 			var nextChar = wordToHash[i].charCodeAt(0);
@@ -209,12 +209,12 @@ Hash.prototype.doHash = function(input)
 			{
 				nextByte[j] = nextChar % 2;
 				nextChar = Math.floor((nextChar / 2));
-				this.cmd("CreateLabel", nextByteID[j], nextByte[j], HASH_INPUT_START_X + i*HASH_INPUT_X_DIFF, HASH_INPUT_START_Y, 0);
-				this.cmd("Move", nextByteID[j], HASH_NUMBER_START_X + (j + 24) * HASH_X_DIFF, HASH_ADD_START_Y);
+				this.cmd("CreateLabel", nextByteID[j], nextByte[j], Hash.HASH_INPUT_START_X + i*Hash.HASH_INPUT_X_DIFF, Hash.HASH_INPUT_START_Y, 0);
+				this.cmd("Move", nextByteID[j], Hash.HASH_NUMBER_START_X + (j + 24) * Hash.HASH_X_DIFF, Hash.HASH_ADD_START_Y);
 			}
 			this.cmd("Step");
-			this.cmd("CreateRectangle", barID, "", 32 * HASH_X_DIFF, 0, HASH_NUMBER_START_X, HASH_ADD_LINE_Y,"left","bottom");
-			this.cmd("CreateLabel", operatorID, "+", HASH_NUMBER_START_X, HASH_ADD_START_Y, 0);
+			this.cmd("CreateRectangle", barID, "", 32 * Hash.HASH_X_DIFF, 0, Hash.HASH_NUMBER_START_X, Hash.HASH_ADD_LINE_Y,"left","bottom");
+			this.cmd("CreateLabel", operatorID, "+", Hash.HASH_NUMBER_START_X, Hash.HASH_ADD_START_Y, 0);
 			this.cmd("Step");
 			
 			var carry = 0;
@@ -246,7 +246,7 @@ Hash.prototype.doHash = function(input)
 			}
 			for (j = 0; j < 32; j++)
 			{
-				this.cmd("CreateLabel", resultDigits[j], hashValue[j], HASH_NUMBER_START_X + j * HASH_X_DIFF, HASH_RESULT_Y, 0);					
+				this.cmd("CreateLabel", resultDigits[j], hashValue[j], Hash.HASH_NUMBER_START_X + j * Hash.HASH_X_DIFF, Hash.HASH_RESULT_Y, 0);					
 			}
 			
 			this.cmd("Step");
@@ -259,14 +259,14 @@ Hash.prototype.doHash = function(input)
 			for (j = 0; j<32; j++)
 			{
 				this.cmd("Delete", digits[j]);
-				this.cmd("Move", resultDigits[j], HASH_NUMBER_START_X + j * HASH_X_DIFF, HASH_NUMBER_START_Y)
+				this.cmd("Move", resultDigits[j], Hash.HASH_NUMBER_START_X + j * Hash.HASH_X_DIFF, Hash.HASH_NUMBER_START_Y)
 			}
 			this.cmd("Step");
 			if (i > 0)
 			{
 				for (j = 0; j < 32; j++)
 				{
-					this.cmd("Move", resultDigits[j], HASH_NUMBER_START_X + (j - 4) * HASH_X_DIFF, HASH_NUMBER_START_Y)						
+					this.cmd("Move", resultDigits[j], Hash.HASH_NUMBER_START_X + (j - 4) * Hash.HASH_X_DIFF, Hash.HASH_NUMBER_START_Y)						
 				}
 				this.cmd("Step");
 				for (j = 0; j < 28; j++)
@@ -277,20 +277,20 @@ Hash.prototype.doHash = function(input)
 				
 				for (j = 0; j < 4; j++)
 				{
-					this.cmd("Move", resultDigits[j], HASH_NUMBER_START_X + (j + ELF_HASH_SHIFT) * HASH_X_DIFF, HASH_ADD_START_Y);
+					this.cmd("Move", resultDigits[j], Hash.HASH_NUMBER_START_X + (j + Hash.ELF_HASH_SHIFT) * Hash.HASH_X_DIFF, Hash.HASH_ADD_START_Y);
 					hashValue[j+28] = 0;
-					this.cmd("CreateLabel", floatingDigits[j],0, HASH_NUMBER_START_X + (j + 28) * HASH_X_DIFF, HASH_NUMBER_START_Y,0);
+					this.cmd("CreateLabel", floatingDigits[j],0, Hash.HASH_NUMBER_START_X + (j + 28) * Hash.HASH_X_DIFF, Hash.HASH_NUMBER_START_Y,0);
 					if (floatingVals[j])
 					{
-						hashValue[j + ELF_HASH_SHIFT] = 1 - hashValue[j + ELF_HASH_SHIFT];
+						hashValue[j + Hash.ELF_HASH_SHIFT] = 1 - hashValue[j + Hash.ELF_HASH_SHIFT];
 					}
 				}
-				this.cmd("CreateRectangle", barID, "", 32 * HASH_X_DIFF, 0, HASH_NUMBER_START_X, HASH_ADD_LINE_Y,"left","bottom");
-				this.cmd("CreateLabel", operatorID, "XOR", HASH_NUMBER_START_X, HASH_ADD_START_Y, 0);
+				this.cmd("CreateRectangle", barID, "", 32 * Hash.HASH_X_DIFF, 0, Hash.HASH_NUMBER_START_X, Hash.HASH_ADD_LINE_Y,"left","bottom");
+				this.cmd("CreateLabel", operatorID, "XOR", Hash.HASH_NUMBER_START_X, Hash.HASH_ADD_START_Y, 0);
 				this.cmd("Step");
 				for (j = 0; j < 32; j++)
 				{
-					this.cmd("CreateLabel", digits[j], hashValue[j], HASH_NUMBER_START_X + j * HASH_X_DIFF, HASH_RESULT_Y, 0);					
+					this.cmd("CreateLabel", digits[j], hashValue[j], Hash.HASH_NUMBER_START_X + j * Hash.HASH_X_DIFF, Hash.HASH_RESULT_Y, 0);					
 				}
 				this.cmd("Step");
 				
@@ -299,7 +299,7 @@ Hash.prototype.doHash = function(input)
 				for (j = 0; j<32; j++)
 				{
 					this.cmd("Delete", resultDigits[j]);
-					this.cmd("Move", digits[j], HASH_NUMBER_START_X + j * HASH_X_DIFF, HASH_NUMBER_START_Y)
+					this.cmd("Move", digits[j], Hash.HASH_NUMBER_START_X + j * Hash.HASH_X_DIFF, Hash.HASH_NUMBER_START_Y)
 				}
 				for (j = 0; j < 4; j++)
 				{
@@ -323,14 +323,14 @@ Hash.prototype.doHash = function(input)
 		this.cmd("Delete", label1);
 		for (j = 0; j < 32; j++)
 		{
-			this.cmd("CreateLabel", digits[j],hashValue[j], HASH_NUMBER_START_X + j * HASH_X_DIFF, HASH_NUMBER_START_Y, 0);
+			this.cmd("CreateLabel", digits[j],hashValue[j], Hash.HASH_NUMBER_START_X + j * Hash.HASH_X_DIFF, Hash.HASH_NUMBER_START_Y, 0);
 		}
 		this.currHash = 0;
 		for (j=0; j < 32; j++)
 		{
 			this.currHash = this.currHash * 2 + hashValue[j];
 		}
-		this.cmd("CreateLabel", label1, " = " + String(this.currHash), HASH_NUMBER_START_X + 32*HASH_X_DIFF, HASH_NUMBER_START_Y, 0);
+		this.cmd("CreateLabel", label1, " = " + String(this.currHash), Hash.HASH_NUMBER_START_X + 32*Hash.HASH_X_DIFF, Hash.HASH_NUMBER_START_Y, 0);
 		this.cmd("Step");
 		for (j = 0; j < 32; j++)
 		{
@@ -340,10 +340,10 @@ Hash.prototype.doHash = function(input)
 		var label2 = this.nextIndex++;
 		this.cmd("SetText", label1, String(this.currHash) + " % " +  String(this.table_size) + " = ");
 		index = this.currHash % this.table_size;
-		this.cmd("CreateLabel", label2, index,  HASH_NUMBER_START_X + 32*HASH_X_DIFF + 105, HASH_NUMBER_START_Y, 0);
+		this.cmd("CreateLabel", label2, index,  Hash.HASH_NUMBER_START_X + 32*Hash.HASH_X_DIFF + 105, Hash.HASH_NUMBER_START_Y, 0);
 		this.cmd("Step");
 		highlightID = this.nextIndex++;
-		this.cmd("CreateHighlightCircle", highlightID, HIGHLIGHT_COLOR,  HASH_NUMBER_START_X + 30*HASH_X_DIFF + 120,  HASH_NUMBER_START_Y+ 15);
+		this.cmd("CreateHighlightCircle", highlightID, Hash.HIGHLIGHT_COLOR,  Hash.HASH_NUMBER_START_X + 30*Hash.HASH_X_DIFF + 120,  Hash.HASH_NUMBER_START_Y+ 15);
 		this.cmd("Move", highlightID, this.indexXPos[index], this.indexYPos[index]);
 		this.cmd("Step");
 		this.cmd("Delete", highlightID);

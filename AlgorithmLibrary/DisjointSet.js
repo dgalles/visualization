@@ -25,25 +25,25 @@
 // or implied, of the University of San Francisco
 
 
-var ARRAY_START_X = 50;
-var ARRAY_WIDTH = 30;
-var ARRAY_HEIGHT = 30;
+DisjointSet.ARRAY_START_X = 50;
+DisjointSet.ARRAY_WIDTH = 30;
+DisjointSet.ARRAY_HEIGHT = 30;
 
-var TREE_START_X = 50;
-var TREE_ELEM_WIDTH = 50;
-var TREE_ELEM_HEIGHT = 50; 
+DisjointSet.TREE_START_X = 50;
+DisjointSet.TREE_ELEM_WIDTH = 50;
+DisjointSet.TREE_ELEM_HEIGHT = 50; 
 
 var SIZE = 16;
 
-var LINK_COLOR = "#007700"
-var HIGHLIGHT_CIRCLE_COLOR = "#007700";
-var FOREGROUND_COLOR = "#007700";
-var BACKGROUND_COLOR = "#EEFFEE";
-var PRINT_COLOR = FOREGROUND_COLOR;
+DisjointSet.LINK_COLOR = "#007700"
+DisjointSet.HIGHLIGHT_CIRCLE_COLOR = "#007700";
+DisjointSet.FOREGROUND_COLOR = "#007700";
+DisjointSet.BACKGROUND_COLOR = "#EEFFEE";
+DisjointSet.PRINT_COLOR = DisjointSet.FOREGROUND_COLOR;
 
 function DisjointSet(am, w, h)
 {
-	this.array_start_y = h - 2 * ARRAY_HEIGHT;
+	this.array_start_y = h - 2 * DisjointSet.ARRAY_HEIGHT;
 	this.tree_start_y = this.array_start_y - 50;
 	this.init(am);
 	
@@ -155,13 +155,13 @@ DisjointSet.prototype.setup = function()
 
 	for (var i = 0; i < SIZE; i++)
 	{
-		this.cmd("CreateRectangle", this.arrayID[i], this.setData[i], ARRAY_WIDTH, ARRAY_HEIGHT, ARRAY_START_X + i *ARRAY_WIDTH, this.array_start_y);
-		this.cmd("CreateLabel",this.arrayLabelID[i],  i,  ARRAY_START_X + i *ARRAY_WIDTH, this.array_start_y + ARRAY_HEIGHT);
+		this.cmd("CreateRectangle", this.arrayID[i], this.setData[i], DisjointSet.ARRAY_WIDTH, DisjointSet.ARRAY_HEIGHT, DisjointSet.ARRAY_START_X + i *DisjointSet.ARRAY_WIDTH, this.array_start_y);
+		this.cmd("CreateLabel",this.arrayLabelID[i],  i,  DisjointSet.ARRAY_START_X + i *DisjointSet.ARRAY_WIDTH, this.array_start_y + DisjointSet.ARRAY_HEIGHT);
 		this.cmd("SetForegroundColor", this.arrayLabelID[i], "#0000FF");
 
-		this.cmd("CreateCircle", this.treeID[i], i,  TREE_START_X + this.treeIndexToLocation[i] * TREE_ELEM_WIDTH, this.treeY[i]);
-		this.cmd("SetForegroundColor",  this.treeID[i], FOREGROUND_COLOR);
-		this.cmd("SetBackgroundColor",  this.treeID[i], BACKGROUND_COLOR);
+		this.cmd("CreateCircle", this.treeID[i], i,  DisjointSet.TREE_START_X + this.treeIndexToLocation[i] * DisjointSet.TREE_ELEM_WIDTH, this.treeY[i]);
+		this.cmd("SetForegroundColor",  this.treeID[i], DisjointSet.FOREGROUND_COLOR);
+		this.cmd("SetBackgroundColor",  this.treeID[i], DisjointSet.BACKGROUND_COLOR);
 		
 	}
 	
@@ -416,7 +416,7 @@ DisjointSet.prototype.clearAll = function()
 		this.treeIndexToLocation[i] = i;
 		this.locationToTreeIndex[i] = i;
 		this.treeY[i] =  this.tree_start_y;
-		this.cmd("SetPosition", this.treeID[i], TREE_START_X + this.treeIndexToLocation[i] * TREE_ELEM_WIDTH, this.treeY[i]);				
+		this.cmd("SetPosition", this.treeID[i], DisjointSet.TREE_START_X + this.treeIndexToLocation[i] * DisjointSet.TREE_ELEM_WIDTH, this.treeY[i]);				
 	}
 	
 	
@@ -462,7 +462,7 @@ DisjointSet.prototype.doFind = function(elem)
 				this.cmd("SetText", this.arrayID[elem], this.setData[elem]);
 				this.cmd("Connect", this.treeID[elem],
 							   this.treeID[treeRoot],
-							   FOREGROUND_COLOR, 
+							   DisjointSet.FOREGROUND_COLOR, 
 							   0, // Curve
 							   1, // Directed
 							   ""); // Label
@@ -551,11 +551,11 @@ DisjointSet.prototype.doUnion = function(value)
 	var args = value.split(";");
 	var arg1 = this.doFind(parseInt(args[0]));
 
-	this.cmd("CreateHighlightCircle", this.highlight1ID, HIGHLIGHT_CIRCLE_COLOR, TREE_START_X + this.treeIndexToLocation[arg1] * TREE_ELEM_WIDTH, this.treeY[arg1]);
+	this.cmd("CreateHighlightCircle", this.highlight1ID, DisjointSet.HIGHLIGHT_CIRCLE_COLOR, DisjointSet.TREE_START_X + this.treeIndexToLocation[arg1] * DisjointSet.TREE_ELEM_WIDTH, this.treeY[arg1]);
 
 	
 	var arg2 = this.doFind(parseInt(args[1]));
-	this.cmd("CreateHighlightCircle", this.highlight2ID, HIGHLIGHT_CIRCLE_COLOR, TREE_START_X + this.treeIndexToLocation[arg2] * TREE_ELEM_WIDTH, this.treeY[arg2]);
+	this.cmd("CreateHighlightCircle", this.highlight2ID, DisjointSet.HIGHLIGHT_CIRCLE_COLOR, DisjointSet.TREE_START_X + this.treeIndexToLocation[arg2] * DisjointSet.TREE_ELEM_WIDTH, this.treeY[arg2]);
 	
 	
 	if (arg1 == arg2)
@@ -603,7 +603,7 @@ DisjointSet.prototype.doUnion = function(value)
 	
 	this.cmd("Connect", this.treeID[arg1],
 				   this.treeID[arg2],
-				   FOREGROUND_COLOR, 
+				   DisjointSet.FOREGROUND_COLOR, 
 					   0, // Curve
 					   1, // Directed
 					   ""); // Label
@@ -662,7 +662,7 @@ DisjointSet.prototype.adjustHeights = function()
 	}
 	for (i = 0; i < SIZE; i++)
 	{
-		var newY = this.tree_start_y - this.heights[i] * TREE_ELEM_HEIGHT;
+		var newY = this.tree_start_y - this.heights[i] * DisjointSet.TREE_ELEM_HEIGHT;
 		if (this.treeY[i] != newY)
 		{
 			this.treeY[i] = newY;
@@ -677,7 +677,7 @@ DisjointSet.prototype.animateNewPositions = function()
 {
 	for (var i = 0; i < SIZE; i++)
 	{
-		this.cmd("Move", this.treeID[i], TREE_START_X + this.treeIndexToLocation[i] * TREE_ELEM_WIDTH, this.treeY[i]);
+		this.cmd("Move", this.treeID[i], DisjointSet.TREE_START_X + this.treeIndexToLocation[i] * DisjointSet.TREE_ELEM_WIDTH, this.treeY[i]);
 	}
 }
 

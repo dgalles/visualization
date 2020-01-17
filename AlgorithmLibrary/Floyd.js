@@ -120,7 +120,7 @@ Floyd.prototype.reset = function()
 
 Floyd.prototype.smallGraphCallback = function (event)
 {
-	if (this.size != SMALL_SIZE)
+	if (this.size != Graph.SMALL_SIZE)
 	{
 		this.animationManager.resetAll();
 		this.animationManager.setAllLayers([0,this.currentLayer]);
@@ -133,7 +133,7 @@ Floyd.prototype.smallGraphCallback = function (event)
 
 Graph.prototype.largeGraphCallback = function (event)
 {
-	if (this.size != LARGE_SIZE)
+	if (this.size != Graph.LARGE_SIZE)
 	{
 		this.animationManager.resetAll();
 		//this.animationManager.setAllLayers([0]);
@@ -154,7 +154,7 @@ Floyd.prototype.getCostLabel = function(value, alwaysUseINF)
 	{
 		return String(value);
 	}
-	else if (this.size == SMALL_SIZE || alwaysUseINF)
+	else if (this.size == Graph.SMALL_SIZE || alwaysUseINF)
 	{
 		return "INF";
 	}
@@ -283,7 +283,7 @@ Floyd.prototype.setup = function()
 	this.animationManager.StartNewAnimation(this.commands);
 	this.animationManager.skipForward();
 	this.animationManager.clearHistory();
-	if (this.size == LARGE_SIZE)
+	if (this.size == Graph.LARGE_SIZE)
 	{
 		this.animationManager.setAllLayers([0]);
 	}

@@ -99,7 +99,7 @@ Kruskal.prototype.setup = function()
 		this.setIndexID[i] = this.nextIndex++;
 		this.cmd("CreateRectangle", this.setID[i], "-1", Kruskal.SET_ARRAY_ELEM_WIDTH, Kruskal.SET_ARRAY_ELEM_HEIGHT, Kruskal.SET_ARRAY_START_X, Kruskal.SET_ARRAY_START_Y + i*Kruskal.SET_ARRAY_ELEM_HEIGHT);
 		this.cmd("CreateLabel", this.setIndexID[i], i, Kruskal.SET_ARRAY_START_X - Kruskal.SET_ARRAY_ELEM_WIDTH ,Kruskal.SET_ARRAY_START_Y + i*Kruskal.SET_ARRAY_ELEM_HEIGHT);
-		this.cmd("SetForegroundColor",  this.setIndexID[i], VERTEX_INDEX_COLOR);				
+		this.cmd("SetForegroundColor",  this.setIndexID[i], Graph.VERTEX_INDEX_COLOR);				
 	}
 	this.cmd("CreateLabel", this.nextIndex++, "Disjoint Set", Kruskal.SET_ARRAY_START_X - 1 * Kruskal.SET_ARRAY_ELEM_WIDTH, Kruskal.SET_ARRAY_START_Y - Kruskal.SET_ARRAY_ELEM_HEIGHT * 1.5, 0);
 	this.animationManager.setAllLayers([0, this.currentLayer]);
@@ -172,7 +172,7 @@ Kruskal.prototype.doKruskal = function(ignored)
 					Kruskal.EDGE_LIST_START_Y + (top % Kruskal.EDGE_LIST_MAX_PER_COLUMN) * Kruskal.EDGE_LIST_ELEM_HEIGHT);
 				this.cmd("CreateLabel", this.edgesListRightID[top], j, Kruskal.EDGE_LIST_START_X +Kruskal.EDGE_LIST_ELEM_WIDTH +  Math.floor(top / Kruskal.EDGE_LIST_MAX_PER_COLUMN) * Kruskal.EDGE_LIST_COLUMN_WIDTH,
 					Kruskal.EDGE_LIST_START_Y + (top % Kruskal.EDGE_LIST_MAX_PER_COLUMN) * Kruskal.EDGE_LIST_ELEM_HEIGHT);
-				this.cmd("Connect", this.edgesListLeftID[top], this.edgesListRightID[top], EDGE_COLOR, 0, 0, this.adj_matrix[i][j])
+				this.cmd("Connect", this.edgesListLeftID[top], this.edgesListRightID[top], Graph.EDGE_COLOR, 0, 0, this.adj_matrix[i][j])
 			}					
 		}
 	}

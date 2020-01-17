@@ -34,13 +34,13 @@ Heap.inheritFrom(Algorithm);
 
 
 
-var ARRAY_SIZE  = 32;
-var ARRAY_ELEM_WIDTH = 30;
-var ARRAY_ELEM_HEIGHT = 25;
-var ARRAY_INITIAL_X = 30;
+Heap.ARRAY_SIZE  = 32;
+Heap.ARRAY_ELEM_WIDTH = 30;
+Heap.ARRAY_ELEM_HEIGHT = 25;
+Heap.ARRAY_INITIAL_X = 30;
 
-var ARRAY_Y_POS = 50;
-var ARRAY_LABEL_Y_POS = 70;
+Heap.ARRAY_Y_POS = 50;
+Heap.ARRAY_LABEL_Y_POS = 70;
 
 
 Heap.prototype.init = function(am)
@@ -87,21 +87,21 @@ Heap.prototype.addControls =  function()
 
 Heap.prototype.createArray = function()
 {
-	this.arrayData = new Array(ARRAY_SIZE);
-	this.arrayLabels = new Array(ARRAY_SIZE);
-	this.arrayRects = new Array(ARRAY_SIZE);
-	this.circleObjs = new Array(ARRAY_SIZE);
-	this.ArrayXPositions = new Array(ARRAY_SIZE);
+	this.arrayData = new Array(Heap.ARRAY_SIZE);
+	this.arrayLabels = new Array(Heap.ARRAY_SIZE);
+	this.arrayRects = new Array(Heap.ARRAY_SIZE);
+	this.circleObjs = new Array(Heap.ARRAY_SIZE);
+	this.ArrayXPositions = new Array(Heap.ARRAY_SIZE);
 	this.currentHeapSize = 0;
 	
-	for (var i = 0; i < ARRAY_SIZE; i++)
+	for (var i = 0; i < Heap.ARRAY_SIZE; i++)
 	{
-		this.ArrayXPositions[i] = ARRAY_INITIAL_X + i *ARRAY_ELEM_WIDTH;
+		this.ArrayXPositions[i] = Heap.ARRAY_INITIAL_X + i *Heap.ARRAY_ELEM_WIDTH;
 		this.arrayLabels[i] = this.nextIndex++;
 		this.arrayRects[i] = this.nextIndex++;
 		this.circleObjs[i] = this.nextIndex++;
-		this.cmd("CreateRectangle", this.arrayRects[i], "", ARRAY_ELEM_WIDTH, ARRAY_ELEM_HEIGHT, this.ArrayXPositions[i] , ARRAY_Y_POS)
-		this.cmd("CreateLabel", this.arrayLabels[i], i,  this.ArrayXPositions[i], ARRAY_LABEL_Y_POS);
+		this.cmd("CreateRectangle", this.arrayRects[i], "", Heap.ARRAY_ELEM_WIDTH, Heap.ARRAY_ELEM_HEIGHT, this.ArrayXPositions[i] , Heap.ARRAY_Y_POS)
+		this.cmd("CreateLabel", this.arrayLabels[i], i,  this.ArrayXPositions[i], Heap.ARRAY_LABEL_Y_POS);
 		this.cmd("SetForegroundColor", this.arrayLabels[i], "#0000FF");
 	}
 	this.cmd("SetText", this.arrayRects[0], "-INF");
@@ -169,12 +169,12 @@ Heap.prototype.swap = function(index1, index2)
 	this.cmd("SetText", this.arrayRects[index2], "");
 	this.cmd("SetText", this.circleObjs[index1], "");
 	this.cmd("SetText", this.circleObjs[index2], "");
-	this.cmd("CreateLabel", this.swapLabel1, this.arrayData[index1], this.ArrayXPositions[index1],ARRAY_Y_POS);
-	this.cmd("CreateLabel", this.swapLabel2, this.arrayData[index2], this.ArrayXPositions[index2],ARRAY_Y_POS);
+	this.cmd("CreateLabel", this.swapLabel1, this.arrayData[index1], this.ArrayXPositions[index1],Heap.ARRAY_Y_POS);
+	this.cmd("CreateLabel", this.swapLabel2, this.arrayData[index2], this.ArrayXPositions[index2],Heap.ARRAY_Y_POS);
 	this.cmd("CreateLabel", this.swapLabel3, this.arrayData[index1], this.HeapXPositions[index1],this.HeapYPositions[index1]);
 	this.cmd("CreateLabel", this.swapLabel4, this.arrayData[index2], this.HeapXPositions[index2],this.HeapYPositions[index2]);
-	this.cmd("Move", this.swapLabel1, this.ArrayXPositions[index2],ARRAY_Y_POS)
-	this.cmd("Move", this.swapLabel2, this.ArrayXPositions[index1],ARRAY_Y_POS)
+	this.cmd("Move", this.swapLabel1, this.ArrayXPositions[index2],Heap.ARRAY_Y_POS)
+	this.cmd("Move", this.swapLabel2, this.ArrayXPositions[index1],Heap.ARRAY_Y_POS)
 	this.cmd("Move", this.swapLabel3, this.HeapXPositions[index2],this.HeapYPositions[index2])
 	this.cmd("Move", this.swapLabel4, this.HeapXPositions[index1],this.HeapYPositions[index1])
 	var tmp = this.arrayData[index1];
@@ -292,9 +292,9 @@ Heap.prototype.buildHeap = function(ignored)
 {
 	this.commands = [];
 	this.clear();
-	for (var i = 1; i <ARRAY_SIZE; i++)
+	for (var i = 1; i <Heap.ARRAY_SIZE; i++)
 	{
-		this.arrayData[i] = this.normalizeNumber(String(ARRAY_SIZE - i), 4);
+		this.arrayData[i] = this.normalizeNumber(String(Heap.ARRAY_SIZE - i), 4);
 		this.cmd("CreateCircle", this.circleObjs[i], this.arrayData[i], this.HeapXPositions[i], this.HeapYPositions[i]);
 		this.cmd("SetText", this.arrayRects[i], this.arrayData[i]);
 		if (i > 1)
@@ -304,7 +304,7 @@ Heap.prototype.buildHeap = function(ignored)
 		
 	}
 	this.cmd("Step");
-	this.currentHeapSize = ARRAY_SIZE - 1;
+	this.currentHeapSize = Heap.ARRAY_SIZE - 1;
 	var nextElem = this.currentHeapSize;
 	while(nextElem > 0)
 	{
@@ -318,7 +318,7 @@ Heap.prototype.insertElement = function(insertedValue)
 {
 	this.commands = new Array();
 	
-	if (this.currentHeapSize >= ARRAY_SIZE - 1)
+	if (this.currentHeapSize >= Heap.ARRAY_SIZE - 1)
 	{
 		this.cmd("SetText", this.descriptLabel1, "Heap Full!");
 		return this.commands;

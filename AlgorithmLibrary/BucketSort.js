@@ -33,27 +33,27 @@ function BucketSort(am, w, h)
 }
 
 
-var ARRAY_ELEM_WIDTH_SMALL = 30;
-var ARRAY_ELEM_HEIGHT_SMALL = 30;
-var ARRAY_ELEM_START_X_SMALL = 20;
+BucketSort.ARRAY_ELEM_WIDTH_SMALL = 30;
+BucketSort.ARRAY_ELEM_HEIGHT_SMALL = 30;
+BucketSort.ARRAY_ELEM_START_X_SMALL = 20;
 
-var ARRAY_ELEMENT_Y_SMALL = 150;
+BucketSort.ARRAY_ELEMENT_Y_SMALL = 150;
 
-var POINTER_ARRAY_ELEM_WIDTH_SMALL = 30;
-var POINTER_ARRAY_ELEM_HEIGHT_SMALL = 30;
-var POINTER_ARRAY_ELEM_START_X_SMALL = 20;
+BucketSort.POINTER_ARRAY_ELEM_WIDTH_SMALL = 30;
+BucketSort.POINTER_ARRAY_ELEM_HEIGHT_SMALL = 30;
+BucketSort.POINTER_ARRAY_ELEM_START_X_SMALL = 20;
 
-var LINKED_ITEM_HEIGHT_SMALL = 30;
-var LINKED_ITEM_WIDTH_SMALL = 24;
+BucketSort.LINKED_ITEM_HEIGHT_SMALL = 30;
+BucketSort.LINKED_ITEM_WIDTH_SMALL = 24;
 
-var LINKED_ITEM_Y_DELTA_SMALL = 50;
-var LINKED_ITEM_POINTER_PERCENT_SMALL = 0.25;
+BucketSort.LINKED_ITEM_Y_DELTA_SMALL = 50;
+BucketSort.LINKED_ITEM_POINTER_PERCENT_SMALL = 0.25;
 
-var MAX_DATA_VALUE = 999;
+BucketSort.MAX_DATA_VALUE = 999;
 
-var ARRAY_SIZE_SMALL  = 30;
+BucketSort.ARRAY_SIZE_SMALL  = 30;
 
-var ARRAY_Y_POS = 350;
+BucketSort.ARRAY_Y_POS = 350;
 
 
 BucketSort.inheritFrom(Algorithm);
@@ -85,34 +85,34 @@ BucketSort.prototype.addControls =  function()
 
 BucketSort.prototype.setup = function()
 {
-	this.arrayData = new Array(ARRAY_SIZE_SMALL);
-	this.arrayRects= new Array(ARRAY_SIZE_SMALL);
-	this.linkedListRects = new Array(ARRAY_SIZE_SMALL);
-	this.linkedListData = new Array(ARRAY_SIZE_SMALL);
-	this.upperIndices = new Array(ARRAY_SIZE_SMALL);
-	this.lowerIndices = new Array(ARRAY_SIZE_SMALL);
+	this.arrayData = new Array(BucketSort.ARRAY_SIZE_SMALL);
+	this.arrayRects= new Array(BucketSort.ARRAY_SIZE_SMALL);
+	this.linkedListRects = new Array(BucketSort.ARRAY_SIZE_SMALL);
+	this.linkedListData = new Array(BucketSort.ARRAY_SIZE_SMALL);
+	this.upperIndices = new Array(BucketSort.ARRAY_SIZE_SMALL);
+	this.lowerIndices = new Array(BucketSort.ARRAY_SIZE_SMALL);
 	this.commands = new Array();
-	this.oldData = new Array(ARRAY_SIZE_SMALL);
+	this.oldData = new Array(BucketSort.ARRAY_SIZE_SMALL);
 	
-	for (var i = 0; i < ARRAY_SIZE_SMALL; i++)
+	for (var i = 0; i < BucketSort.ARRAY_SIZE_SMALL; i++)
 	{
 		var nextID = this.nextIndex++;
-		this.arrayData[i] = Math.floor(Math.random()*MAX_DATA_VALUE);
+		this.arrayData[i] = Math.floor(Math.random()*BucketSort.MAX_DATA_VALUE);
 		this.oldData[i] = this.arrayData[i];
-		this.cmd("CreateRectangle", nextID, this.arrayData[i], ARRAY_ELEM_WIDTH_SMALL, ARRAY_ELEM_HEIGHT_SMALL, ARRAY_ELEM_START_X_SMALL + i *ARRAY_ELEM_WIDTH_SMALL, ARRAY_ELEMENT_Y_SMALL)
+		this.cmd("CreateRectangle", nextID, this.arrayData[i], BucketSort.ARRAY_ELEM_WIDTH_SMALL, BucketSort.ARRAY_ELEM_HEIGHT_SMALL, BucketSort.ARRAY_ELEM_START_X_SMALL + i *BucketSort.ARRAY_ELEM_WIDTH_SMALL, BucketSort.ARRAY_ELEMENT_Y_SMALL)
 		this.arrayRects[i] = nextID;
 		nextID = this.nextIndex++;
-		this.cmd("CreateRectangle", nextID, "", POINTER_ARRAY_ELEM_WIDTH_SMALL, POINTER_ARRAY_ELEM_HEIGHT_SMALL, POINTER_ARRAY_ELEM_START_X_SMALL + i *POINTER_ARRAY_ELEM_WIDTH_SMALL, this.pointer_array_elem_y_small)
+		this.cmd("CreateRectangle", nextID, "", BucketSort.POINTER_ARRAY_ELEM_WIDTH_SMALL, BucketSort.POINTER_ARRAY_ELEM_HEIGHT_SMALL, BucketSort.POINTER_ARRAY_ELEM_START_X_SMALL + i *BucketSort.POINTER_ARRAY_ELEM_WIDTH_SMALL, this.pointer_array_elem_y_small)
 		this.linkedListRects[i] = nextID;
 		this.cmd("SetNull", this.linkedListRects[i], 1);
 		nextID = this.nextIndex++;
 		this.upperIndices[i] = nextID;
-		this.cmd("CreateLabel",nextID,  i,  ARRAY_ELEM_START_X_SMALL + i *ARRAY_ELEM_WIDTH_SMALL, ARRAY_ELEMENT_Y_SMALL + ARRAY_ELEM_HEIGHT_SMALL);
+		this.cmd("CreateLabel",nextID,  i,  BucketSort.ARRAY_ELEM_START_X_SMALL + i *BucketSort.ARRAY_ELEM_WIDTH_SMALL, BucketSort.ARRAY_ELEMENT_Y_SMALL + BucketSort.ARRAY_ELEM_HEIGHT_SMALL);
 		this.cmd("SetForegroundColor", nextID, "#0000FF");
 		
 		nextID = this.nextIndex++;
 		this.lowerIndices[i] = nextID;
-		this.cmd("CreateLabel", nextID, i, POINTER_ARRAY_ELEM_START_X_SMALL + i *POINTER_ARRAY_ELEM_WIDTH_SMALL, this.pointer_array_elem_y_small + POINTER_ARRAY_ELEM_HEIGHT_SMALL);
+		this.cmd("CreateLabel", nextID, i, BucketSort.POINTER_ARRAY_ELEM_START_X_SMALL + i *BucketSort.POINTER_ARRAY_ELEM_WIDTH_SMALL, this.pointer_array_elem_y_small + BucketSort.POINTER_ARRAY_ELEM_HEIGHT_SMALL);
 		this.cmd("SetForegroundColor", nextID, "#0000FF");
 	}
 	this.animationManager.StartNewAnimation(this.commands);
@@ -125,30 +125,30 @@ BucketSort.prototype.bucketSortCallback = function(event)
 {
 	var savedIndex = this.nextIndex;
 	this.commands = new Array();
-	linkedListData = new Array(ARRAY_SIZE_SMALL);
+	linkedListData = new Array(BucketSort.ARRAY_SIZE_SMALL);
 	var i;
-	for (i= 0; i < ARRAY_SIZE_SMALL; i++)
+	for (i= 0; i < BucketSort.ARRAY_SIZE_SMALL; i++)
 	{
 		var labelID = this.nextIndex++;
 		var label2ID = this.nextIndex++;
 		var label3ID = this.nextIndex++;
 		var label4ID = this.nextIndex++;
 		var node  = new LinkedListNode(this.arrayData[i],this.nextIndex++, 100, 75);
-		this.cmd("CreateLinkedList", node.graphicID, "", LINKED_ITEM_WIDTH_SMALL, LINKED_ITEM_HEIGHT_SMALL, 100, 75);
+		this.cmd("CreateLinkedList", node.graphicID, "", BucketSort.LINKED_ITEM_WIDTH_SMALL, BucketSort.LINKED_ITEM_HEIGHT_SMALL, 100, 75);
 		this.cmd("SetNull", node.graphicID, 1);
 		
-		this.cmd("CreateLabel", labelID, this.arrayData[i], ARRAY_ELEM_START_X_SMALL + i *ARRAY_ELEM_WIDTH_SMALL, ARRAY_ELEMENT_Y_SMALL);
+		this.cmd("CreateLabel", labelID, this.arrayData[i], BucketSort.ARRAY_ELEM_START_X_SMALL + i *BucketSort.ARRAY_ELEM_WIDTH_SMALL, BucketSort.ARRAY_ELEMENT_Y_SMALL);
 		this.cmd("SetText", node.graphicID, "")
 		this.cmd("SetText", this.arrayRects[i], "")
 		this.cmd("Move", labelID, 100,75);
 		this.cmd("Step");
 		this.cmd("SetText", node.graphicID, this.arrayData[i]);
 		this.cmd("Delete", labelID);
-		var index  = Math.floor((this.arrayData[i]  * ARRAY_SIZE_SMALL) / (MAX_DATA_VALUE + 1));
+		var index  = Math.floor((this.arrayData[i]  * BucketSort.ARRAY_SIZE_SMALL) / (BucketSort.MAX_DATA_VALUE + 1));
 		
 		this.cmd("CreateLabel", labelID, "Linked List Array index = " ,  300, 20, 0);
-		this.cmd("CreateLabel", label2ID, "Value * NUMBER_OF_ELEMENTS / (MAXIMUM_ARRAY_VALUE + 1)) = ",  300, 40, 0);
-		this.cmd("CreateLabel", label3ID, "("+ String(this.arrayData[i]) + " * " + String(ARRAY_SIZE_SMALL) + ") / " + String(MAX_DATA_VALUE+1) + " = " , 300, 60, 0);
+		this.cmd("CreateLabel", label2ID, "Value * BucketSort.NUMBER_OF_ELEMENTS / (BucketSort.MAXIMUM_ARRAY_VALUE + 1)) = ",  300, 40, 0);
+		this.cmd("CreateLabel", label3ID, "("+ String(this.arrayData[i]) + " * " + String(BucketSort.ARRAY_SIZE_SMALL) + ") / " + String(BucketSort.MAX_DATA_VALUE+1) + " = " , 300, 60, 0);
 		this.cmd("CreateLabel", label4ID, index, 305, 85);
 		this.cmd("SetForegroundColor", labelID, "#000000");
 		this.cmd("SetForegroundColor", label2ID, "#000000");
@@ -158,7 +158,7 @@ BucketSort.prototype.bucketSortCallback = function(event)
 		
 		var highlightCircle = this.nextIndex++;
 		this.cmd("CreateHighlightCircle", highlightCircle, "#0000FF",  305, 100);
-		this.cmd("Move", highlightCircle, POINTER_ARRAY_ELEM_START_X_SMALL + index *POINTER_ARRAY_ELEM_WIDTH_SMALL, this.pointer_array_elem_y_small + POINTER_ARRAY_ELEM_HEIGHT_SMALL);
+		this.cmd("Move", highlightCircle, BucketSort.POINTER_ARRAY_ELEM_START_X_SMALL + index *BucketSort.POINTER_ARRAY_ELEM_WIDTH_SMALL, this.pointer_array_elem_y_small + BucketSort.POINTER_ARRAY_ELEM_HEIGHT_SMALL);
 		this.cmd("Step");
 		this.cmd("Delete", labelID);
 		this.cmd("Delete", label2ID);
@@ -174,8 +174,8 @@ BucketSort.prototype.bucketSortCallback = function(event)
 			this.cmd("Connect", this.linkedListRects[index], node.graphicID);
 			this.cmd("SetNull",this.linkedListRects[index], 0);
 			
-			node.x = POINTER_ARRAY_ELEM_START_X_SMALL + index *POINTER_ARRAY_ELEM_WIDTH_SMALL;
-			node.y = this.pointer_array_elem_y_small - LINKED_ITEM_Y_DELTA_SMALL;
+			node.x = BucketSort.POINTER_ARRAY_ELEM_START_X_SMALL + index *BucketSort.POINTER_ARRAY_ELEM_WIDTH_SMALL;
+			node.y = this.pointer_array_elem_y_small - BucketSort.LINKED_ITEM_Y_DELTA_SMALL;
 			this.cmd("Move", node.graphicID, node.x, node.y);
 		}
 		else
@@ -236,21 +236,21 @@ BucketSort.prototype.bucketSortCallback = function(event)
 				this.cmd("Connect", tmp.graphicID, node.graphicID);						
 			}
 			tmp = linkedListData[index];
-			var startX = POINTER_ARRAY_ELEM_START_X_SMALL + index *POINTER_ARRAY_ELEM_WIDTH_SMALL;
-			var startY =  this.pointer_array_elem_y_small - LINKED_ITEM_Y_DELTA_SMALL;
+			var startX = BucketSort.POINTER_ARRAY_ELEM_START_X_SMALL + index *BucketSort.POINTER_ARRAY_ELEM_WIDTH_SMALL;
+			var startY =  this.pointer_array_elem_y_small - BucketSort.LINKED_ITEM_Y_DELTA_SMALL;
 			while (tmp != null)
 			{
 				tmp.x = startX;
 				tmp.y = startY;
 				this.cmd("Move", tmp.graphicID, tmp.x, tmp.y);
-				startY = startY - LINKED_ITEM_Y_DELTA_SMALL;
+				startY = startY - BucketSort.LINKED_ITEM_Y_DELTA_SMALL;
 				tmp = tmp.next;
 			}
 		}
 		this.cmd("Step");
 	}
 	var insertIndex = 0;
-	for (i = 0; i < ARRAY_SIZE_SMALL; i++)
+	for (i = 0; i < BucketSort.ARRAY_SIZE_SMALL; i++)
 	{
 		for (tmp = linkedListData[i]; tmp != null; tmp = tmp.next)
 		{
@@ -258,7 +258,7 @@ BucketSort.prototype.bucketSortCallback = function(event)
 			this.cmd("SetText", tmp.graphicID, "");
 			this.cmd("SetText", this.arrayRects[insertIndex], "");
 			this.cmd("CreateLabel", moveLabelID, tmp.data, tmp.x, tmp.y);
-			this.cmd("Move", moveLabelID,  ARRAY_ELEM_START_X_SMALL + insertIndex *ARRAY_ELEM_WIDTH_SMALL, ARRAY_ELEMENT_Y_SMALL);
+			this.cmd("Move", moveLabelID,  BucketSort.ARRAY_ELEM_START_X_SMALL + insertIndex *BucketSort.ARRAY_ELEM_WIDTH_SMALL, BucketSort.ARRAY_ELEMENT_Y_SMALL);
 			this.cmd("Step");
 			this.cmd("Delete", moveLabelID);
 			this.cmd("SetText", this.arrayRects[insertIndex], tmp.data);
@@ -284,9 +284,9 @@ BucketSort.prototype.bucketSortCallback = function(event)
 BucketSort.prototype.randomizeArray = function()
 {
 	this.commands = new Array();
-	for (var i = 0; i < ARRAY_SIZE_SMALL; i++)
+	for (var i = 0; i < BucketSort.ARRAY_SIZE_SMALL; i++)
 	{
-		this.arrayData[i] =  Math.floor(1 + Math.random()*MAX_DATA_VALUE);
+		this.arrayData[i] =  Math.floor(1 + Math.random()*BucketSort.MAX_DATA_VALUE);
 		this.oldData[i] = this.arrayData[i];
 		this.cmd("SetText", this.arrayRects[i], this.arrayData[i]);
 	}
@@ -305,7 +305,7 @@ BucketSort.prototype.randomizeArray = function()
 BucketSort.prototype.reset = function()
 {
 	this.commands = new Array();
-	for (var i = 0; i < ARRAY_SIZE_SMALL; i++)
+	for (var i = 0; i < BucketSort.ARRAY_SIZE_SMALL; i++)
 	{
 		this.arrayData[i] = this.oldData[i];
 	}

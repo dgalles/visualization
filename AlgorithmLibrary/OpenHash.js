@@ -34,24 +34,24 @@ function OpenHash(am, w, h)
 OpenHash.inheritFrom(Hash);
 
 
-var POINTER_ARRAY_ELEM_WIDTH = 70;
-var POINTER_ARRAY_ELEM_HEIGHT = 30;
-var POINTER_ARRAY_ELEM_START_X = 50;
+OpenHash.POINTER_ARRAY_ELEM_WIDTH = 70;
+OpenHash.POINTER_ARRAY_ELEM_HEIGHT = 30;
+OpenHash.POINTER_ARRAY_ELEM_START_X = 50;
 
-var LINKED_ITEM_HEIGHT = 30;
-var LINKED_ITEM_WIDTH = 65;
+OpenHash.LINKED_ITEM_HEIGHT = 30;
+OpenHash.LINKED_ITEM_WIDTH = 65;
 
-var LINKED_ITEM_Y_DELTA = 50;
-var LINKED_ITEM_POINTER_PERCENT = 0.25;
+OpenHash.LINKED_ITEM_Y_DELTA = 50;
+OpenHash.LINKED_ITEM_POINTER_PERCENT = 0.25;
 
-var MAX_DATA_VALUE = 999;
+OpenHash.MAX_DATA_VALUE = 999;
 
-var HASH_TABLE_SIZE  = 13;
+OpenHash.HASH_TABLE_SIZE  = 13;
 
-var ARRAY_Y_POS = 350;
+OpenHash.ARRAY_Y_POS = 350;
 
 
-var INDEX_COLOR = "#0000FF";
+OpenHash.INDEX_COLOR = "#0000FF";
 
 
 
@@ -63,7 +63,7 @@ OpenHash.prototype.init = function(am, w, h)
 	var fn = sc.init;
 	fn.call(this,am, w, h);
 	this.nextIndex = 0;
-	this.POINTER_ARRAY_ELEM_Y = h - POINTER_ARRAY_ELEM_WIDTH;
+	this.POINTER_ARRAY_ELEM_Y = h - OpenHash.POINTER_ARRAY_ELEM_WIDTH;
 	this.setup();
 }
 
@@ -81,7 +81,7 @@ OpenHash.prototype.insertElement = function(elem)
 	this.cmd("SetText", this.ExplainLabel, "Inserting element: " + String(elem));
 	var index = this.doHash(elem);
 	var node  = new LinkedListNode(elem,this.nextIndex++, 100, 75);
-	this.cmd("CreateLinkedList", node.graphicID, elem, LINKED_ITEM_WIDTH, LINKED_ITEM_HEIGHT, 100, 75);
+	this.cmd("CreateLinkedList", node.graphicID, elem, OpenHash.LINKED_ITEM_WIDTH, OpenHash.LINKED_ITEM_HEIGHT, 100, 75);
 	if (this.hashTableValues[index] != null && this.hashTableValues[index] != undefined)
 	{
 		this.cmd("connect", node.graphicID, this.hashTableValues[index].graphicID);
@@ -107,15 +107,15 @@ OpenHash.prototype.insertElement = function(elem)
 
 OpenHash.prototype.repositionList = function(index)
 {
-	var startX = POINTER_ARRAY_ELEM_START_X + index *POINTER_ARRAY_ELEM_WIDTH;
-	var startY =  this.POINTER_ARRAY_ELEM_Y - LINKED_ITEM_Y_DELTA;
+	var startX = OpenHash.POINTER_ARRAY_ELEM_START_X + index *OpenHash.POINTER_ARRAY_ELEM_WIDTH;
+	var startY =  this.POINTER_ARRAY_ELEM_Y - OpenHash.LINKED_ITEM_Y_DELTA;
 	var tmp = this.hashTableValues[index];
 	while (tmp != null)
 	{
 		tmp.x = startX;
 		tmp.y = startY;
 		this.cmd("Move", tmp.graphicID, tmp.x, tmp.y);
-		startY = startY - LINKED_ITEM_Y_DELTA;
+		startY = startY - OpenHash.LINKED_ITEM_Y_DELTA;
 		tmp = tmp.next;
 	}
 }
@@ -231,34 +231,34 @@ OpenHash.prototype.findElement = function(elem)
 
 OpenHash.prototype.setup = function()
 {
-	this.hashTableVisual = new Array(HASH_TABLE_SIZE);
-	this.hashTableIndices = new Array(HASH_TABLE_SIZE);
-	this.hashTableValues = new Array(HASH_TABLE_SIZE);
+	this.hashTableVisual = new Array(OpenHash.HASH_TABLE_SIZE);
+	this.hashTableIndices = new Array(OpenHash.HASH_TABLE_SIZE);
+	this.hashTableValues = new Array(OpenHash.HASH_TABLE_SIZE);
 	
-	this.indexXPos = new Array(HASH_TABLE_SIZE);
-	this.indexYPos = new Array(HASH_TABLE_SIZE);
+	this.indexXPos = new Array(OpenHash.HASH_TABLE_SIZE);
+	this.indexYPos = new Array(OpenHash.HASH_TABLE_SIZE);
 	
 	this.ExplainLabel = this.nextIndex++;
 	
-	this.table_size = HASH_TABLE_SIZE;
+	this.table_size = OpenHash.HASH_TABLE_SIZE;
 
 	this.commands = [];
-	for (var i = 0; i < HASH_TABLE_SIZE; i++)
+	for (var i = 0; i < OpenHash.HASH_TABLE_SIZE; i++)
 	{
 		var nextID  = this.nextIndex++;
 		
-		this.cmd("CreateRectangle", nextID, "", POINTER_ARRAY_ELEM_WIDTH, POINTER_ARRAY_ELEM_HEIGHT, POINTER_ARRAY_ELEM_START_X + i *POINTER_ARRAY_ELEM_WIDTH, this.POINTER_ARRAY_ELEM_Y)
+		this.cmd("CreateRectangle", nextID, "", OpenHash.POINTER_ARRAY_ELEM_WIDTH, OpenHash.POINTER_ARRAY_ELEM_HEIGHT, OpenHash.POINTER_ARRAY_ELEM_START_X + i *OpenHash.POINTER_ARRAY_ELEM_WIDTH, this.POINTER_ARRAY_ELEM_Y)
 		this.hashTableVisual[i] = nextID;
 		this.cmd("SetNull", this.hashTableVisual[i], 1);
 		
 		nextID = this.nextIndex++;
 		this.hashTableIndices[i] = nextID;
-		this.indexXPos[i] =  POINTER_ARRAY_ELEM_START_X + i *POINTER_ARRAY_ELEM_WIDTH;
-		this.indexYPos[i] = this.POINTER_ARRAY_ELEM_Y + POINTER_ARRAY_ELEM_HEIGHT
+		this.indexXPos[i] =  OpenHash.POINTER_ARRAY_ELEM_START_X + i *OpenHash.POINTER_ARRAY_ELEM_WIDTH;
+		this.indexYPos[i] = this.POINTER_ARRAY_ELEM_Y + OpenHash.POINTER_ARRAY_ELEM_HEIGHT
 		this.hashTableValues[i] = null;
 		
 		this.cmd("CreateLabel", nextID, i,this.indexXPos[i],this.indexYPos[i] );
-		this.cmd("SetForegroundColor", nextID, INDEX_COLOR);
+		this.cmd("SetForegroundColor", nextID, OpenHash.INDEX_COLOR);
 	}
 	this.cmd("CreateLabel", this.ExplainLabel, "", 10, 25, 0);
 	this.animationManager.StartNewAnimation(this.commands);

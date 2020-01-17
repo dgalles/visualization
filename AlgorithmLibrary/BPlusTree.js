@@ -24,28 +24,28 @@
 // authors and should not be interpreted as representing official policies, either expressed
 // or implied, of the University of San Francisco
 
-var FIRST_PRINT_POS_X = 50;
-var PRINT_VERTICAL_GAP = 20;
-var PRINT_MAX = 990;
-var PRINT_HORIZONTAL_GAP = 50;
+BPlusTree.FIRST_PRINT_POS_X = 50;
+BPlusTree.PRINT_VERTICAL_GAP = 20;
+BPlusTree.PRINT_MAX = 990;
+BPlusTree.PRINT_HORIZONTAL_GAP = 50;
 
-var MIN_MAX_DEGREE = 3;
-var MAX_MAX_DEGREE = 7;
+BPlusTree.MIN_MAX_DEGREE = 3;
+BPlusTree.MAX_MAX_DEGREE = 7;
 
-var HEIGHT_DELTA  = 50;
-var NODE_SPACING = 15; 
-var STARTING_Y = 30;
-var WIDTH_PER_ELEM = 40;
-var NODE_HEIGHT = 20;
+BPlusTree.HEIGHT_DELTA  = 50;
+BPlusTree.NODE_SPACING = 15; 
+BPlusTree.STARTING_Y = 30;
+BPlusTree.WIDTH_PER_ELEM = 40;
+BPlusTree.NODE_HEIGHT = 20;
 
-var MESSAGE_X = 5;
-var MESSAGE_Y = 10;
+BPlusTree.MESSAGE_X = 5;
+BPlusTree.MESSAGE_Y = 10;
 
-var LINK_COLOR = "#007700";
-var HIGHLIGHT_CIRCLE_COLOR = "#007700";
-var FOREGROUND_COLOR = "#007700";
-var BACKGROUND_COLOR = "#EEFFEE";
-var PRINT_COLOR = FOREGROUND_COLOR;
+BPlusTree.LINK_COLOR = "#007700";
+BPlusTree.HIGHLIGHT_CIRCLE_COLOR = "#007700";
+BPlusTree.FOREGROUND_COLOR = "#007700";
+BPlusTree.BACKGROUND_COLOR = "#EEFFEE";
+BPlusTree.PRINT_COLOR = BPlusTree.FOREGROUND_COLOR;
 
 
 
@@ -83,7 +83,7 @@ BPlusTree.prototype.init = function(am, w, h)
 	
 	
 	this.messageID = this.nextIndex++;
-	this.cmd("CreateLabel", this.messageID, "", MESSAGE_X, MESSAGE_Y, 0);
+	this.cmd("CreateLabel", this.messageID, "", BPlusTree.MESSAGE_X, BPlusTree.MESSAGE_Y, 0);
 	this.moveLabel1ID = this.nextIndex++;
 	this.moveLabel2ID = this.nextIndex++;
 	
@@ -92,7 +92,7 @@ BPlusTree.prototype.init = function(am, w, h)
 	this.animationManager.clearHistory();
 	this.commands = new Array();
 	
-	this.first_print_pos_y = h - 3 * PRINT_VERTICAL_GAP;
+	this.first_print_pos_y = h - 3 * BPlusTree.PRINT_VERTICAL_GAP;
 
 	
 	this.xPosOfNextLabel = 100;
@@ -137,7 +137,7 @@ BPlusTree.prototype.addControls =  function()
 	
 	var i;
 	radioButtonNames = [];
-	for (i = MIN_MAX_DEGREE; i <= MAX_MAX_DEGREE; i++)
+	for (i = BPlusTree.MIN_MAX_DEGREE; i <= BPlusTree.MAX_MAX_DEGREE; i++)
 	{
 		radioButtonNames.push("Max. Degree = " + String(i));
 	}
@@ -147,7 +147,7 @@ BPlusTree.prototype.addControls =  function()
 	this.maxDegreeRadioButtons[0].checked = true;
 	for(i = 0; i < this.maxDegreeRadioButtons.length; i++)
 	{
-		this.maxDegreeRadioButtons[i].onclick = this.maxDegreeChangedHandler.bind(this,i+MIN_MAX_DEGREE);
+		this.maxDegreeRadioButtons[i].onclick = this.maxDegreeChangedHandler.bind(this,i+BPlusTree.MIN_MAX_DEGREE);
 	}
 	
 	
@@ -283,7 +283,7 @@ BPlusTree.prototype.printTree = function(unused)
 	
 	if (this.treeRoot != null)
 	{
-		this.xPosOfNextLabel = FIRST_PRINT_POS_X;
+		this.xPosOfNextLabel = BPlusTree.FIRST_PRINT_POS_X;
 		this.yPosOfNextLabel = this.first_print_pos_y;
 		
 		var tmp = this.treeRoot;
@@ -308,14 +308,14 @@ BPlusTree.prototype.printTree = function(unused)
 			{
 				var nextLabelID = this.nextIndex++;
 				this.cmd("CreateLabel", nextLabelID, tmp.keys[i], this.getLabelX(tmp, i), tmp.y);
-				this.cmd("SetForegroundColor", nextLabelID, PRINT_COLOR);
+				this.cmd("SetForegroundColor", nextLabelID, BPlusTree.PRINT_COLOR);
 				this.cmd("Move", nextLabelID, this.xPosOfNextLabel, this.yPosOfNextLabel);
 				this.cmd("Step");			
-				this.xPosOfNextLabel +=  PRINT_HORIZONTAL_GAP;
-				if (this.xPosOfNextLabel > PRINT_MAX)
+				this.xPosOfNextLabel +=  BPlusTree.PRINT_HORIZONTAL_GAP;
+				if (this.xPosOfNextLabel > BPlusTree.PRINT_MAX)
 				{
-					this.xPosOfNextLabel = FIRST_PRINT_POS_X;
-					this.yPosOfNextLabel += PRINT_VERTICAL_GAP;
+					this.xPosOfNextLabel = BPlusTree.FIRST_PRINT_POS_X;
+					this.yPosOfNextLabel += BPlusTree.PRINT_VERTICAL_GAP;
 				}
 			}
 			if (tmp.next != null)
@@ -381,7 +381,7 @@ BPlusTree.prototype.changeDegree = function(degree)
 	var newDegree = degree;
 	this.ignoreInputs = true;
 	//TODO:  Check me!
-	this.maxDegreeRadioButtons[newDegree - MIN_MAX_DEGREE].checked = true;
+	this.maxDegreeRadioButtons[newDegree - BPlusTree.MIN_MAX_DEGREE].checked = true;
 	
 	this.ignoreInputs = false;
 	this.max_degree = newDegree;
@@ -468,7 +468,7 @@ BPlusTree.prototype.findInTree = function(tree, val)
 				this.cmd("SetTextColor", tree.graphicID, "#FF0000", i);
 				this.cmd("SetText", this.messageID, "Element " + val + " found");
 				this.cmd("Step");
-				this.cmd("SetTextColor", tree.graphicID, FOREGROUND_COLOR, i);
+				this.cmd("SetTextColor", tree.graphicID, BPlusTree.FOREGROUND_COLOR, i);
 				this.cmd("SetHighlight", tree.graphicID, 0);
 				
 				this.cmd("Step");
@@ -499,8 +499,8 @@ BPlusTree.prototype.insertElement = function(insertedValue)
 	
 	if (this.treeRoot == null)
 	{
-		this.treeRoot = new BTreeNode(this.nextIndex++, this.starting_x, STARTING_Y);
-		this.cmd("CreateBTreeNode",this.treeRoot.graphicID, WIDTH_PER_ELEM, NODE_HEIGHT, 1, this.starting_x, STARTING_Y, BACKGROUND_COLOR,  FOREGROUND_COLOR);
+		this.treeRoot = new BTreeNode(this.nextIndex++, this.starting_x, BPlusTree.STARTING_Y);
+		this.cmd("CreateBTreeNode",this.treeRoot.graphicID, BPlusTree.WIDTH_PER_ELEM, BPlusTree.NODE_HEIGHT, 1, this.starting_x, BPlusTree.STARTING_Y, BPlusTree.BACKGROUND_COLOR,  BPlusTree.FOREGROUND_COLOR);
 		this.treeRoot.keys[0] = insertedValue;
 		this.cmd("SetText", this.treeRoot.graphicID, insertedValue, 0);
 	}
@@ -546,7 +546,7 @@ BPlusTree.prototype.insert  = function(tree, insertValue)
 			this.cmd("Disconnect", tree.graphicID, tree.next.graphicID);
 			this.cmd("Connect", tree.graphicID, 
 				tree.next.graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				1, // Directed
 				"", // Label
@@ -615,7 +615,7 @@ BPlusTree.prototype.split = function(tree)
 		{
 			currentParent.children[i+1] = currentParent.children[i];
 			this.cmd("Disconnect", currentParent.graphicID, currentParent.children[i].graphicID);
-			this.cmd("Connect", currentParent.graphicID,  currentParent.children[i].graphicID, FOREGROUND_COLOR, 
+			this.cmd("Connect", currentParent.graphicID,  currentParent.children[i].graphicID, BPlusTree.FOREGROUND_COLOR, 
 				0, // Curve
 				0, // Directed
 				"", // Label
@@ -653,7 +653,7 @@ BPlusTree.prototype.split = function(tree)
 	
 	rightNode.numKeys = tree.numKeys - rightSplit;
 	
-	this.cmd("CreateBTreeNode",rightNode.graphicID, WIDTH_PER_ELEM, NODE_HEIGHT, tree.numKeys -rightSplit, tree.x, tree.y,  BACKGROUND_COLOR, FOREGROUND_COLOR);
+	this.cmd("CreateBTreeNode",rightNode.graphicID, BPlusTree.WIDTH_PER_ELEM, BPlusTree.NODE_HEIGHT, tree.numKeys -rightSplit, tree.x, tree.y,  BPlusTree.BACKGROUND_COLOR, BPlusTree.FOREGROUND_COLOR);
 	
 	if (tree.isLeaf)
 	{
@@ -663,7 +663,7 @@ BPlusTree.prototype.split = function(tree)
 			this.cmd("Disconnect", tree.graphicID, rightNode.next.graphicID);
 			this.cmd("Connect", rightNode.graphicID, 
 				rightNode.next.graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				1, // Directed
 				"", // Label
@@ -673,7 +673,7 @@ BPlusTree.prototype.split = function(tree)
 		}
 		this.cmd("Connect", tree.graphicID, 
 			rightNode.graphicID,
-			FOREGROUND_COLOR,
+			BPlusTree.FOREGROUND_COLOR,
 			0, // Curve
 			1, // Directed
 			"", // Label
@@ -691,7 +691,7 @@ BPlusTree.prototype.split = function(tree)
 			
 			this.cmd("Connect", rightNode.graphicID, 
 				rightNode.children[i - rightSplit].graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				0, // Directed
 				"", // Label
@@ -721,7 +721,7 @@ BPlusTree.prototype.split = function(tree)
 	
 	if (tree.parent != null)
 	{
-		this.cmd("Connect", currentParent.graphicID, rightNode.graphicID, FOREGROUND_COLOR, 
+		this.cmd("Connect", currentParent.graphicID, rightNode.graphicID, BPlusTree.FOREGROUND_COLOR, 
 			0, // Curve
 			0, // Directed
 			"", // Label
@@ -734,20 +734,20 @@ BPlusTree.prototype.split = function(tree)
 	}
 	else //			if (tree.parent == null)
 	{
-		this.treeRoot = new BTreeNode(this.nextIndex++, this.starting_x, STARTING_Y);
-		this.cmd("CreateBTreeNode",this.treeRoot.graphicID, WIDTH_PER_ELEM, NODE_HEIGHT, 1, this.starting_x, STARTING_Y,BACKGROUND_COLOR,  FOREGROUND_COLOR);
+		this.treeRoot = new BTreeNode(this.nextIndex++, this.starting_x, BPlusTree.STARTING_Y);
+		this.cmd("CreateBTreeNode",this.treeRoot.graphicID, BPlusTree.WIDTH_PER_ELEM, BPlusTree.NODE_HEIGHT, 1, this.starting_x, BPlusTree.STARTING_Y,BPlusTree.BACKGROUND_COLOR,  BPlusTree.FOREGROUND_COLOR);
 		this.treeRoot.keys[0] = risingNode;
 		this.cmd("SetText", this.treeRoot.graphicID, risingNode, 0);
 		this.treeRoot.children[0] = leftNode;
 		this.treeRoot.children[1] = rightNode;
 		leftNode.parent = this.treeRoot;
 		rightNode.parent = this.treeRoot;
-		this.cmd("Connect", this.treeRoot.graphicID, leftNode.graphicID, FOREGROUND_COLOR, 
+		this.cmd("Connect", this.treeRoot.graphicID, leftNode.graphicID, BPlusTree.FOREGROUND_COLOR, 
 			0, // Curve
 			0, // Directed
 			"", // Label
 			0);	// Connection Point
-		this.cmd("Connect", this.treeRoot.graphicID, rightNode.graphicID, FOREGROUND_COLOR, 
+		this.cmd("Connect", this.treeRoot.graphicID, rightNode.graphicID, BPlusTree.FOREGROUND_COLOR, 
 			0, // Curve
 			0, // Directed
 			"", // Label
@@ -824,7 +824,7 @@ BPlusTree.prototype.doDelete = function(tree, val)
 		{
 			this.cmd("SetTextColor", tree.graphicID, 0xFF0000, i);
 			this.cmd("Step");
-			this.cmd("SetTextColor", tree.graphicID, FOREGROUND_COLOR, i);
+			this.cmd("SetTextColor", tree.graphicID, BPlusTree.FOREGROUND_COLOR, i);
 			for (var j = i; j < tree.numKeys - 1; j++)
 			{
 				tree.keys[j] = tree.keys[j+1];
@@ -840,7 +840,7 @@ BPlusTree.prototype.doDelete = function(tree, val)
 				this.cmd("Disconnect", tree.graphicID, tree.next.graphicID);
 				this.cmd("Connect", tree.graphicID, 
 					tree.next.graphicID,
-					FOREGROUND_COLOR,
+					BPlusTree.FOREGROUND_COLOR,
 					0, // Curve
 					1, // Directed
 					"", // Label
@@ -948,7 +948,7 @@ BPlusTree.prototype.mergeRight = function(tree)
 			tree.children[tree.numKeys + 1 + i].parent = tree;
 			this.cmd("Connect", tree.graphicID, 
 				tree.children[tree.numKeys + 1 + i].graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				0, // Directed
 				"", // Label
@@ -966,7 +966,7 @@ BPlusTree.prototype.mergeRight = function(tree)
 		{
 			this.cmd("Connect", tree.graphicID, 
 				tree.next.graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				1, // Directed
 				"", // Label
@@ -981,7 +981,7 @@ BPlusTree.prototype.mergeRight = function(tree)
 		parentNode.children[i] = parentNode.children[i+1];
 		this.cmd("Connect", parentNode.graphicID, 
 			parentNode.children[i].graphicID,
-			FOREGROUND_COLOR,
+			BPlusTree.FOREGROUND_COLOR,
 			0, // Curve
 			0, // Directed
 			"", // Label
@@ -1030,7 +1030,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 		this.cmd("Disconnect", tree.graphicID, tree.next.graphicID);
 		this.cmd("Connect", tree.graphicID, 
 			tree.next.graphicID,
-			FOREGROUND_COLOR,
+			BPlusTree.FOREGROUND_COLOR,
 			0, // Curve
 			1, // Directed
 			"", // Label
@@ -1078,7 +1078,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 		this.cmd("Disconnect", rightSib.graphicID, rightSib.children[0].graphicID);
 		this.cmd("Connect", tree.graphicID, 
 			tree.children[tree.numKeys].graphicID,
-			FOREGROUND_COLOR,
+			BPlusTree.FOREGROUND_COLOR,
 			0, // Curve
 			0, // Directed
 			"", // Label
@@ -1091,7 +1091,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 			rightSib.children[i-1] = rightSib.children[i];
 			this.cmd("Connect", rightSib.graphicID, 
 				rightSib.children[i-1].graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				0, // Directed
 				"", // Label
@@ -1118,7 +1118,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 			this.cmd("Disconnect", rightSib.graphicID, rightSib.next.graphicID);
 			this.cmd("Connect", rightSib.graphicID, 
 				rightSib.next.graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				1, // Directed
 				"", // Label
@@ -1144,7 +1144,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 		this.cmd("Disconnect", tree.graphicID, tree.next.graphicID);
 		this.cmd("Connect", tree.graphicID, 
 			tree.next.graphicID,
-			FOREGROUND_COLOR,
+			BPlusTree.FOREGROUND_COLOR,
 			0, // Curve
 			1, // Directed
 			"", // Label
@@ -1196,7 +1196,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 			tree.children[i] =tree.children[i-1];
 			this.cmd("Connect", tree.graphicID, 
 				tree.children[i].graphicID,
-				FOREGROUND_COLOR,
+				BPlusTree.FOREGROUND_COLOR,
 				0, // Curve
 				0, // Directed
 				"", // Label
@@ -1206,7 +1206,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 		this.cmd("Disconnect", leftSib.graphicID, leftSib.children[leftSib.numKeys].graphicID);
 		this.cmd("Connect", tree.graphicID, 
 			tree.children[0].graphicID,
-			FOREGROUND_COLOR,
+			BPlusTree.FOREGROUND_COLOR,
 			0, // Curve
 			0, // Directed
 			"", // Label
@@ -1231,7 +1231,7 @@ BPlusTree.prototype.stealFromRight = function(tree, parentIndex)
 		this.cmd("Disconnect", leftSib.graphicID, tree.graphicID);
 		this.cmd("Connect", leftSib.graphicID, 
 			tree.graphicID,
-			FOREGROUND_COLOR,
+			BPlusTree.FOREGROUND_COLOR,
 			0, // Curve
 			1, // Directed
 			"", // Label
@@ -1309,13 +1309,13 @@ BPlusTree.prototype.repairAfterDelete = function(tree)
 
 BPlusTree.prototype.getLabelX = function(tree, index) 
 {
-	return tree.x - WIDTH_PER_ELEM * tree.numKeys / 2 + WIDTH_PER_ELEM / 2 + index * WIDTH_PER_ELEM;
+	return tree.x - BPlusTree.WIDTH_PER_ELEM * tree.numKeys / 2 + BPlusTree.WIDTH_PER_ELEM / 2 + index * BPlusTree.WIDTH_PER_ELEM;
 }
 
 BPlusTree.prototype.resizeTree = function()
 {
 	this.resizeWidths(this.treeRoot);
-	this.setNewPositions(this.treeRoot, this.starting_x, STARTING_Y);
+	this.setNewPositions(this.treeRoot, this.starting_x, BPlusTree.STARTING_Y);
 	this.animateNewPositions(this.treeRoot);
 }
 
@@ -1331,7 +1331,7 @@ BPlusTree.prototype.setNewPositions = function(tree, xPosition, yPosition)
 			var priorWidth = 0;
 			for (var i = 0; i < tree.numKeys+1; i++)
 			{
-				this.setNewPositions(tree.children[i], leftEdge + priorWidth + tree.widths[i] / 2, yPosition+HEIGHT_DELTA);
+				this.setNewPositions(tree.children[i], leftEdge + priorWidth + tree.widths[i] / 2, yPosition+BPlusTree.HEIGHT_DELTA);
 				priorWidth += tree.widths[i];
 			}
 		}				
@@ -1364,7 +1364,7 @@ BPlusTree.prototype.resizeWidths = function(tree)
 		{
 			tree.widths[i] = 0;
 		}
-		tree.width = tree.numKeys * WIDTH_PER_ELEM + NODE_SPACING;
+		tree.width = tree.numKeys * BPlusTree.WIDTH_PER_ELEM + BPlusTree.NODE_SPACING;
 		return tree.width;				
 	}
 	else
@@ -1375,7 +1375,7 @@ BPlusTree.prototype.resizeWidths = function(tree)
 			tree.widths[i] = this.resizeWidths(tree.children[i]);
 			treeWidth = treeWidth + tree.widths[i];
 		}
-		treeWidth = Math.max(treeWidth, tree.numKeys * WIDTH_PER_ELEM + NODE_SPACING);
+		treeWidth = Math.max(treeWidth, tree.numKeys * BPlusTree.WIDTH_PER_ELEM + BPlusTree.NODE_SPACING);
 		tree.width = treeWidth;
 		return treeWidth;
 	}

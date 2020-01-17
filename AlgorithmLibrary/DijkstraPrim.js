@@ -25,17 +25,17 @@
 // or implied, of the University of San Francisco
 
 
-var TABLE_ENTRY_WIDTH = 50;
-var TABLE_ENTRY_HEIGHT = 25;
-var TABLE_START_X = 50;
-var TABLE_START_Y = 80;
+DijkstraPrim.TABLE_ENTRY_WIDTH = 50;
+DijkstraPrim.TABLE_ENTRY_HEIGHT = 25;
+DijkstraPrim.TABLE_START_X = 50;
+DijkstraPrim.TABLE_START_Y = 80;
 
-var MESSAGE_LABEL_1_X = 20;
-var MESSAGE_LABEL_1_Y = 10;
+DijkstraPrim.MESSAGE_LABEL_1_X = 20;
+DijkstraPrim.MESSAGE_LABEL_1_Y = 10;
 
 
 
-var HIGHLIGHT_CIRCLE_COLOR = "#000000";
+DijkstraPrim.HIGHLIGHT_CIRCLE_COLOR = "#000000";
 
 
 
@@ -84,7 +84,7 @@ DijkstraPrim.prototype.setup = function()
 	DijkstraPrim.superclass.setup.call(this);
 
 	this.commands = new Array();
-	this.cmd("CreateLabel", this.message1ID, "", MESSAGE_LABEL_1_X, MESSAGE_LABEL_1_Y, 0);
+	this.cmd("CreateLabel", this.message1ID, "", DijkstraPrim.MESSAGE_LABEL_1_X, DijkstraPrim.MESSAGE_LABEL_1_Y, 0);
 	
 	
 	this.vertexID = new Array(this.size);
@@ -103,17 +103,17 @@ DijkstraPrim.prototype.setup = function()
 		this.knownID[i] = this.nextIndex++;
 		this.distanceID[i] = this.nextIndex++;
 		this.pathID[i] = this.nextIndex++;
-		this.cmd("CreateRectangle", this.vertexID[i], i, TABLE_ENTRY_WIDTH, TABLE_ENTRY_HEIGHT, TABLE_START_X, TABLE_START_Y + i*TABLE_ENTRY_HEIGHT);
-		this.cmd("CreateRectangle", this.knownID[i], "", TABLE_ENTRY_WIDTH, TABLE_ENTRY_HEIGHT, TABLE_START_X + TABLE_ENTRY_WIDTH, TABLE_START_Y + i*TABLE_ENTRY_HEIGHT);
-		this.cmd("CreateRectangle", this.distanceID[i], "", TABLE_ENTRY_WIDTH, TABLE_ENTRY_HEIGHT, TABLE_START_X + 2 * TABLE_ENTRY_WIDTH, TABLE_START_Y + i*TABLE_ENTRY_HEIGHT);
-		this.cmd("CreateRectangle", this.pathID[i], "", TABLE_ENTRY_WIDTH, TABLE_ENTRY_HEIGHT, TABLE_START_X+ 3 * TABLE_ENTRY_WIDTH, TABLE_START_Y + i*TABLE_ENTRY_HEIGHT);
-		this.cmd("SetTextColor",  this.vertexID[i], VERTEX_INDEX_COLOR);
+		this.cmd("CreateRectangle", this.vertexID[i], i, DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_ENTRY_HEIGHT, DijkstraPrim.TABLE_START_X, DijkstraPrim.TABLE_START_Y + i*DijkstraPrim.TABLE_ENTRY_HEIGHT);
+		this.cmd("CreateRectangle", this.knownID[i], "", DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_ENTRY_HEIGHT, DijkstraPrim.TABLE_START_X + DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_START_Y + i*DijkstraPrim.TABLE_ENTRY_HEIGHT);
+		this.cmd("CreateRectangle", this.distanceID[i], "", DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_ENTRY_HEIGHT, DijkstraPrim.TABLE_START_X + 2 * DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_START_Y + i*DijkstraPrim.TABLE_ENTRY_HEIGHT);
+		this.cmd("CreateRectangle", this.pathID[i], "", DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_ENTRY_HEIGHT, DijkstraPrim.TABLE_START_X+ 3 * DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_START_Y + i*DijkstraPrim.TABLE_ENTRY_HEIGHT);
+		this.cmd("SetTextColor",  this.vertexID[i], DijkstraPrim.VERTEX_INDEX_COLOR);
 		
 	}
-	this.cmd("CreateLabel", this.nextIndex++, "Vertex", TABLE_START_X, TABLE_START_Y  - TABLE_ENTRY_HEIGHT);
-	this.cmd("CreateLabel", this.nextIndex++, "Known", TABLE_START_X + TABLE_ENTRY_WIDTH, TABLE_START_Y  - TABLE_ENTRY_HEIGHT);
-	this.cmd("CreateLabel", this.nextIndex++, "Cost", TABLE_START_X + 2 * TABLE_ENTRY_WIDTH, TABLE_START_Y  - TABLE_ENTRY_HEIGHT);
-	this.cmd("CreateLabel", this.nextIndex++, "Path", TABLE_START_X + 3 * TABLE_ENTRY_WIDTH, TABLE_START_Y  - TABLE_ENTRY_HEIGHT);
+	this.cmd("CreateLabel", this.nextIndex++, "Vertex", DijkstraPrim.TABLE_START_X, DijkstraPrim.TABLE_START_Y  - DijkstraPrim.TABLE_ENTRY_HEIGHT);
+	this.cmd("CreateLabel", this.nextIndex++, "Known", DijkstraPrim.TABLE_START_X + DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_START_Y  - DijkstraPrim.TABLE_ENTRY_HEIGHT);
+	this.cmd("CreateLabel", this.nextIndex++, "Cost", DijkstraPrim.TABLE_START_X + 2 * DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_START_Y  - DijkstraPrim.TABLE_ENTRY_HEIGHT);
+	this.cmd("CreateLabel", this.nextIndex++, "Path", DijkstraPrim.TABLE_START_X + 3 * DijkstraPrim.TABLE_ENTRY_WIDTH, DijkstraPrim.TABLE_START_Y  - DijkstraPrim.TABLE_ENTRY_HEIGHT);
 	
 	this.animationManager.setAllLayers([0, this.currentLayer]);
 	this.animationManager.StartNewAnimation(this.commands);
@@ -225,7 +225,7 @@ DijkstraPrim.prototype.doDijkstraPrim = function(startVertex)
 				{
 					
 					this.cmd("CreateLabel",  this.comparisonMessageID,"Vertex " + String(neighbor) + " known", 
-						TABLE_START_X + 5 * TABLE_ENTRY_WIDTH,TABLE_START_Y + neighbor*TABLE_ENTRY_HEIGHT);
+						DijkstraPrim.TABLE_START_X + 5 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + neighbor*DijkstraPrim.TABLE_ENTRY_HEIGHT);
 					this.cmd("SetHighlight", this.knownID[neighbor], 1);
 				}
 				else
@@ -242,12 +242,12 @@ DijkstraPrim.prototype.doDijkstraPrim = function(startVertex)
 						if (this.distance[neighbor] < 0 || this.distance[neighbor] > this.distance[current] + this.adj_matrix[current][neighbor])
 						{
 							this.cmd("CreateLabel", this.comparisonMessageID, distString + " > " + String(this.distance[current]) + " + " + String(this.adj_matrix[current][neighbor]), 
-								TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + neighbor*TABLE_ENTRY_HEIGHT);
+								DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + neighbor*DijkstraPrim.TABLE_ENTRY_HEIGHT);
 						}
 						else
 						{
 							this.cmd("CreateLabel",  this.comparisonMessageID,"!(" + String(this.distance[neighbor])  + " > " + String(this.distance[current]) + " + " + String(this.adj_matrix[current][neighbor]) + ")", 
-								TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + neighbor*TABLE_ENTRY_HEIGHT);							
+								DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + neighbor*DijkstraPrim.TABLE_ENTRY_HEIGHT);							
 						}								
 						
 					}
@@ -256,12 +256,12 @@ DijkstraPrim.prototype.doDijkstraPrim = function(startVertex)
 						if (this.distance[neighbor] < 0 || this.distance[neighbor] > this.adj_matrix[current][neighbor])
 						{
 							this.cmd("CreateLabel", this.comparisonMessageID, distString + " > " + String(this.adj_matrix[current][neighbor]), 
-								TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + neighbor*TABLE_ENTRY_HEIGHT);
+								DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + neighbor*DijkstraPrim.TABLE_ENTRY_HEIGHT);
 						}
 						else
 						{
 							this.cmd("CreateLabel",  this.comparisonMessageID,"!(" + String(this.distance[neighbor])  + " > " + String(this.adj_matrix[current][neighbor]) + ")", 
-								TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + neighbor*TABLE_ENTRY_HEIGHT);							
+								DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + neighbor*DijkstraPrim.TABLE_ENTRY_HEIGHT);							
 						}
 						
 						
@@ -329,12 +329,12 @@ DijkstraPrim.prototype.createPaths = function()
 		var nextLabelID = this.nextIndex++;
 		if (this.distance[vertex] < 0)
 		{
-			this.cmd("CreateLabel", nextLabelID, "No Path",  TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + vertex*TABLE_ENTRY_HEIGHT);
+			this.cmd("CreateLabel", nextLabelID, "No Path",  DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + vertex*DijkstraPrim.TABLE_ENTRY_HEIGHT);
 			this.messageID.push(nextLabelID);
 		}
 		else
 		{
-			this.cmd("CreateLabel", nextLabelID, vertex,  TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + vertex*TABLE_ENTRY_HEIGHT);
+			this.cmd("CreateLabel", nextLabelID, vertex,  DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + vertex*DijkstraPrim.TABLE_ENTRY_HEIGHT);
 			this.messageID.push(nextLabelID);
 			var pathList = [nextLabelID];
 			var nextInPath = vertex;
@@ -345,12 +345,12 @@ DijkstraPrim.prototype.createPaths = function()
 				if (this.path[nextInPath] != -1)
 				{
 					nextLabelID = this.nextIndex++;
-					this.cmd("CreateLabel", nextLabelID, this.path[nextInPath],  TABLE_START_X + 3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + nextInPath*TABLE_ENTRY_HEIGHT);
-					this.cmd("Move", nextLabelID,  TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH,TABLE_START_Y + vertex*TABLE_ENTRY_HEIGHT);
+					this.cmd("CreateLabel", nextLabelID, this.path[nextInPath],  DijkstraPrim.TABLE_START_X + 3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + nextInPath*DijkstraPrim.TABLE_ENTRY_HEIGHT);
+					this.cmd("Move", nextLabelID,  DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH,DijkstraPrim.TABLE_START_Y + vertex*DijkstraPrim.TABLE_ENTRY_HEIGHT);
 					this.messageID.push(nextLabelID);
 					for (var i = pathList.length - 1; i >= 0; i--)
 					{
-						this.cmd("Move", pathList[i], TABLE_START_X + 4.3 * TABLE_ENTRY_WIDTH + (pathList.length - i) * 17,TABLE_START_Y + vertex*TABLE_ENTRY_HEIGHT)
+						this.cmd("Move", pathList[i], DijkstraPrim.TABLE_START_X + 4.3 * DijkstraPrim.TABLE_ENTRY_WIDTH + (pathList.length - i) * 17,DijkstraPrim.TABLE_START_Y + vertex*DijkstraPrim.TABLE_ENTRY_HEIGHT)
 						
 					}
 					this.cmd("Step");

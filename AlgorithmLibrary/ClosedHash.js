@@ -32,30 +32,30 @@ function ClosedHash(am, w, h)
 }
 ClosedHash.inheritFrom(Hash);
 
-var ARRAY_ELEM_WIDTH = 90;
-var ARRAY_ELEM_HEIGHT = 30;
-var ARRAY_ELEM_START_X = 50;
-var ARRAY_ELEM_START_Y = 100;
-var ARRAY_VERTICAL_SEPARATION = 100;
+ClosedHash.ARRAY_ELEM_WIDTH = 90;
+ClosedHash.ARRAY_ELEM_HEIGHT = 30;
+ClosedHash.ARRAY_ELEM_START_X = 50;
+ClosedHash.ARRAY_ELEM_START_Y = 100;
+ClosedHash.ARRAY_VERTICAL_SEPARATION = 100;
 
-var CLOSED_HASH_TABLE_SIZE  = 29;
+ClosedHash.CLOSED_HASH_TABLE_SIZE  = 29;
 
-var ARRAY_Y_POS = 350;
-
-
-var INDEX_COLOR = "#0000FF";
+ClosedHash.ARRAY_Y_POS = 350;
 
 
+ClosedHash.INDEX_COLOR = "#0000FF";
 
 
-var MAX_DATA_VALUE = 999;
-
-var HASH_TABLE_SIZE  = 13;
-
-var ARRAY_Y_POS = 350;
 
 
-var INDEX_COLOR = "#0000FF";
+ClosedHash.MAX_DATA_VALUE = 999;
+
+ClosedHash.HASH_TABLE_SIZE  = 13;
+
+ClosedHash.ARRAY_Y_POS = 350;
+
+
+ClosedHash.INDEX_COLOR = "#0000FF";
 
 
 
@@ -64,13 +64,13 @@ ClosedHash.prototype.init = function(am, w, h)
 {
 	var sc = ClosedHash.superclass;
 	var fn = sc.init;
-	this.elements_per_row = Math.floor(w / ARRAY_ELEM_WIDTH);
+	this.elements_per_row = Math.floor(w / ClosedHash.ARRAY_ELEM_WIDTH);
 
 	fn.call(this,am, w, h);
 	
 	//Change me!
 	this.nextIndex = 0;
-	//this.POINTER_ARRAY_ELEM_Y = h - POINTER_ARRAY_ELEM_WIDTH;
+	//this.POINTER_ARRAY_ELEM_Y = h - ClosedHash.POINTER_ARRAY_ELEM_WIDTH;
 	this.setup();
 }
 
@@ -175,7 +175,7 @@ ClosedHash.prototype.insertElement = function(elem)
 	{
 		var labID = this.nextIndex++;
 		this.cmd("CreateLabel", labID, elem, 20, 25);
-		this.cmd("Move", labID, this.indexXPos[index], this.indexYPos[index] - ARRAY_ELEM_HEIGHT);
+		this.cmd("Move", labID, this.indexXPos[index], this.indexYPos[index] - ClosedHash.ARRAY_ELEM_HEIGHT);
 		this.cmd("Step");
 		this.cmd("Delete", labID);
 		this.cmd("SetText", this.hashTableVisual[index], elem);
@@ -303,7 +303,7 @@ ClosedHash.prototype.findElement = function(elem)
 
 ClosedHash.prototype.setup = function()
 {
-	this.table_size = CLOSED_HASH_TABLE_SIZE;
+	this.table_size = ClosedHash.CLOSED_HASH_TABLE_SIZE;
 	this.skipDist = new Array(this.table_size);
 	this.hashTableVisual = new Array(this.table_size);
 	this.hashTableIndices = new Array(this.table_size);
@@ -326,17 +326,17 @@ ClosedHash.prototype.setup = function()
 		this.empty[i] = true;
 		this.deleted[i] = false;
 		
-		var nextXPos =  ARRAY_ELEM_START_X + (i % this.elements_per_row) * ARRAY_ELEM_WIDTH;
-		var nextYPos =  ARRAY_ELEM_START_Y + Math.floor(i / this.elements_per_row) * ARRAY_VERTICAL_SEPARATION;
-		this.cmd("CreateRectangle", nextID, "", ARRAY_ELEM_WIDTH, ARRAY_ELEM_HEIGHT,nextXPos, nextYPos)
+		var nextXPos =  ClosedHash.ARRAY_ELEM_START_X + (i % this.elements_per_row) * ClosedHash.ARRAY_ELEM_WIDTH;
+		var nextYPos =  ClosedHash.ARRAY_ELEM_START_Y + Math.floor(i / this.elements_per_row) * ClosedHash.ARRAY_VERTICAL_SEPARATION;
+		this.cmd("CreateRectangle", nextID, "", ClosedHash.ARRAY_ELEM_WIDTH, ClosedHash.ARRAY_ELEM_HEIGHT,nextXPos, nextYPos)
 		this.hashTableVisual[i] = nextID;
 		nextID = this.nextIndex++;
 		this.hashTableIndices[i] = nextID;
 		this.indexXPos[i] = nextXPos;
-		this.indexYPos[i] = nextYPos + ARRAY_ELEM_HEIGHT
+		this.indexYPos[i] = nextYPos + ClosedHash.ARRAY_ELEM_HEIGHT
 		
 		this.cmd("CreateLabel", nextID, i,this.indexXPos[i],this.indexYPos[i]);
-		this.cmd("SetForegroundColor", nextID, INDEX_COLOR);
+		this.cmd("SetForegroundColor", nextID, ClosedHash.INDEX_COLOR);
 	}
 	this.cmd("CreateLabel", this.ExplainLabel, "", 10, 25, 0);
 	this.animationManager.StartNewAnimation(this.commands);

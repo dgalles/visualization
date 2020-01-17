@@ -32,74 +32,74 @@ Search.CODE_LINE_HEIGHT = 14;
 Search.CODE_HIGHLIGHT_COLOR = "#FF0000";
 Search.CODE_STANDARD_COLOR = "#000000";
 
-var SMALL_SIZE = 0;
-var LARGE_SIZE = 1;
+Search.SMALL_SIZE = 0;
+Search.LARGE_SIZE = 1;
 
-var EXTRA_FIELD_WIDTH = 50;
-var EXTRA_FIELD_HEIGHT = 50;
+Search.EXTRA_FIELD_WIDTH = 50;
+Search.EXTRA_FIELD_HEIGHT = 50;
 
-var SEARCH_FOR_X = 450;  
-var SEARCH_FOR_Y = 30;
-
-
-var RESULT_X = 550;  
-var RESULT_Y = 30;
+Search.SEARCH_FOR_X = 450;  
+Search.SEARCH_FOR_Y = 30;
 
 
-var INDEX_X = 450;  
-var INDEX_Y = 130;
+Search.RESULT_X = 550;  
+Search.RESULT_Y = 30;
 
 
-var HIGHLIGHT_CIRCLE_SIZE_SMALL = 20;
-var HIGHLIGHT_CIRCLE_SIZE_LARGE = 10;
-var HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_SMALL;
+Search.INDEX_X = 450;  
+Search.INDEX_Y = 130;
 
 
-var LOW_CIRCLE_COLOR = "#1010FF";
-var LOW_BACKGROUND_COLOR = "#F0F0FF";
-var MID_CIRCLE_COLOR = "#118C4E";
-var MID_BACKGROUND_COLOR = "#F0FFF0";
-var HIGH_CIRCLE_COLOR = "#FF9009";
-var HIGH_BACKGROUND_COLOR = "#FFFFF0";
-
-var LOW_POS_X = 350;
-var LOW_POS_Y = 130;
+Search.HIGHLIGHT_CIRCLE_SIZE_SMALL = 20;
+Search.HIGHLIGHT_CIRCLE_SIZE_LARGE = 10;
+Search.HIGHLIGHT_CIRCLE_SIZE = Search.HIGHLIGHT_CIRCLE_SIZE_SMALL;
 
 
-var MID_POS_X = 450;
-var MID_POS_Y = 130;
+Search.LOW_CIRCLE_COLOR = "#1010FF";
+Search.LOW_BACKGROUND_COLOR = "#F0F0FF";
+Search.MID_CIRCLE_COLOR = "#118C4E";
+Search.MID_BACKGROUND_COLOR = "#F0FFF0";
+Search.HIGH_CIRCLE_COLOR = "#FF9009";
+Search.HIGH_BACKGROUND_COLOR = "#FFFFF0";
 
-var HIGH_POS_X = 550;
-var HIGH_POS_Y = 130;
-
-
-
-var ARRAY_START_X_SMALL = 100;
-var ARRAY_START_X_LARGE = 100;
-var ARRAY_START_X = ARRAY_START_X_SMALL;
-var ARRAY_START_Y_SMALL = 240;
-var ARRAY_START_Y_LARGE = 200;
-var ARRAY_START_Y = ARRAY_START_Y_SMALL;
-var ARRAY_ELEM_WIDTH_SMALL = 50;
-var ARRAY_ELEM_WIDTH_LARGE = 25;
-var ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_SMALL;
-
-var ARRAY_ELEM_HEIGHT_SMALL = 50;
-var ARRAY_ELEM_HEIGHT_LARGE = 20;
-var ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_SMALL;
-
-var ARRAY_ELEMS_PER_LINE_SMALL = 16;
-var ARRAY_ELEMS_PER_LINE_LARGE = 30;
-var ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_SMALL;
+Search.LOW_POS_X = 350;
+Search.LOW_POS_Y = 130;
 
 
-var ARRAY_LINE_SPACING_LARGE = 40;
-var ARRAY_LINE_SPACING_SMALL = 130;
-var ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_SMALL;
+Search.MID_POS_X = 450;
+Search.MID_POS_Y = 130;
 
-var SIZE_SMALL = 32;
-var SIZE_LARGE = 180;
-var SIZE = SIZE_SMALL;
+Search.HIGH_POS_X = 550;
+Search.HIGH_POS_Y = 130;
+
+
+
+Search.ARRAY_START_X_SMALL = 100;
+Search.ARRAY_START_X_LARGE = 100;
+Search.ARRAY_START_X = Search.ARRAY_START_X_SMALL;
+Search.ARRAY_START_Y_SMALL = 240;
+Search.ARRAY_START_Y_LARGE = 200;
+Search.ARRAY_START_Y = Search.ARRAY_START_Y_SMALL;
+Search.ARRAY_ELEM_WIDTH_SMALL = 50;
+Search.ARRAY_ELEM_WIDTH_LARGE = 25;
+Search.ARRAY_ELEM_WIDTH = Search.ARRAY_ELEM_WIDTH_SMALL;
+
+Search.ARRAY_ELEM_HEIGHT_SMALL = 50;
+Search.ARRAY_ELEM_HEIGHT_LARGE = 20;
+Search.ARRAY_ELEM_HEIGHT = Search.ARRAY_ELEM_HEIGHT_SMALL;
+
+Search.ARRAY_ELEMS_PER_LINE_SMALL = 16;
+Search.ARRAY_ELEMS_PER_LINE_LARGE = 30;
+Search.ARRAY_ELEMS_PER_LINE = Search.ARRAY_ELEMS_PER_LINE_SMALL;
+
+
+Search.ARRAY_LINE_SPACING_LARGE = 40;
+Search.ARRAY_LINE_SPACING_SMALL = 130;
+Search.ARRAY_LINE_SPACING = Search.ARRAY_LINE_SPACING_SMALL;
+
+Search.SIZE_SMALL = 32;
+Search.SIZE_LARGE = 180;
+var SIZE = Search.SIZE_SMALL;
 
 function Search(am, w, h)
 {
@@ -172,7 +172,7 @@ Search.prototype.addControls =  function()
 
 Search.prototype.smallListCallback = function (event)
 {
-	if (this.size != SMALL_SIZE)
+	if (this.size != Search.SMALL_SIZE)
 	{
 		this.animationManager.resetAll();
 		this.setup_small();		
@@ -182,7 +182,7 @@ Search.prototype.smallListCallback = function (event)
 
 Search.prototype.largeListCallback = function (event)
 {
-	if (this.size != LARGE_SIZE)
+	if (this.size != Search.LARGE_SIZE)
 	{
 		this.animationManager.resetAll();
 		this.setup_large();		
@@ -211,7 +211,7 @@ Search.prototype.disableUI = function(event)
 
 
 Search.prototype.getIndexX = function(index) {
-    var xpos = (index  % ARRAY_ELEMS_PER_LINE) * ARRAY_ELEM_WIDTH + ARRAY_START_X;
+    var xpos = (index  % Search.ARRAY_ELEMS_PER_LINE) * Search.ARRAY_ELEM_WIDTH + Search.ARRAY_START_X;
     return xpos;
 }
 
@@ -220,7 +220,7 @@ Search.prototype.getIndexY = function(index) {
     if (index == -1) {
        index = 0;
     }
-    var ypos = Math.floor(index / ARRAY_ELEMS_PER_LINE) * ARRAY_LINE_SPACING +  ARRAY_START_Y +  ARRAY_ELEM_HEIGHT;
+    var ypos = Math.floor(index / Search.ARRAY_ELEMS_PER_LINE) * Search.ARRAY_LINE_SPACING +  Search.ARRAY_START_Y +  Search.ARRAY_ELEM_HEIGHT;
      return ypos;
 }
 
@@ -257,7 +257,7 @@ Search.prototype.setup = function()
     {
 	var xLabelpos = this.getIndexX(i);
 	var yLabelpos = this.getIndexY(i);
-	this.cmd("CreateRectangle", this.arrayID[i],this.arrayData[i], ARRAY_ELEM_WIDTH, ARRAY_ELEM_HEIGHT,xLabelpos, yLabelpos - ARRAY_ELEM_HEIGHT);
+	this.cmd("CreateRectangle", this.arrayID[i],this.arrayData[i], Search.ARRAY_ELEM_WIDTH, Search.ARRAY_ELEM_HEIGHT,xLabelpos, yLabelpos - Search.ARRAY_ELEM_HEIGHT);
 	this.cmd("CreateLabel",this.arrayLabelID[i],  i,  xLabelpos, yLabelpos);
 	this.cmd("SetForegroundColor", this.arrayLabelID[i], "#0000FF");
 	
@@ -266,21 +266,21 @@ Search.prototype.setup = function()
     this.movingLabelID = this.nextIndex++;
     this.cmd("CreateLabel",this.movingLabelID,  "", 0, 0);
 
-   //	this.cmd("CreateLabel", this.leftoverLabelID, "", PUSH_LABEL_X, PUSH_LABEL_Y);
+   //	this.cmd("CreateLabel", this.leftoverLabelID, "", Search.PUSH_LABEL_X, Search.PUSH_LABEL_Y);
 
 
     this.searchForBoxID = this.nextIndex++;
     this.searchForBoxLabel = this.nextIndex++;
-    this.cmd("CreateRectangle",  this.searchForBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,SEARCH_FOR_X, SEARCH_FOR_Y);
-    this.cmd("CreateLabel",  this.searchForBoxLabel,  "Seaching For  ", SEARCH_FOR_X, SEARCH_FOR_Y);
+    this.cmd("CreateRectangle",  this.searchForBoxID, "", Search.EXTRA_FIELD_WIDTH, Search.EXTRA_FIELD_HEIGHT,Search.SEARCH_FOR_X, Search.SEARCH_FOR_Y);
+    this.cmd("CreateLabel",  this.searchForBoxLabel,  "Seaching For  ", Search.SEARCH_FOR_X, Search.SEARCH_FOR_Y);
     this.cmd("AlignLeft",   this.searchForBoxLabel, this.searchForBoxID);
 
     this.resultBoxID = this.nextIndex++;
     this.resultBoxLabel = this.nextIndex++;
     this.resultString = this.nextIndex++;
-    this.cmd("CreateRectangle",  this.resultBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,RESULT_X, RESULT_Y);
-    this.cmd("CreateLabel",  this.resultBoxLabel,  "Result  ", RESULT_X, RESULT_Y);
-    this.cmd("CreateLabel",  this.resultString,  "", RESULT_X, RESULT_Y);
+    this.cmd("CreateRectangle",  this.resultBoxID, "", Search.EXTRA_FIELD_WIDTH, Search.EXTRA_FIELD_HEIGHT,Search.RESULT_X, Search.RESULT_Y);
+    this.cmd("CreateLabel",  this.resultBoxLabel,  "Result  ", Search.RESULT_X, Search.RESULT_Y);
+    this.cmd("CreateLabel",  this.resultString,  "", Search.RESULT_X, Search.RESULT_Y);
     this.cmd("AlignLeft",   this.resultBoxLabel, this.resultBoxID);
     this.cmd("AlignRight",   this.resultString, this.resultBoxID);
     this.cmd("SetTextColor", this.resultString, "#FF0000");
@@ -289,51 +289,51 @@ Search.prototype.setup = function()
 
     this.indexBoxID = this.nextIndex++;
     this.indexBoxLabel = this.nextIndex++;
-    this.cmd("CreateRectangle",  this.indexBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,INDEX_X, INDEX_Y);
-    this.cmd("CreateLabel",  this.indexBoxLabel,  "index  ", INDEX_X, INDEX_Y);
+    this.cmd("CreateRectangle",  this.indexBoxID, "", Search.EXTRA_FIELD_WIDTH, Search.EXTRA_FIELD_HEIGHT,Search.INDEX_X, Search.INDEX_Y);
+    this.cmd("CreateLabel",  this.indexBoxLabel,  "index  ", Search.INDEX_X, Search.INDEX_Y);
     this.cmd("AlignLeft",   this.indexBoxLabel, this.indexBoxID);
 
 
 
     this.midBoxID = this.nextIndex++;
     this.midBoxLabel = this.nextIndex++;
-    this.cmd("CreateRectangle",  this.midBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,MID_POS_X, MID_POS_Y);
-    this.cmd("CreateLabel",  this.midBoxLabel,  "mid  ", MID_POS_X, MID_POS_Y);
+    this.cmd("CreateRectangle",  this.midBoxID, "", Search.EXTRA_FIELD_WIDTH, Search.EXTRA_FIELD_HEIGHT,Search.MID_POS_X, Search.MID_POS_Y);
+    this.cmd("CreateLabel",  this.midBoxLabel,  "mid  ", Search.MID_POS_X, Search.MID_POS_Y);
     this.cmd("AlignLeft",   this.midBoxLabel, this.midBoxID);
-    this.cmd("SetForegroundColor", this.midBoxID, MID_CIRCLE_COLOR);
-    this.cmd("SetTextColor", this.midBoxID, MID_CIRCLE_COLOR);
-    this.cmd("SetBackgroundColor", this.midBoxID, MID_BACKGROUND_COLOR);
+    this.cmd("SetForegroundColor", this.midBoxID, Search.MID_CIRCLE_COLOR);
+    this.cmd("SetTextColor", this.midBoxID, Search.MID_CIRCLE_COLOR);
+    this.cmd("SetBackgroundColor", this.midBoxID, Search.MID_BACKGROUND_COLOR);
 
     this.midCircleID = this.nextIndex++;
-    this.cmd("CreateHighlightCircle", this.midCircleID, MID_CIRCLE_COLOR, 0, 0, HIGHLIGHT_CIRCLE_SIZE);
+    this.cmd("CreateHighlightCircle", this.midCircleID, Search.MID_CIRCLE_COLOR, 0, 0, Search.HIGHLIGHT_CIRCLE_SIZE);
 
 
     this.lowBoxID = this.nextIndex++;
     this.lowBoxLabel = this.nextIndex++;
-    this.cmd("CreateRectangle",  this.lowBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,LOW_POS_X, LOW_POS_Y);
-    this.cmd("CreateLabel",  this.lowBoxLabel,  "low  ", LOW_POS_X, LOW_POS_Y);
+    this.cmd("CreateRectangle",  this.lowBoxID, "", Search.EXTRA_FIELD_WIDTH, Search.EXTRA_FIELD_HEIGHT,Search.LOW_POS_X, Search.LOW_POS_Y);
+    this.cmd("CreateLabel",  this.lowBoxLabel,  "low  ", Search.LOW_POS_X, Search.LOW_POS_Y);
     this.cmd("AlignLeft",   this.lowBoxLabel, this.lowBoxID);
-    this.cmd("SetForegroundColor", this.lowBoxID, LOW_CIRCLE_COLOR);
-    this.cmd("SetTextColor", this.lowBoxID, LOW_CIRCLE_COLOR);
-    this.cmd("SetBackgroundColor", this.lowBoxID, LOW_BACKGROUND_COLOR);
+    this.cmd("SetForegroundColor", this.lowBoxID, Search.LOW_CIRCLE_COLOR);
+    this.cmd("SetTextColor", this.lowBoxID, Search.LOW_CIRCLE_COLOR);
+    this.cmd("SetBackgroundColor", this.lowBoxID, Search.LOW_BACKGROUND_COLOR);
 
     this.lowCircleID = this.nextIndex++;
-    this.cmd("CreateHighlightCircle", this.lowCircleID, LOW_CIRCLE_COLOR, 0,0,HIGHLIGHT_CIRCLE_SIZE);
+    this.cmd("CreateHighlightCircle", this.lowCircleID, Search.LOW_CIRCLE_COLOR, 0,0,Search.HIGHLIGHT_CIRCLE_SIZE);
 
 
 
     this.highBoxID = this.nextIndex++;
     this.highBoxLabel = this.nextIndex++;
-    this.cmd("CreateRectangle",  this.highBoxID, "", EXTRA_FIELD_WIDTH, EXTRA_FIELD_HEIGHT,HIGH_POS_X, HIGH_POS_Y);
-    this.cmd("CreateLabel",  this.highBoxLabel,  "high  ", HIGH_POS_X, HIGH_POS_Y);
+    this.cmd("CreateRectangle",  this.highBoxID, "", Search.EXTRA_FIELD_WIDTH, Search.EXTRA_FIELD_HEIGHT,Search.HIGH_POS_X, Search.HIGH_POS_Y);
+    this.cmd("CreateLabel",  this.highBoxLabel,  "high  ", Search.HIGH_POS_X, Search.HIGH_POS_Y);
     this.cmd("AlignLeft",   this.highBoxLabel, this.highBoxID);
-    this.cmd("SetForegroundColor", this.highBoxID, HIGH_CIRCLE_COLOR);
-    this.cmd("SetTextColor", this.highBoxID, HIGH_CIRCLE_COLOR);
-    this.cmd("SetBackgroundColor", this.highBoxID, HIGH_BACKGROUND_COLOR);
+    this.cmd("SetForegroundColor", this.highBoxID, Search.HIGH_CIRCLE_COLOR);
+    this.cmd("SetTextColor", this.highBoxID, Search.HIGH_CIRCLE_COLOR);
+    this.cmd("SetBackgroundColor", this.highBoxID, Search.HIGH_BACKGROUND_COLOR);
 
 
     this.highCircleID = this.nextIndex++;
-    this.cmd("CreateHighlightCircle", this.highCircleID, HIGH_CIRCLE_COLOR, 0 , 0, HIGHLIGHT_CIRCLE_SIZE);
+    this.cmd("CreateHighlightCircle", this.highCircleID, Search.HIGH_CIRCLE_COLOR, 0 , 0, Search.HIGHLIGHT_CIRCLE_SIZE);
 
 
     this.cmd("SetALpha", this.lowBoxID, 0);
@@ -367,15 +367,15 @@ Search.prototype.setup = function()
 
 Search.prototype.setup_small = function() {
 
-   HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_SMALL;
-   ARRAY_START_X = ARRAY_START_X_SMALL;
-   ARRAY_START_Y = ARRAY_START_Y_SMALL;
-   ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_SMALL;
-   ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_SMALL;
-   ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_SMALL;
-   ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_SMALL;
-   SIZE = SIZE_SMALL;
-   this.size = SMALL_SIZE;
+   Search.HIGHLIGHT_CIRCLE_SIZE = Search.HIGHLIGHT_CIRCLE_SIZE_SMALL;
+   Search.ARRAY_START_X = Search.ARRAY_START_X_SMALL;
+   Search.ARRAY_START_Y = Search.ARRAY_START_Y_SMALL;
+   Search.ARRAY_ELEM_WIDTH = Search.ARRAY_ELEM_WIDTH_SMALL;
+   Search.ARRAY_ELEM_HEIGHT = Search.ARRAY_ELEM_HEIGHT_SMALL;
+   Search.ARRAY_ELEMS_PER_LINE = Search.ARRAY_ELEMS_PER_LINE_SMALL;
+   Search.ARRAY_LINE_SPACING = Search.ARRAY_LINE_SPACING_SMALL;
+   SIZE = Search.SIZE_SMALL;
+   this.size = Search.SMALL_SIZE;
    this.setup();
 
 }
@@ -383,15 +383,15 @@ Search.prototype.setup_small = function() {
 
 Search.prototype.setup_large  = function() {
 
-   HIGHLIGHT_CIRCLE_SIZE = HIGHLIGHT_CIRCLE_SIZE_LARGE;
-   ARRAY_START_X = ARRAY_START_X_LARGE;
-   ARRAY_START_Y = ARRAY_START_Y_LARGE;
-   ARRAY_ELEM_WIDTH = ARRAY_ELEM_WIDTH_LARGE;
-   ARRAY_ELEM_HEIGHT = ARRAY_ELEM_HEIGHT_LARGE;
-   ARRAY_ELEMS_PER_LINE = ARRAY_ELEMS_PER_LINE_LARGE;
-   ARRAY_LINE_SPACING = ARRAY_LINE_SPACING_LARGE;
-   SIZE = SIZE_LARGE;
-   this.size = LARGE_SIZE;
+   Search.HIGHLIGHT_CIRCLE_SIZE = Search.HIGHLIGHT_CIRCLE_SIZE_LARGE;
+   Search.ARRAY_START_X = Search.ARRAY_START_X_LARGE;
+   Search.ARRAY_START_Y = Search.ARRAY_START_Y_LARGE;
+   Search.ARRAY_ELEM_WIDTH = Search.ARRAY_ELEM_WIDTH_LARGE;
+   Search.ARRAY_ELEM_HEIGHT = Search.ARRAY_ELEM_HEIGHT_LARGE;
+   Search.ARRAY_ELEMS_PER_LINE = Search.ARRAY_ELEMS_PER_LINE_LARGE;
+   Search.ARRAY_LINE_SPACING = Search.ARRAY_LINE_SPACING_LARGE;
+   SIZE = Search.SIZE_LARGE;
+   this.size = Search.LARGE_SIZE;
    this.setup()
 
 }
@@ -432,9 +432,9 @@ Search.prototype.binarySearch = function(searchVal)
     this.cmd("SetAlpha", this.lowCircleID, 1);
     this.cmd("SetAlpha", this.midCircleID, 1);
     this.cmd("SetAlpha", this.highCircleID, 1);
-    this.cmd("SetPosition", this.lowCircleID, LOW_POS_X, LOW_POS_Y);
-    this.cmd("SetPosition", this.midCircleID, MID_POS_X, MID_POS_Y);
-    this.cmd("SetPosition", this.highCircleID, HIGH_POS_X, HIGH_POS_Y);
+    this.cmd("SetPosition", this.lowCircleID, Search.LOW_POS_X, Search.LOW_POS_Y);
+    this.cmd("SetPosition", this.midCircleID, Search.MID_POS_X, Search.MID_POS_Y);
+    this.cmd("SetPosition", this.highCircleID, Search.HIGH_POS_X, Search.HIGH_POS_Y);
     this.cmd("SetAlpha", this.indexBoxID, 0);
     this.cmd("SetAlpha", this.indexBoxLabel, 0);
 
@@ -556,7 +556,7 @@ Search.prototype.binarySearch = function(searchVal)
         this.cmd("SetText", this.movingLabelID, mid);
         this.cmd("SetPosition", this.movingLabelID, this.getIndexX(mid), this.getIndexY(mid));
 
-        this.cmd("Move", this.movingLabelID, RESULT_X, RESULT_Y);
+        this.cmd("Move", this.movingLabelID, Search.RESULT_X, Search.RESULT_Y);
 
         this.cmd("AlignRight",   this.resultString, this.resultBoxID);
         this.cmd("SetForegroundColor", this.binaryCodeID[6][0], Search.CODE_HIGHLIGHT_COLOR);
@@ -594,7 +594,7 @@ Search.prototype.linearSearch = function(searchVal)
     this.cmd("SetAlpha", this.midCircleID, 0);
     this.cmd("SetAlpha", this.highCircleID, 0);
 
-    this.cmd("SetPosition", this.lowCircleID, INDEX_X, INDEX_Y);
+    this.cmd("SetPosition", this.lowCircleID, Search.INDEX_X, Search.INDEX_Y);
 
     this.cmd("SetALpha", this.indexBoxID, 1);
     this.cmd("SetALpha", this.indexBoxLabel, 1);
@@ -684,7 +684,7 @@ Search.prototype.linearSearch = function(searchVal)
         this.cmd("SetText", this.movingLabelID, foundIndex);
         this.cmd("SetPosition", this.movingLabelID, this.getIndexX(foundIndex), this.getIndexY(foundIndex));
 
-        this.cmd("Move", this.movingLabelID, RESULT_X, RESULT_Y);
+        this.cmd("Move", this.movingLabelID, Search.RESULT_X, Search.RESULT_Y);
 
         this.cmd("AlignRight",   this.resultString, this.resultBoxID);
         this.cmd("Step");

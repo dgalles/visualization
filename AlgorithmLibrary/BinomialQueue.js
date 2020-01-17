@@ -25,26 +25,26 @@
 // or implied, of the University of San Francisco
 
 
-var LINK_COLOR = "#007700";
-var HIGHLIGHT_CIRCLE_COLOR = "#007700";
-var MERGE_SEPARATING_LINE_COLOR = "#0000FF";
-var FOREGROUND_COLOR = "#007700";
-var BACKGROUND_COLOR = "#EEFFEE";
-var DEGREE_OFFSET_X = -20;
-var DEGREE_OFFSET_Y = -20;
+BinomialQueue.LINK_COLOR = "#007700";
+BinomialQueue.HIGHLIGHT_CIRCLE_COLOR = "#007700";
+BinomialQueue.MERGE_SEPARATING_LINE_COLOR = "#0000FF";
+BinomialQueue.FOREGROUND_COLOR = "#007700";
+BinomialQueue.BACKGROUND_COLOR = "#EEFFEE";
+BinomialQueue.DEGREE_OFFSET_X = -20;
+BinomialQueue.DEGREE_OFFSET_Y = -20;
 
-var DELETE_LAB_X = 30;
-var DELETE_LAB_Y = 50;
+BinomialQueue.DELETE_LAB_X = 30;
+BinomialQueue.DELETE_LAB_Y = 50;
 
 
-var NODE_WIDTH = 60;
-var NODE_HEIGHT = 70
+BinomialQueue.NODE_WIDTH = 60;
+BinomialQueue.NODE_HEIGHT = 70
 
-var STARTING_X = 70;
-var STARTING_Y = 80;
+BinomialQueue.STARTING_X = 70;
+BinomialQueue.STARTING_Y = 80;
 
-var INSERT_X = 30;
-var INSERT_Y = 25
+BinomialQueue.INSERT_X = 30;
+BinomialQueue.INSERT_Y = 25
 
 
 function BinomialQueue(am, w, h)
@@ -124,22 +124,22 @@ BinomialQueue.prototype.setPositions = function(tree, xPosition, yPosition)
 		{
 			tree.x = xPosition;
 			tree.y = yPosition;
-			return this.setPositions(tree.rightSib, xPosition + NODE_WIDTH, yPosition);
+			return this.setPositions(tree.rightSib, xPosition + BinomialQueue.NODE_WIDTH, yPosition);
 		}
 		else if (tree.degree == 1)
 		{
 			tree.x = xPosition;
 			tree.y = yPosition;
-			this.setPositions(tree.leftChild, xPosition, yPosition + NODE_HEIGHT);
-			return this.setPositions(tree.rightSib, xPosition + NODE_WIDTH, yPosition);					
+			this.setPositions(tree.leftChild, xPosition, yPosition + BinomialQueue.NODE_HEIGHT);
+			return this.setPositions(tree.rightSib, xPosition + BinomialQueue.NODE_WIDTH, yPosition);					
 		}
 		else
 		{
 			var treeWidth = Math.pow(2, tree.degree - 1);
-			tree.x = xPosition + (treeWidth - 1) * NODE_WIDTH;
+			tree.x = xPosition + (treeWidth - 1) * BinomialQueue.NODE_WIDTH;
 			tree.y = yPosition;
-			this.setPositions(tree.leftChild, xPosition, yPosition + NODE_HEIGHT);
-			return this.setPositions(tree.rightSib, xPosition + treeWidth * NODE_WIDTH, yPosition);
+			this.setPositions(tree.leftChild, xPosition, yPosition + BinomialQueue.NODE_HEIGHT);
+			return this.setPositions(tree.rightSib, xPosition + treeWidth * BinomialQueue.NODE_WIDTH, yPosition);
 		}
 	}
 	return xPosition;
@@ -151,7 +151,7 @@ BinomialQueue.prototype.moveTree = function(tree)
 	{
 		this.cmd("Move", tree.graphicID, tree.x, tree.y);
 		this.cmd("Move", tree.internalGraphicID, tree.x, tree.y);
-		this.cmd("Move", tree.degreeID, tree.x  + DEGREE_OFFSET_X, tree.y + DEGREE_OFFSET_Y);
+		this.cmd("Move", tree.degreeID, tree.x  + BinomialQueue.DEGREE_OFFSET_X, tree.y + BinomialQueue.DEGREE_OFFSET_Y);
 		
 		this.moveTree(tree.leftChild);
 		this.moveTree(tree.rightSib);
@@ -245,13 +245,13 @@ BinomialQueue.prototype.removeSmallest = function(dummy)
 		this.cmd("SetText", smallest.graphicID, "");
 		this.cmd("SetText", smallest.internalGraphicID, "");
 		this.cmd("CreateLabel", moveLabel, smallest.data, smallest.x, smallest.y);
-		this.cmd("Move", moveLabel, DELETE_LAB_X, DELETE_LAB_Y);
+		this.cmd("Move", moveLabel, BinomialQueue.DELETE_LAB_X, BinomialQueue.DELETE_LAB_Y);
 		this.cmd("Step");
 		if (prev != null && prev.rightSib != null)
 		{
 			this.cmd("Connect", prev.internalGraphicID, 
 					 prev.rightSib.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
@@ -281,7 +281,7 @@ BinomialQueue.prototype.reverse = function(tree)
 			this.cmd("Disconnect", tree.internalGraphicID, tree.rightSib.internalGraphicID);
 			this.cmd("Connect", tree.rightSib.internalGraphicID, 
 					 tree.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
@@ -300,18 +300,18 @@ BinomialQueue.prototype.insertElement = function(insertedValue)
 {
 	this.commands = new Array();
 	
-	var insertNode = new BinomialNode(insertedValue, this.nextIndex++,  INSERT_X, INSERT_Y);
+	var insertNode = new BinomialNode(insertedValue, this.nextIndex++,  BinomialQueue.INSERT_X, BinomialQueue.INSERT_Y);
 	insertNode.internalGraphicID = this.nextIndex++;
 	insertNode.degreeID= this.nextIndex++;
-	this.cmd("CreateCircle", insertNode.graphicID, insertedValue, INSERT_X, INSERT_Y);
-	this.cmd("SetForegroundColor", insertNode.graphicID, FOREGROUND_COLOR);
-	this.cmd("SetBackgroundColor", insertNode.graphicID, BACKGROUND_COLOR);
+	this.cmd("CreateCircle", insertNode.graphicID, insertedValue, BinomialQueue.INSERT_X, BinomialQueue.INSERT_Y);
+	this.cmd("SetForegroundColor", insertNode.graphicID, BinomialQueue.FOREGROUND_COLOR);
+	this.cmd("SetBackgroundColor", insertNode.graphicID, BinomialQueue.BACKGROUND_COLOR);
 	this.cmd("SetLayer", insertNode.graphicID, 1);
-	this.cmd("CreateCircle", insertNode.internalGraphicID, insertedValue, INSERT_X, INSERT_Y);
-	this.cmd("SetForegroundColor", insertNode.internalGraphicID, FOREGROUND_COLOR);
-	this.cmd("SetBackgroundColor", insertNode.internalGraphicID, BACKGROUND_COLOR);
+	this.cmd("CreateCircle", insertNode.internalGraphicID, insertedValue, BinomialQueue.INSERT_X, BinomialQueue.INSERT_Y);
+	this.cmd("SetForegroundColor", insertNode.internalGraphicID, BinomialQueue.FOREGROUND_COLOR);
+	this.cmd("SetBackgroundColor", insertNode.internalGraphicID, BinomialQueue.BACKGROUND_COLOR);
 	this.cmd("SetLayer", insertNode.internalGraphicID, 2);
-	this.cmd("CreateLabel", insertNode.degreeID, insertNode.degree, insertNode.x  + DEGREE_OFFSET_X, insertNode.y + DEGREE_OFFSET_Y);
+	this.cmd("CreateLabel", insertNode.degreeID, insertNode.degree, insertNode.x  + BinomialQueue.DEGREE_OFFSET_X, insertNode.y + BinomialQueue.DEGREE_OFFSET_Y);
 	this.cmd("SetTextColor", insertNode.degreeID, "#0000FF");
 	this.cmd("SetLayer", insertNode.degreeID, 2);
 	this.cmd("Step");
@@ -319,7 +319,7 @@ BinomialQueue.prototype.insertElement = function(insertedValue)
 	if (this.treeRoot == null)
 	{
 		this.treeRoot = insertNode;
-		this.setPositions(this.treeRoot, STARTING_X, STARTING_Y);
+		this.setPositions(this.treeRoot, BinomialQueue.STARTING_X, BinomialQueue.STARTING_Y);
 		this.moveTree(this.treeRoot);
 	}
 	else
@@ -336,13 +336,13 @@ BinomialQueue.prototype.merge = function()
 {
 	if (this.treeRoot != null)
 	{
-		var leftSize = this.setPositions(this.treeRoot, STARTING_X, STARTING_Y);
-		this.setPositions(this.secondaryTreeRoot, leftSize + NODE_WIDTH, STARTING_Y);
+		var leftSize = this.setPositions(this.treeRoot, BinomialQueue.STARTING_X, BinomialQueue.STARTING_Y);
+		this.setPositions(this.secondaryTreeRoot, leftSize + BinomialQueue.NODE_WIDTH, BinomialQueue.STARTING_Y);
 		this.moveTree(this.secondaryTreeRoot);
 		this.moveTree(this.treeRoot);
 		var lineID = this.nextIndex++;
 		this.cmd("CreateRectangle", lineID, "", 0, 200, leftSize, 50,"left","top");
-		this.cmd("SetForegroundColor", lineID, MERGE_SEPARATING_LINE_COLOR);
+		this.cmd("SetForegroundColor", lineID, BinomialQueue.MERGE_SEPARATING_LINE_COLOR);
 		this.cmd("SetLayer", lineID, 0);
 		this.cmd("Step");
 	}
@@ -350,7 +350,7 @@ BinomialQueue.prototype.merge = function()
 	{
 		this.treeRoot = this.secondaryTreeRoot;
 		this.secondaryTreeRoot = null;
-		this.setPositions(this.treeRoot,  NODE_WIDTH, STARTING_Y);
+		this.setPositions(this.treeRoot,  BinomialQueue.NODE_WIDTH, BinomialQueue.STARTING_Y);
 		this.moveTree(this.treeRoot);
 		return;
 	}
@@ -368,7 +368,7 @@ BinomialQueue.prototype.merge = function()
 			this.treeRoot = tmp;
 			this.cmd("Connect", this.treeRoot.internalGraphicID, 
 					 this.treeRoot.rightSib.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
@@ -385,7 +385,7 @@ BinomialQueue.prototype.merge = function()
 				this.cmd("Disconnect", tmp2.internalGraphicID, tmp2.rightSib.internalGraphicID);
 				this.cmd("Connect", tmp.internalGraphicID, 
 						 tmp2.rightSib.internalGraphicID,
-						 FOREGROUND_COLOR,
+						 BinomialQueue.FOREGROUND_COLOR,
 						 0, // Curve
 						 1, // Directed
 						 ""); // Label
@@ -394,13 +394,13 @@ BinomialQueue.prototype.merge = function()
 			tmp2.rightSib = tmp;
 			this.cmd("Connect", tmp2.internalGraphicID, 
 					 tmp.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
 		}
-		leftSize = this.setPositions(this.treeRoot, STARTING_X, STARTING_Y);
-		this.setPositions(this.secondaryTreeRoot, leftSize + NODE_WIDTH, STARTING_Y);
+		leftSize = this.setPositions(this.treeRoot, BinomialQueue.STARTING_X, BinomialQueue.STARTING_Y);
+		this.setPositions(this.secondaryTreeRoot, leftSize + BinomialQueue.NODE_WIDTH, BinomialQueue.STARTING_Y);
 		this.moveTree(this.secondaryTreeRoot);
 		this.moveTree(this.treeRoot);
 		this.cmd("Move", lineID, leftSize, 50);
@@ -441,7 +441,7 @@ BinomialQueue.prototype.combineNodes = function()
 		}
 		this.cmd("Connect", this.treeRoot.graphicID, 
 				 this.treeRoot.leftChild.graphicID,
-				 FOREGROUND_COLOR,
+				 BinomialQueue.FOREGROUND_COLOR,
 				 0, // Curve
 				 0, // Directed
 				 ""); // Label
@@ -449,14 +449,14 @@ BinomialQueue.prototype.combineNodes = function()
 		
 		this.cmd("Connect", this.treeRoot.internalGraphicID, 
 				 this.treeRoot.leftChild.internalGraphicID,
-				 FOREGROUND_COLOR,
+				 BinomialQueue.FOREGROUND_COLOR,
 				 0.15, // Curve
 				 1, // Directed
 				 ""); // Label
 		
 		this.cmd("Connect",  this.treeRoot.leftChild.internalGraphicID, 
 				 this.treeRoot.internalGraphicID,
-				 FOREGROUND_COLOR,
+				 BinomialQueue.FOREGROUND_COLOR,
 				 0, // Curve
 				 1, // Directed
 				 ""); // Label					
@@ -465,7 +465,7 @@ BinomialQueue.prototype.combineNodes = function()
 			this.cmd("Disconnect", this.treeRoot.internalGraphicID, this.treeRoot.leftChild.rightSib.internalGraphicID);
 			this.cmd("Connect", this.treeRoot.leftChild.internalGraphicID, 
 					 this.treeRoot.leftChild.rightSib.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
@@ -474,7 +474,7 @@ BinomialQueue.prototype.combineNodes = function()
 		{
 			this.cmd("Connect", this.treeRoot.internalGraphicID, 
 					 this.treeRoot.rightSib.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
@@ -485,7 +485,7 @@ BinomialQueue.prototype.combineNodes = function()
 		this.cmd("SetText", this.treeRoot.degreeID, this.treeRoot.degree);
 		
 		
-		this.setPositions(this.treeRoot, STARTING_X, STARTING_Y);
+		this.setPositions(this.treeRoot, BinomialQueue.STARTING_X, BinomialQueue.STARTING_Y);
 		this.moveTree(this.treeRoot);	
 		this.cmd("Step");
 	}
@@ -537,28 +537,28 @@ BinomialQueue.prototype.combineNodes = function()
 			}
 			this.cmd("Connect", tempRoot.graphicID, 
 					 tempRoot.leftChild.graphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 0, // Directed
 					 ""); // Label
 			
 			this.cmd("Connect", tempRoot.internalGraphicID, 
 					 tempRoot.leftChild.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0.15, // Curve
 					 1, // Directed
 					 ""); // Label
 			
 			this.cmd("Connect",  tempRoot.leftChild.internalGraphicID, 
 					 tempRoot.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
 			
 			this.cmd("Connect",  tmp2.internalGraphicID, 
 					 tempRoot.internalGraphicID,
-					 FOREGROUND_COLOR,
+					 BinomialQueue.FOREGROUND_COLOR,
 					 0, // Curve
 					 1, // Directed
 					 ""); // Label
@@ -568,7 +568,7 @@ BinomialQueue.prototype.combineNodes = function()
 				this.cmd("Disconnect",tempRoot.internalGraphicID, tempRoot.leftChild.rightSib.internalGraphicID);
 				this.cmd("Connect",tempRoot.leftChild.internalGraphicID, 
 						 tempRoot.leftChild.rightSib.internalGraphicID,
-						 FOREGROUND_COLOR,
+						 BinomialQueue.FOREGROUND_COLOR,
 						 0, // Curve
 						 1, // Directed
 						 ""); // Label);
@@ -577,7 +577,7 @@ BinomialQueue.prototype.combineNodes = function()
 			{
 				this.cmd("Connect",tempRoot.internalGraphicID, 
 						 tempRoot.rightSib.internalGraphicID,
-						 FOREGROUND_COLOR,
+						 BinomialQueue.FOREGROUND_COLOR,
 						 0, // Curve
 						 1, // Directed
 						 ""); // Label);					
@@ -586,7 +586,7 @@ BinomialQueue.prototype.combineNodes = function()
 			
 			
 			
-			this.setPositions(this.treeRoot, STARTING_X, STARTING_Y);
+			this.setPositions(this.treeRoot, BinomialQueue.STARTING_X, BinomialQueue.STARTING_Y);
 			this.moveTree(this.treeRoot);	
 			this.cmd("Step");
 		}
