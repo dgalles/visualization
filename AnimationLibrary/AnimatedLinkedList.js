@@ -41,13 +41,6 @@ function AnimatedLinkedList(id, val, wth, hgt, linkPer, verticalOrientation, lin
 	
 	this.numLabels = numLab;
 	this.objectID = id;	
-}
-AnimatedLinkedList.inheritFrom(AnimatedObject);
-
-
-AnimatedLinkedList.prototype.init = function()
-{
-	AnimatedLinkedList.superclass.init.call(this);
 
 	this.labels = [];
 	this.labelPosX = [];
@@ -70,7 +63,7 @@ AnimatedLinkedList.prototype.init = function()
 	this.labels[0] = this.val;
 	this.highlighted = false;
 }
-
+AnimatedLinkedList.inheritFrom(AnimatedObject);
 		
 		
 AnimatedLinkedList.prototype.left = function()

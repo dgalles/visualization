@@ -27,25 +27,14 @@
 
 function AnimatedBTreeNode(id, widthPerElem, h, numElems,  fillColor, edgeColor)
 {
+	AnimatedBTreeNode.superclass.constructor.call(this);
+
 	this.objectID = id;
 	this.widthPerElement = widthPerElem;
 	this.nodeHeight = h;
 	this.numLabels = numElems;
 	this.backgroundColor = (fillColor == undefined)? "#FFFFFF" : fillColor;
 	this.foregroundColor = (edgeColor == undefined)? "#000000" : edgeColor;
-
-	// call superclass' constructor, which calls init
-	AnimatedBTreeNode.superclass.constructor.call(this);
-}
-AnimatedBTreeNode.inheritFrom(AnimatedObject);
-
-AnimatedBTreeNode.MIN_WIDTH = 10;
-AnimatedBTreeNode.EDGE_POINTER_DISPLACEMENT = 5;
-
-
-AnimatedBTreeNode.prototype.init = function(id, widthPerElem, h, numElems,  fillColor, edgeColor)
-{
-	AnimatedBTreeNode.superclass.init.call(this);
 
 	this.labels = new Array(this.numLabels);
 	this.labelColors = new Array(this.numLabels);
@@ -54,7 +43,12 @@ AnimatedBTreeNode.prototype.init = function(id, widthPerElem, h, numElems,  fill
 		this.labelColors[i] = this.foregroundColor;
 	}
 }
-	
+AnimatedBTreeNode.inheritFrom(AnimatedObject);
+
+AnimatedBTreeNode.MIN_WIDTH = 10;
+AnimatedBTreeNode.EDGE_POINTER_DISPLACEMENT = 5;
+
+
 AnimatedBTreeNode.prototype.getNumElements = function()
 {
 	return this.numLabels;
