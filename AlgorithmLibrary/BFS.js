@@ -224,6 +224,8 @@ BFS.prototype.doBFS = function(startVetex)
 BFS.prototype.reset = function()
 {
 	// Throw an error?
+
+	this.messageID = new Array();
 }
 
 

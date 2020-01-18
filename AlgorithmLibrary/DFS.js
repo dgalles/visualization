@@ -225,6 +225,8 @@ DFS.prototype.dfsVisit = function(startVertex, messageX)
 DFS.prototype.reset = function()
 {
 	// Throw an error?
+
+	this.messageID = new Array();
 }
 
 
