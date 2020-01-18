@@ -25,10 +25,10 @@
 // or implied, of the University of San Francisco
 
 
-function BFS(am, w, h)
+function BFS(am, w, h, dir)
 {
 	// call superclass' constructor, which calls init
-	BFS.superclass.constructor.call(this, am, w, h);
+	BFS.superclass.constructor.call(this, am, w, h, dir);
 }
 BFS.inheritFrom(Graph);
 
@@ -62,10 +62,10 @@ BFS.prototype.addControls =  function()
 }	
 
 
-BFS.prototype.init = function(am, w, h)
+BFS.prototype.init = function(am, w, h, dir)
 {
 	showEdgeCosts = false;
-	BFS.superclass.init.call(this, am, w, h); // TODO:  add no edge label flag to this?
+	BFS.superclass.init.call(this, am, w, h, dir); // TODO:  add no edge label flag to this?
 	// Setup called in base class constructor
 }
 

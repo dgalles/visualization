@@ -39,12 +39,12 @@ DijkstraPrim.HIGHLIGHT_CIRCLE_COLOR = "#000000";
 
 
 
-function DijkstraPrim(am, runningDijkstra, w, h)
+function DijkstraPrim(am, w, h, runningDijkstra, dir)
 {
 	this.runningDijkstra = runningDijkstra;
 
 	// call superclass' constructor, which calls init
-	DijkstraPrim.superclass.constructor.call(this, am, w, h);	
+	DijkstraPrim.superclass.constructor.call(this, am, w, h, dir, false);
 }
 
 DijkstraPrim.inheritFrom(Graph);
@@ -70,10 +70,10 @@ DijkstraPrim.prototype.addControls =  function()
 }	
 
 
-DijkstraPrim.prototype.init = function(am, runningDijkstra, w, h)
+DijkstraPrim.prototype.init = function(am, w, h, dir)
 {
 	this.showEdgeCosts = true;
-	DijkstraPrim.superclass.init.call(this, am, w, h, false, false); // TODO:  add no edge label flag to this?
+	DijkstraPrim.superclass.init.call(this, am, w, h, dir, false); // TODO:  add no edge label flag to this?
 	// Setup called in base class init function
 }
 
@@ -428,5 +428,5 @@ var currentAlg;
 function init(runDijkstra)
 {
 	var animManag = initCanvas();
-	currentAlg = new DijkstraPrim(animManag, runDijkstra, canvas.width, canvas.height);
+	currentAlg = new DijkstraPrim(animManag, canvas.width, canvas.height, runDijkstra);
 }

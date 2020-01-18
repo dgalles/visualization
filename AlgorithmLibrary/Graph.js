@@ -33,7 +33,7 @@ function Graph(am, w, h, dir, dag)
 	if (!am)
 		throw "this shouldn't happen";
 
-	this.init(am, w, h, dir,dag);
+	this.init(am, w, h, dir, dag);
 }
 
 Graph.inheritFrom(Algorithm);

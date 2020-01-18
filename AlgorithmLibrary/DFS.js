@@ -42,10 +42,10 @@ DFS.QUEUE_START_Y = 50;
 DFS.QUEUE_SPACING = 30;
 
 
-function DFS(am, w, h)
+function DFS(am, w, h, dir)
 {
 	// call superclass' constructor, which calls init
-	DFS.superclass.constructor.call(this, am, w, h);
+	DFS.superclass.constructor.call(this, am, w, h, dir);
 }
 
 DFS.inheritFrom(Graph);
@@ -61,10 +61,10 @@ DFS.prototype.addControls =  function()
 }	
 
 
-DFS.prototype.init = function(am, w, h)
+DFS.prototype.init = function(am, w, h, dir)
 {
 	showEdgeCosts = false;
-	DFS.superclass.init.call(this, am, w, h); // TODO:  add no edge label flag to this?
+	DFS.superclass.init.call(this, am, w, h, dir); // TODO:  add no edge label flag to this?
 	// Setup called in base class constructor
 }
 

@@ -26,10 +26,10 @@
 
 
 
-function Floyd(am, w, h)
+function Floyd(am, w, h, dir)
 {
 	// call superclass' constructor, which calls init
-	Floyd.superclass.constructor.call(this, am, w, h);
+	Floyd.superclass.constructor.call(this, am, w, h, dir);
 }
 
 Floyd.inheritFrom(Graph);
@@ -88,10 +88,10 @@ Floyd.prototype.addControls =  function()
 }	
 
 
-Floyd.prototype.init = function(am, w, h)
+Floyd.prototype.init = function(am, w, h, dir)
 {
 	this.showEdgeCosts = true;
-	Floyd.superclass.init.call(this, am, w, h, true, false); // TODO:  add no edge label flag to this?
+	Floyd.superclass.init.call(this, am, w, h, dir, false); // TODO:  add no edge label flag to this?
 	// Setup called in base class init function
 }
 
