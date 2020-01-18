@@ -31,17 +31,19 @@ Function.prototype.inheritFrom = function(superConstructor) {
 	this.prototype.constructor = this;					// for instanceof
 }
 
-Function.prototype.bind = function() {
-	var _function = this;
-	
-	var args = Array.prototype.slice.call(arguments);
-	var scope = args.shift()
-	return function() {
-		for (var i = 0; i < arguments.length; i++)
-		{
-			args.push(arguments[i]);
+if(!Function.prototype.bind) { // ECMAScript 5 is supported everywhere by now
+	Function.prototype.bind = function() {
+		var _function = this;
+		
+		var args = Array.prototype.slice.call(arguments);
+		var scope = args.shift()
+		return function() {
+			for (var i = 0; i < arguments.length; i++)
+			{
+				args.push(arguments[i]);
+			}
+			return _function.apply(scope, args);
 		}
-		return _function.apply(scope, args);
 	}
 }
 
