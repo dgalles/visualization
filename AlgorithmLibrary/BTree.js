@@ -674,7 +674,7 @@ BTree.prototype.insertRepair = function(tree)
 
 BTree.prototype.split = function(tree)
 {
-	this.cmd("SetText", this.messageID, "Node now contains too many keys.  Splittig ...");
+	this.cmd("SetText", this.messageID, "Node now contains too many keys.  Splitting ...");
 	this.cmd("SetHighlight", tree.graphicID, 1);
 	this.cmd("Step");
 	this.cmd("SetHighlight", tree.graphicID, 0);
