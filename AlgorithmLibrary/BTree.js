@@ -51,8 +51,10 @@ BTree.PRINT_COLOR = BTree.FOREGROUND_COLOR;
 
 
 
-function BTree(am, w, h)
+function BTree(am, w, h, max_degree)
 {
+	this.initial_max_degree = this.max_degree = max_degree || 3;
+
 	this.init(am, w, h);
 
 }
@@ -76,13 +78,9 @@ BTree.prototype.init = function(am, w, h)
 	this.addControls();
 	
 	
-	this.max_keys = 2;
-	this.min_keys = 1;
-	this.split_index = 1;
-	
-	this.max_degree = 3;
-	
-	
+	this.max_keys = this.max_degree - 1;
+	this.min_keys = Math.floor((this.max_degree + 1) / 2) - 1;
+	this.split_index = Math.floor((this.max_degree - 1) / 2);	
 	
 	
 	this.messageID = this.nextIndex++;
@@ -169,10 +167,13 @@ BTree.prototype.addControls =  function()
 BTree.prototype.reset = function()
 {
 	this.nextIndex = 3;
-	this.max_degree = 3;
-	this.max_keys = 2;
-	this.min_keys = 1;
-	this.split_index = 1;
+
+	this.max_degree = this.initial_max_degree;
+
+	this.max_keys = this.max_degree - 1;
+	this.min_keys = Math.floor((this.max_degree + 1) / 2) - 1;
+	this.split_index = Math.floor((this.max_degree - 1) / 2);	
+
 	// NOTE: The order of these last two this.commands matters!
 	this.treeRoot = null;
 	this.ignoreInputs = true;
