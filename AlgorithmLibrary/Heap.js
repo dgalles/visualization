@@ -25,9 +25,11 @@
 // or implied, of the University of San Francisco
 
 
-function Heap(am)
+function Heap(am, w, h, compare)
 {
-	this.init(am);
+	this.compare = compare ? window[compare] : function(a, b) { return a < b ? -1 : a > b ? 1 : 0; };
+
+	this.init(am, w, h);
 
 }
 Heap.inheritFrom(Algorithm);
@@ -220,7 +222,7 @@ Heap.prototype.pushDown = function(index)
 			this.cmd("Step");
 			this.setIndexHighlight(2*index, 0);
 			this.setIndexHighlight(2*index + 1, 0);
-			if (this.arrayData[2*index + 1] < this.arrayData[2*index])
+			if (this.compare(this.arrayData[2*index + 1], this.arrayData[2*index]) < 0)
 			{
 				smallestIndex = 2*index + 1;
 			}
@@ -231,7 +233,7 @@ Heap.prototype.pushDown = function(index)
 		this.setIndexHighlight(index, 0);
 		this.setIndexHighlight(smallestIndex, 0);
 		
-		if (this.arrayData[smallestIndex] < this.arrayData[index])
+		if (this.compare(this.arrayData[smallestIndex], this.arrayData[index]) < 0)
 		{
 			this.swap(smallestIndex, index);
 			index = smallestIndex;
@@ -354,7 +356,7 @@ Heap.prototype.insertElement = function(insertedValue)
 		this.setIndexHighlight(parentIndex, 0);
 	}
 	
-	while (currentIndex > 1 && this.arrayData[currentIndex] < this.arrayData[parentIndex])
+	while (currentIndex > 1 && this.compare(this.arrayData[currentIndex], this.arrayData[parentIndex]) < 0)
 	{
 		this.swap(currentIndex, parentIndex);
 		currentIndex = parentIndex;
