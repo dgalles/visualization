@@ -290,13 +290,26 @@ Heap.prototype.buildHeapCallback = function(event)
 	this.implementAction(this.buildHeap.bind(this),"");			
 }
 
-Heap.prototype.buildHeap = function(ignored)
+Heap.prototype.buildHeap = function(data)
 {
 	this.commands = [];
 	this.clear();
-	for (var i = 1; i <Heap.ARRAY_SIZE; i++)
+
+	if(data)
 	{
-		this.arrayData[i] = this.normalizeNumber(String(Heap.ARRAY_SIZE - i), 4);
+		for (var i = 0; i < data.length; i++)
+			this.arrayData[i+1] = data[i];
+		this.currentHeapSize = data.length;
+	}
+	else
+	{
+		for (var i = 1; i <Heap.ARRAY_SIZE; i++)
+			this.arrayData[i] = this.normalizeNumber(String(Heap.ARRAY_SIZE - i), 4);
+		this.currentHeapSize = Heap.ARRAY_SIZE - 1;
+	 }
+
+	for (var i = 1; i <= this.currentHeapSize; i++)
+	{
 		this.cmd("CreateCircle", this.circleObjs[i], this.arrayData[i], this.HeapXPositions[i], this.HeapYPositions[i]);
 		this.cmd("SetText", this.arrayRects[i], this.arrayData[i]);
 		if (i > 1)
@@ -306,7 +319,6 @@ Heap.prototype.buildHeap = function(ignored)
 		
 	}
 	this.cmd("Step");
-	this.currentHeapSize = Heap.ARRAY_SIZE - 1;
 	var nextElem = this.currentHeapSize;
 	while(nextElem > 0)
 	{
