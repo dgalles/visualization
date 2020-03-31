@@ -26,8 +26,12 @@
 
 function TopoSortIndegree(am, w, h)
 {
-	this.init(am, w, h);
+	// call superclass' constructor, which calls init
+	TopoSortIndegree.superclass.constructor.call(this, am, w, h);
 }
+
+TopoSortIndegree.inheritFrom(Graph);
+
 
 
 
@@ -58,13 +62,9 @@ TopoSortIndegree.HIGHLIGHT_CIRCLE_COLOR = "#000000";
 TopoSortIndegree.MESSAGE_COLOR = "#0000FF";
 
 
-TopoSortIndegree.prototype = new Graph();
-TopoSortIndegree.prototype.constructor = TopoSortIndegree;
-TopoSortIndegree.superclass = Graph.prototype;
-
 TopoSortIndegree.prototype.addControls =  function()
 {		
-	this.startButton = addControlToAlgorithmBar("Button", "Do Topological Sort");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Do Topological Sort");
 	this.startButton.onclick = this.startCallback.bind(this);
 	TopoSortIndegree.superclass.addControls.call(this, false);
 }	
@@ -102,7 +102,7 @@ TopoSortIndegree.prototype.setup = function()
 		this.cmd("CreateLabel", this.orderID[i], "", 0, 0); // HACK!!
 		this.cmd("CreateRectangle", this.indegreeID[i], " ", TopoSortIndegree.INDEGREE_ARRAY_ELEM_WIDTH, TopoSortIndegree.INDEGREE_ARRAY_ELEM_HEIGHT, TopoSortIndegree.INDEGREE_ARRAY_START_X, TopoSortIndegree.INDEGREE_ARRAY_START_Y + i*TopoSortIndegree.INDEGREE_ARRAY_ELEM_HEIGHT);
 		this.cmd("CreateLabel", this.setIndexID[i], i, TopoSortIndegree.INDEGREE_ARRAY_START_X - TopoSortIndegree.INDEGREE_ARRAY_ELEM_WIDTH ,TopoSortIndegree.INDEGREE_ARRAY_START_Y + i*TopoSortIndegree.INDEGREE_ARRAY_ELEM_HEIGHT);
-		this.cmd("SetForegroundColor",  this.setIndexID[i], VERTEX_INDEX_COLOR);				
+		this.cmd("SetForegroundColor",  this.setIndexID[i], Graph.VERTEX_INDEX_COLOR);				
 	}
 	this.cmd("CreateLabel", this.nextIndex++, "Indegree", TopoSortIndegree.INDEGREE_ARRAY_START_X - 1 * TopoSortIndegree.INDEGREE_ARRAY_ELEM_WIDTH, TopoSortIndegree.INDEGREE_ARRAY_START_Y - TopoSortIndegree.INDEGREE_ARRAY_ELEM_HEIGHT * 1.5, 0);
 	
@@ -188,7 +188,7 @@ TopoSortIndegree.prototype.doTopoSort = function(ignored)
 				this.cmd("Delete", this.highlightCircleL);
 				this.cmd("Delete", this.highlightCircleAL);
 				this.cmd("Delete", this.highlightCircleAM);
-				this.cmd("SetTextColor", this.indegreeID[neighbor], EDGE_COLOR);
+				this.cmd("SetTextColor", this.indegreeID[neighbor], Graph.EDGE_COLOR);
 				this.highlightEdge(vertex, neighbor, 0);
 			}
 		
@@ -268,7 +268,7 @@ TopoSortIndegree.prototype.doTopoSort = function(ignored)
 				this.cmd("Delete", this.highlightCircleL);
 				this.cmd("Delete", this.highlightCircleAL);
 				this.cmd("Delete", this.highlightCircleAM);
-				this.cmd("SetTextColor", this.indegreeID[vertex], EDGE_COLOR);
+				this.cmd("SetTextColor", this.indegreeID[vertex], Graph.EDGE_COLOR);
 				this.highlightEdge(nextElem, vertex, 0);
 				
 			}

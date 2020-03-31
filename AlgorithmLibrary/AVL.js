@@ -29,10 +29,7 @@ function AVL(am, w, h)
 	this.init(am, w, h);
 
 }
-
-AVL.prototype = new Algorithm();
-AVL.prototype.constructor = AVL;
-AVL.superclass = Algorithm.prototype;
+AVL.inheritFrom(Algorithm);
 
 
 // Various constants
@@ -83,19 +80,19 @@ AVL.prototype.init = function(am, w, h)
 
 AVL.prototype.addControls =  function()
 {
-	this.insertField = addControlToAlgorithmBar("Text", "");
+	this.insertField = this.addControlToAlgorithmBar("Text", "");
 	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), 4);
-	this.insertButton = addControlToAlgorithmBar("Button", "Insert");
+	this.insertButton = this.addControlToAlgorithmBar("Button", "Insert");
 	this.insertButton.onclick = this.insertCallback.bind(this);
-	this.deleteField = addControlToAlgorithmBar("Text", "");
+	this.deleteField = this.addControlToAlgorithmBar("Text", "");
 	this.deleteField.onkeydown = this.returnSubmit(this.deleteField,  this.deleteCallback.bind(this), 4);
-	this.deleteButton = addControlToAlgorithmBar("Button", "Delete");
+	this.deleteButton = this.addControlToAlgorithmBar("Button", "Delete");
 	this.deleteButton.onclick = this.deleteCallback.bind(this);
-	this.findField = addControlToAlgorithmBar("Text", "");
+	this.findField = this.addControlToAlgorithmBar("Text", "");
 	this.findField.onkeydown = this.returnSubmit(this.findField,  this.findCallback.bind(this), 4);
-	this.findButton = addControlToAlgorithmBar("Button", "Find");
+	this.findButton = this.addControlToAlgorithmBar("Button", "Find");
 	this.findButton.onclick = this.findCallback.bind(this);
-	this.printButton = addControlToAlgorithmBar("Button", "Print");
+	this.printButton = this.addControlToAlgorithmBar("Button", "Print");
 	this.printButton.onclick = this.printCallback.bind(this);
 }
 

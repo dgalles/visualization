@@ -30,10 +30,7 @@ function TestAlgorithm(am)
 	this.init(am);
 
 }
-
-TestAlgorithm.prototype = new Algorithm();
-TestAlgorithm.prototype.constructor = TestAlgorithm;
-TestAlgorithm.superclass = Algorithm.prototype;
+TestAlgorithm.inheritFrom(Algorithm);
 
 TestAlgorithm.prototype.init = function(am)
 {
@@ -48,7 +45,7 @@ TestAlgorithm.prototype.init = function(am)
 
 TestAlgorithm.prototype.addControls =  function()
 {
-	this.doWorkButton = addControlToAlgorithmBar("Button", "Do Work");
+	this.doWorkButton = this.addControlToAlgorithmBar("Button", "Do Work");
 	this.doWorkButton.onclick = this.doWork.bind(this);
 }
 

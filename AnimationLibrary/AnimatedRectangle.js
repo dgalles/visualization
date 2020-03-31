@@ -28,6 +28,9 @@
 
 AnimatedRectangle = function(id, val, wth, hgt,  xJust, yJust, fillColor, edgeColor)
 {
+	// call superclass' constructor
+	AnimatedRectangle.superclass.constructor.call(this);
+
 	this.w = wth;
 	this.h = hgt;
 	this.xJustify = xJust;
@@ -46,8 +49,7 @@ AnimatedRectangle = function(id, val, wth, hgt,  xJust, yJust, fillColor, edgeCo
 	
 }
 
-AnimatedRectangle.prototype = new AnimatedObject();
-AnimatedRectangle.prototype.constructor = AnimatedRectangle;
+AnimatedRectangle.inheritFrom(AnimatedObject);
 
 AnimatedRectangle.prototype.setNull = function(np)
 {
@@ -324,8 +326,7 @@ function UndoDeleteRectangle(id, lab, x, y, w, h, xJust, yJust, bgColor, fgColor
 	this.highlighted = highlight;
 }
 
-UndoDeleteRectangle.prototype = new UndoBlock();
-UndoDeleteRectangle.prototype.constructor = UndoDeleteRectangle;
+UndoDeleteRectangle.inheritFrom(UndoBlock);
 
 
 UndoDeleteRectangle.prototype.undoInitialStep = function(world)

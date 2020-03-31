@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -24,36 +24,33 @@
 // authors and should not be interpreted as representing official policies, either expressed
 // or implied, of the University of San Francisco
 
-
-var ARRAY_START_X = 100;
-var ARRAY_START_Y = 200;
-var ARRAY_ELEM_WIDTH = 50;
-var ARRAY_ELEM_HEIGHT = 50;
-
-var ARRRAY_ELEMS_PER_LINE = 15;
-var ARRAY_LINE_SPACING = 130;
-
-var TOP_POS_X = 180;
-var TOP_POS_Y = 100;
-var TOP_LABEL_X = 130;
-var TOP_LABEL_Y =  100;
-
-var PUSH_LABEL_X = 50;
-var PUSH_LABEL_Y = 30;
-var PUSH_ELEMENT_X = 120;
-var PUSH_ELEMENT_Y = 30;
-
-var SIZE = 30;
-
 function StackArray(am, w, h)
 {
 	this.init(am, w, h);
 	
 }
+StackArray.inheritFrom(Algorithm);
 
-StackArray.prototype = new Algorithm();
-StackArray.prototype.constructor = StackArray;
-StackArray.superclass = Algorithm.prototype;
+
+StackArray.ARRAY_START_X = 100;
+StackArray.ARRAY_START_Y = 200;
+StackArray.ARRAY_ELEM_WIDTH = 50;
+StackArray.ARRAY_ELEM_HEIGHT = 50;
+
+StackArray.ARRRAY_ELEMS_PER_LINE = 15;
+StackArray.ARRAY_LINE_SPACING = 130;
+
+StackArray.TOP_POS_X = 180;
+StackArray.TOP_POS_Y = 100;
+StackArray.TOP_LABEL_X = 130;
+StackArray.TOP_LABEL_Y =  100;
+
+StackArray.PUSH_LABEL_X = 50;
+StackArray.PUSH_LABEL_Y = 30;
+StackArray.PUSH_ELEMENT_X = 120;
+StackArray.PUSH_ELEMENT_Y = 30;
+
+StackArray.SIZE = 30;
 
 
 StackArray.prototype.init = function(am, w, h)
@@ -70,18 +67,18 @@ StackArray.prototype.init = function(am, w, h)
 StackArray.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.pushField = addControlToAlgorithmBar("Text", "");
+	this.pushField = this.addControlToAlgorithmBar("Text", "");
 	this.pushField.onkeydown = this.returnSubmit(this.pushField,  this.pushCallback.bind(this), 6);
-	this.pushButton = addControlToAlgorithmBar("Button", "Push");
+	this.pushButton = this.addControlToAlgorithmBar("Button", "Push");
 	this.pushButton.onclick = this.pushCallback.bind(this);
 	this.controls.push(this.pushField);
 	this.controls.push(this.pushButton);
 
-	this.popButton = addControlToAlgorithmBar("Button", "Pop");
+	this.popButton = this.addControlToAlgorithmBar("Button", "Pop");
 	this.popButton.onclick = this.popCallback.bind(this);
 	this.controls.push(this.popButton);
 	
-	this.clearButton = addControlToAlgorithmBar("Button", "Clear Stack");
+	this.clearButton = this.addControlToAlgorithmBar("Button", "Clear Stack");
 	this.clearButton.onclick = this.clearCallback.bind(this);
 	this.controls.push(this.clearButton);
 	
@@ -109,9 +106,9 @@ StackArray.prototype.setup = function()
 {
 	this.nextIndex = 0;
 	
-	this.arrayID = new Array(SIZE);
-	this.arrayLabelID = new Array(SIZE);
-	for (var i = 0; i < SIZE; i++)
+	this.arrayID = new Array(StackArray.SIZE);
+	this.arrayLabelID = new Array(StackArray.SIZE);
+	for (var i = 0; i < StackArray.SIZE; i++)
 	{
 		
 		this.arrayID[i]= this.nextIndex++;
@@ -120,24 +117,24 @@ StackArray.prototype.setup = function()
 	this.topID = this.nextIndex++;
 	this.topLabelID = this.nextIndex++;
 	
-	this.arrayData = new Array(SIZE);
+	this.arrayData = new Array(StackArray.SIZE);
 	this.top = 0;
 	this.leftoverLabelID = this.nextIndex++;
 	this.commands = new Array();
 	
-	for (var i = 0; i < SIZE; i++)
+	for (var i = 0; i < StackArray.SIZE; i++)
 	{
-		var xpos = (i  % ARRRAY_ELEMS_PER_LINE) * ARRAY_ELEM_WIDTH + ARRAY_START_X;
-		var ypos = Math.floor(i / ARRRAY_ELEMS_PER_LINE) * ARRAY_LINE_SPACING +  ARRAY_START_Y;
-		this.cmd("CreateRectangle", this.arrayID[i],"", ARRAY_ELEM_WIDTH, ARRAY_ELEM_HEIGHT,xpos, ypos);
-		this.cmd("CreateLabel",this.arrayLabelID[i],  i,  xpos, ypos + ARRAY_ELEM_HEIGHT);
+		var xpos = (i  % StackArray.ARRRAY_ELEMS_PER_LINE) * StackArray.ARRAY_ELEM_WIDTH + StackArray.ARRAY_START_X;
+		var ypos = Math.floor(i / StackArray.ARRRAY_ELEMS_PER_LINE) * StackArray.ARRAY_LINE_SPACING +  StackArray.ARRAY_START_Y;
+		this.cmd("CreateRectangle", this.arrayID[i],"", StackArray.ARRAY_ELEM_WIDTH, StackArray.ARRAY_ELEM_HEIGHT,xpos, ypos);
+		this.cmd("CreateLabel",this.arrayLabelID[i],  i,  xpos, ypos + StackArray.ARRAY_ELEM_HEIGHT);
 		this.cmd("SetForegroundColor", this.arrayLabelID[i], "#0000FF");
 		
 	}
-	this.cmd("CreateLabel", this.topLabelID, "top", TOP_LABEL_X, TOP_LABEL_Y);
-	this.cmd("CreateRectangle", this.topID, 0, ARRAY_ELEM_WIDTH, ARRAY_ELEM_HEIGHT, TOP_POS_X, TOP_POS_Y);
+	this.cmd("CreateLabel", this.topLabelID, "top", StackArray.TOP_LABEL_X, StackArray.TOP_LABEL_Y);
+	this.cmd("CreateRectangle", this.topID, 0, StackArray.ARRAY_ELEM_WIDTH, StackArray.ARRAY_ELEM_HEIGHT, StackArray.TOP_POS_X, StackArray.TOP_POS_Y);
 	
-	this.cmd("CreateLabel", this.leftoverLabelID, "", PUSH_LABEL_X, PUSH_LABEL_Y);
+	this.cmd("CreateLabel", this.leftoverLabelID, "", StackArray.PUSH_LABEL_X, StackArray.PUSH_LABEL_Y);
 	
 	this.highlight1ID = this.nextIndex++;
 	this.highlight2ID = this.nextIndex++;
@@ -160,7 +157,7 @@ StackArray.prototype.reset = function()
 		
 StackArray.prototype.pushCallback = function(event)
 {
-	if (this.top < SIZE && this.pushField.value != "")
+	if (this.top < StackArray.SIZE && this.pushField.value != "")
 	{
 		var pushVal = this.pushField.value;
 		this.pushField.value = ""
@@ -201,17 +198,17 @@ StackArray.prototype.push = function(elemToPush)
 	
 	this.cmd("SetText", this.leftoverLabelID, "");
 	
-	this.cmd("CreateLabel", labPushID, "Pushing Value: ", PUSH_LABEL_X, PUSH_LABEL_Y);
-	this.cmd("CreateLabel", labPushValID,elemToPush, PUSH_ELEMENT_X, PUSH_ELEMENT_Y);
+	this.cmd("CreateLabel", labPushID, "Pushing Value: ", StackArray.PUSH_LABEL_X, StackArray.PUSH_LABEL_Y);
+	this.cmd("CreateLabel", labPushValID,elemToPush, StackArray.PUSH_ELEMENT_X, StackArray.PUSH_ELEMENT_Y);
 	
 	this.cmd("Step");			
-	this.cmd("CreateHighlightCircle", this.highlight1ID, "#0000FF",  TOP_POS_X, TOP_POS_Y);
+	this.cmd("CreateHighlightCircle", this.highlight1ID, "#0000FF",  StackArray.TOP_POS_X, StackArray.TOP_POS_Y);
 	this.cmd("Step");
 	
-	var xpos = (this.top  % ARRRAY_ELEMS_PER_LINE) * ARRAY_ELEM_WIDTH + ARRAY_START_X;
-	var ypos = Math.floor(this.top / ARRRAY_ELEMS_PER_LINE) * ARRAY_LINE_SPACING +  ARRAY_START_Y;
+	var xpos = (this.top  % StackArray.ARRRAY_ELEMS_PER_LINE) * StackArray.ARRAY_ELEM_WIDTH + StackArray.ARRAY_START_X;
+	var ypos = Math.floor(this.top / StackArray.ARRRAY_ELEMS_PER_LINE) * StackArray.ARRAY_LINE_SPACING +  StackArray.ARRAY_START_Y;
 	
-	this.cmd("Move", this.highlight1ID, xpos, ypos + ARRAY_ELEM_HEIGHT); 				
+	this.cmd("Move", this.highlight1ID, xpos, ypos + StackArray.ARRAY_ELEM_HEIGHT); 				
 	this.cmd("Step");
 	
 	this.cmd("Move", labPushValID, xpos, ypos);
@@ -243,7 +240,7 @@ StackArray.prototype.pop = function(ignored)
 	this.cmd("SetText", this.leftoverLabelID, "");
 
 	
-	this.cmd("CreateLabel", labPopID, "Popped Value: ", PUSH_LABEL_X, PUSH_LABEL_Y);
+	this.cmd("CreateLabel", labPopID, "Popped Value: ", StackArray.PUSH_LABEL_X, StackArray.PUSH_LABEL_Y);
 	
 	
 	this.cmd("SetHighlight", this.topID, 1);
@@ -253,18 +250,18 @@ StackArray.prototype.pop = function(ignored)
 	this.cmd("Step");
 	this.cmd("SetHighlight", this.topID, 0);
 	
-	this.cmd("CreateHighlightCircle", this.highlight1ID, "#0000FF",  TOP_POS_X, TOP_POS_Y);
+	this.cmd("CreateHighlightCircle", this.highlight1ID, "#0000FF",  StackArray.TOP_POS_X, StackArray.TOP_POS_Y);
 	this.cmd("Step");
 	
-	var xpos = (this.top  % ARRRAY_ELEMS_PER_LINE) * ARRAY_ELEM_WIDTH + ARRAY_START_X;
-	var ypos = Math.floor(this.top / ARRRAY_ELEMS_PER_LINE) * ARRAY_LINE_SPACING +  ARRAY_START_Y;
+	var xpos = (this.top  % StackArray.ARRRAY_ELEMS_PER_LINE) * StackArray.ARRAY_ELEM_WIDTH + StackArray.ARRAY_START_X;
+	var ypos = Math.floor(this.top / StackArray.ARRRAY_ELEMS_PER_LINE) * StackArray.ARRAY_LINE_SPACING +  StackArray.ARRAY_START_Y;
 	
-	this.cmd("Move", this.highlight1ID, xpos, ypos + ARRAY_ELEM_HEIGHT); 				
+	this.cmd("Move", this.highlight1ID, xpos, ypos + StackArray.ARRAY_ELEM_HEIGHT); 				
 	this.cmd("Step");
 	
 	this.cmd("CreateLabel", labPopValID,this.arrayData[this.top], xpos, ypos);
 	this.cmd("Settext", this.arrayID[this.top], "");
-	this.cmd("Move", labPopValID,  PUSH_ELEMENT_X, PUSH_ELEMENT_Y);
+	this.cmd("Move", labPopValID,  StackArray.PUSH_ELEMENT_X, StackArray.PUSH_ELEMENT_Y);
 	this.cmd("Step");
 	this.cmd("Delete", labPopValID)
 	this.cmd("Delete", labPopID);

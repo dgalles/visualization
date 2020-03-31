@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -59,9 +59,7 @@ function FibonacciHeap(am, w, h)
 	
 }
 
-FibonacciHeap.prototype = new Algorithm();
-FibonacciHeap.prototype.constructor = FibonacciHeap;
-FibonacciHeap.superclass = Algorithm.prototype;
+FibonacciHeap.inheritFrom(Algorithm);
 
 		
 		
@@ -80,23 +78,23 @@ FibonacciHeap.prototype.init = function(am, w, h)
 FibonacciHeap.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.insertField = addControlToAlgorithmBar("Text", "");
+	this.insertField = this.addControlToAlgorithmBar("Text", "");
 	this.insertField.onkeydown = this.returnSubmit(this.insertField,  this.insertCallback.bind(this), 4);
 	this.controls.push(this.insertField);
 
-	this.insertButton = addControlToAlgorithmBar("Button", "Insert");
+	this.insertButton = this.addControlToAlgorithmBar("Button", "Insert");
 	this.insertButton.onclick = this.insertCallback.bind(this);
 	this.controls.push(this.insertButton);
 
-	this.removeSmallestButton = addControlToAlgorithmBar("Button", "Remove Smallest");
+	this.removeSmallestButton = this.addControlToAlgorithmBar("Button", "Remove Smallest");
 	this.removeSmallestButton.onclick = this.removeSmallestCallback.bind(this);
 	this.controls.push(this.removeSmallestButton);
 
-	this.clearHeapButton = addControlToAlgorithmBar("Button", "Clear Heap");
+	this.clearHeapButton = this.addControlToAlgorithmBar("Button", "Clear Heap");
 	this.clearHeapButton.onclick = this.clearCallback.bind(this);
 	this.controls.push(this.clearHeapButton);
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Logical Representation", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Logical Representation", 
 															 "Internal Representation", 
 															 ], 
 															"BQueueRep");

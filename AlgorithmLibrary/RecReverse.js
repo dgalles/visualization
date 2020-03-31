@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -28,13 +28,10 @@
 
 function Reverse(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	Reverse.superclass.constructor.call(this, am, w, h);
 }
-
-Reverse.prototype = new Recursive();
-Reverse.prototype.constructor = Reverse;
-Reverse.superclass = Recursive.prototype;
+Reverse.inheritFrom(Recursive);
 
 Reverse.ACTIVATION_FIELDS = ["word ", "subProblem ", "subSolution ", "solution "];
 
@@ -78,11 +75,11 @@ Reverse.prototype.init = function(am, w, h)
 Reverse.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.reverseField = addControlToAlgorithmBar("Text", "");
+	this.reverseField = this.addControlToAlgorithmBar("Text", "");
 	this.reverseField.onkeydown = this.returnSubmit(this.reverseField,  this.reverseCallback.bind(this), 10, false);
 	this.controls.push(this.reverseField);
 
-	this.reverseButton = addControlToAlgorithmBar("Button", "Reverse");
+	this.reverseButton = this.addControlToAlgorithmBar("Button", "Reverse");
 	this.reverseButton.onclick = this.reverseCallback.bind(this);
 	this.controls.push(this.reverseButton);
 		

@@ -125,11 +125,11 @@ EventListener.prototype.fireEvent = function(kind, event)
 
 function Source()
 {
-	
+	// call superclass' constructor
+	Source.superclass.constructor.call(this);
 }
+Source.inheritFrom(EventListener);
 
-Source.prototype = new EventListener();
-Source.prototype.constructor = Source;
 Source.prototype.testFire = function()
 {
 	this.fireEvent("test","testcontents");

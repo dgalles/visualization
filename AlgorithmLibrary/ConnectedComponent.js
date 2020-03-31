@@ -25,29 +25,29 @@
 // or implied, of the University of San Francisco
 
 
-var AUX_ARRAY_WIDTH = 25;
-var AUX_ARRAY_HEIGHT = 25;
-var AUX_ARRAY_START_Y = 100;
+ConnectedComponent.AUX_ARRAY_WIDTH = 25;
+ConnectedComponent.AUX_ARRAY_HEIGHT = 25;
+ConnectedComponent.AUX_ARRAY_START_Y = 100;
 
-var VISITED_START_X = 475;
-var PARENT_START_X = 400;
-
-
-var D_X_POS_SMALL = [760, 685, 915, 610, 910, 685, 915, 760];
-var F_X_POS_SMALL = [760, 685, 915, 610, 910, 685, 915, 760];
+ConnectedComponent.VISITED_START_X = 475;
+ConnectedComponent.PARENT_START_X = 400;
 
 
+ConnectedComponent.D_X_POS_SMALL = [760, 685, 915, 610, 910, 685, 915, 760];
+ConnectedComponent.F_X_POS_SMALL = [760, 685, 915, 610, 910, 685, 915, 760];
 
-var D_Y_POS_SMALL = [18, 118, 118, 218, 218, 318, 318, 418];
-var F_Y_POS_SMALL = [32, 132, 132, 232, 232, 332, 332, 432];
 
-var D_X_POS_LARGE = [560, 660, 760, 860,
+
+ConnectedComponent.D_Y_POS_SMALL = [18, 118, 118, 218, 218, 318, 318, 418];
+ConnectedComponent.F_Y_POS_SMALL = [32, 132, 132, 232, 232, 332, 332, 432];
+
+ConnectedComponent.D_X_POS_LARGE = [560, 660, 760, 860,
 									610, 710, 810,
 									560, 660, 760, 860,
 									610, 710, 810,
 									560, 660, 760, 860];
 
-var F_X_POS_LARGE = [560, 660, 760, 860,
+ConnectedComponent.F_X_POS_LARGE = [560, 660, 760, 860,
 									610, 710, 810,
 									560, 660, 760, 860,
 									610, 710, 810,
@@ -55,36 +55,34 @@ var F_X_POS_LARGE = [560, 660, 760, 860,
 
 
 
-var D_Y_POS_LARGE = [037, 037, 037, 037,
+ConnectedComponent.D_Y_POS_LARGE = [037, 037, 037, 037,
 									137, 137, 137,
 									237, 237, 237, 237, 
 									337, 337, 337, 
 									437,  437, 437, 437];
 
-var F_Y_POS_LARGE = [62, 62, 62, 62,
+ConnectedComponent.F_Y_POS_LARGE = [62, 62, 62, 62,
 									162, 162, 162,
 									262, 262, 262, 262, 
 									362, 362, 362, 
 									462,  462, 462, 462];
 
 
-var HIGHLIGHT_CIRCLE_COLOR = "#000000";
-var DFS_TREE_COLOR = "#0000FF";
+ConnectedComponent.HIGHLIGHT_CIRCLE_COLOR = "#000000";
+ConnectedComponent.DFS_TREE_COLOR = "#0000FF";
 
 
 function ConnectedComponent(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	ConnectedComponent.superclass.constructor.call(this, am, w, h);
 }
 
-ConnectedComponent.prototype = new Graph();
-ConnectedComponent.prototype.constructor = ConnectedComponent;
-ConnectedComponent.superclass = Graph.prototype;
+ConnectedComponent.inheritFrom(Graph);
 
 ConnectedComponent.prototype.addControls =  function()
 {		
-	this.startButton = addControlToAlgorithmBar("Button", "Run Connected Component");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run Connected Component");
 	this.startButton.onclick = this.startCallback.bind(this);
 	ConnectedComponent.superclass.addControls.call(this, false);
 }	
@@ -192,12 +190,12 @@ ConnectedComponent.prototype.doCC = function(ignored)
 	{
 		if (!this.visited[vertex])
 		{
-			this.cmd("CreateHighlightCircle", this.highlightCircleL, HIGHLIGHT_CIRCLE_COLOR, this.x_pos_logical[vertex], this.y_pos_logical[vertex]);
+			this.cmd("CreateHighlightCircle", this.highlightCircleL, ConnectedComponent.HIGHLIGHT_CIRCLE_COLOR, this.x_pos_logical[vertex], this.y_pos_logical[vertex]);
 			this.cmd("SetLayer", this.highlightCircleL, 1);
-			this.cmd("CreateHighlightCircle", this.highlightCircleAL, HIGHLIGHT_CIRCLE_COLOR,this.adj_list_x_start - this.adj_list_width, this.adj_list_y_start + vertex*this.adj_list_height);
+			this.cmd("CreateHighlightCircle", this.highlightCircleAL, ConnectedComponent.HIGHLIGHT_CIRCLE_COLOR,this.adj_list_x_start - this.adj_list_width, this.adj_list_y_start + vertex*this.adj_list_height);
 			this.cmd("SetLayer", this.highlightCircleAL, 2);
 			
-			this.cmd("CreateHighlightCircle", this.highlightCircleAM, HIGHLIGHT_CIRCLE_COLOR,this.adj_matrix_x_start  - this.adj_matrix_width, this.adj_matrix_y_start + vertex*this.adj_matrix_height);
+			this.cmd("CreateHighlightCircle", this.highlightCircleAM, ConnectedComponent.HIGHLIGHT_CIRCLE_COLOR,this.adj_matrix_x_start  - this.adj_matrix_width, this.adj_matrix_y_start + vertex*this.adj_matrix_height);
 			this.cmd("SetLayer", this.highlightCircleAM, 3);
 			
 			if (vertex > 0)
@@ -302,12 +300,12 @@ ConnectedComponent.prototype.doCC = function(ignored)
 			this.cmd("SetForegroundColor",breakID2 ,"#004B00");
 			this.messageY = this.messageY + 20;			
 			
-			this.cmd("CreateHighlightCircle", this.highlightCircleL, HIGHLIGHT_CIRCLE_COLOR, this.x_pos_logical[vertex], this.y_pos_logical[vertex]);
+			this.cmd("CreateHighlightCircle", this.highlightCircleL, ConnectedComponent.HIGHLIGHT_CIRCLE_COLOR, this.x_pos_logical[vertex], this.y_pos_logical[vertex]);
 			this.cmd("SetLayer", this.highlightCircleL, 1);
-			this.cmd("CreateHighlightCircle", this.highlightCircleAL, HIGHLIGHT_CIRCLE_COLOR,this.adj_list_x_start - this.adj_list_width, this.adj_list_y_start + vertex*this.adj_list_height);
+			this.cmd("CreateHighlightCircle", this.highlightCircleAL, ConnectedComponent.HIGHLIGHT_CIRCLE_COLOR,this.adj_list_x_start - this.adj_list_width, this.adj_list_y_start + vertex*this.adj_list_height);
 			this.cmd("SetLayer", this.highlightCircleAL, 2);
 			
-			this.cmd("CreateHighlightCircle", this.highlightCircleAM, HIGHLIGHT_CIRCLE_COLOR,this.adj_matrix_x_start  - this.adj_matrix_width, this.adj_matrix_y_start + vertex*this.adj_matrix_height);
+			this.cmd("CreateHighlightCircle", this.highlightCircleAM, ConnectedComponent.HIGHLIGHT_CIRCLE_COLOR,this.adj_matrix_x_start  - this.adj_matrix_width, this.adj_matrix_y_start + vertex*this.adj_matrix_height);
 			this.cmd("SetLayer", this.highlightCircleAM, 3);
 
 			
@@ -337,20 +335,20 @@ ConnectedComponent.prototype.doCC = function(ignored)
 
 ConnectedComponent.prototype.setup_large = function()
 {
-	this.d_x_pos = D_X_POS_LARGE;
-	this.d_y_pos = D_Y_POS_LARGE;
-	this.f_x_pos = F_X_POS_LARGE;
-	this.f_y_pos = F_Y_POS_LARGE;
+	this.d_x_pos = ConnectedComponent.D_X_POS_LARGE;
+	this.d_y_pos = ConnectedComponent.D_Y_POS_LARGE;
+	this.f_x_pos = ConnectedComponent.F_X_POS_LARGE;
+	this.f_y_pos = ConnectedComponent.F_Y_POS_LARGE;
 	
 	ConnectedComponent.superclass.setup_large.call(this); 
 }		
 ConnectedComponent.prototype.setup_small = function()
 {
 	
-	this.d_x_pos = D_X_POS_SMALL;
-	this.d_y_pos = D_Y_POS_SMALL;
-	this.f_x_pos = F_X_POS_SMALL;
-	this.f_y_pos = F_Y_POS_SMALL;
+	this.d_x_pos = ConnectedComponent.D_X_POS_SMALL;
+	this.d_y_pos = ConnectedComponent.D_Y_POS_SMALL;
+	this.f_x_pos = ConnectedComponent.F_X_POS_SMALL;
+	this.f_y_pos = ConnectedComponent.F_Y_POS_SMALL;
 
 	ConnectedComponent.superclass.setup_small.call(this); 
 }
@@ -399,7 +397,7 @@ ConnectedComponent.prototype.dfsVisit = function(startVertex, messageX, printCCN
 				if (!this.visited[neighbor])
 				{
 					this.cmd("Disconnect", this.circleID[startVertex], this.circleID[neighbor]);
-					this.cmd("Connect", this.circleID[startVertex], this.circleID[neighbor], DFS_TREE_COLOR, this.curve[startVertex][neighbor], 1, "");
+					this.cmd("Connect", this.circleID[startVertex], this.circleID[neighbor], ConnectedComponent.DFS_TREE_COLOR, this.curve[startVertex][neighbor], 1, "");
 					this.cmd("Move", this.highlightCircleL, this.x_pos_logical[neighbor], this.y_pos_logical[neighbor]);
 					this.cmd("Move", this.highlightCircleAL, this.adj_list_x_start - this.adj_list_width, this.adj_list_y_start + neighbor*this.adj_list_height);
 					this.cmd("Move", this.highlightCircleAM, this.adj_matrix_x_start - this.adj_matrix_width, this.adj_matrix_y_start + neighbor*this.adj_matrix_height);

@@ -25,17 +25,25 @@
 // or implied, of the University of San Francisco
 
 
-Function.prototype.bind = function() {
-	var _function = this;
-	
-	var args = Array.prototype.slice.call(arguments);
-	var scope = args.shift()
-	return function() {
-		for (var i = 0; i < arguments.length; i++)
-		{
-			args.push(arguments[i]);
+Function.prototype.inheritFrom = function(superConstructor) {
+	this.superclass = superConstructor.prototype;		// for calling superclass' constructor/methods
+	this.prototype = Object.create(this.superclass);	// create an object with the needed prototype, but without calling superConstructor
+	this.prototype.constructor = this;					// for instanceof
+}
+
+if(!Function.prototype.bind) { // ECMAScript 5 is supported everywhere by now
+	Function.prototype.bind = function() {
+		var _function = this;
+		
+		var args = Array.prototype.slice.call(arguments);
+		var scope = args.shift()
+		return function() {
+			for (var i = 0; i < arguments.length; i++)
+			{
+				args.push(arguments[i]);
+			}
+			return _function.apply(scope, args);
 		}
-		return _function.apply(scope, args);
 	}
 }
 
@@ -127,50 +135,4 @@ EventListener.prototype.fireEvent = function(kind, event)
 
 }
 
-
-/*
-function Source()
-{
-	
-}
-
-Source.prototype = new EventListener();
-Source.prototype.constructor = Source;
-Source.prototype.testFire = function()
-{
-	this.fireEvent("test","testcontents");
-	this.fireEvent("test2","test2contents");
-}
-
-
-
-function Client(eventSource)
-{
-		
-	this.first = function(blah)
-	{
-		alert("first:" + blah);
-	}
-	
-	this.second = function(blah)
-	{
-		alert("second:" + blah);
-	}
-	eventSource.addListener("test", this, this.first);
-	eventSource.addListener("test", this, this.first);
-	eventSource.addListener("test", this, this.second);
-	eventSource.removeListener("test", this, this.first);
-	
-							
-}
-							
-							
-function init()
-{
-	var src = new Source;
-	var c = new Client(src);
-	src.testFire();
-}
-							
-*/
 

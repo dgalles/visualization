@@ -30,10 +30,7 @@ function MyAlgorithm(am, w, h)
 {
 	this.init(am, w, h);
 }
-
-MyAlgorithm.prototype = new Algorithm();
-MyAlgorithm.prototype.constructor = MyAlgorithm;
-MyAlgorithm.superclass = Algorithm.prototype;
+MyAlgorithm.inheritFrom(Algorithm);
 
 MyAlgorithm.prototype.init = function(am, w, h)
 {
@@ -59,13 +56,13 @@ MyAlgorithm.prototype.addControls =  function()
 	//   There are libraries that help with text entry, buttons, check boxes, radio groups
 	//
 	// To add a button myButton:
-	//	   this.mybytton = addControlToAlgorithmBar("Button", "MyButtonText");
+	//	   this.mybytton = this.addControlToAlgorithmBar("Button", "MyButtonText");
 	//     this.mybytton.onclick = this.myCallback.bind(this);
 	//     this.controls.push(this.mybutton);
 	//   where myCallback is a method on this function that implemnts the callback
 	//
 	// To add a text field myField:
-	//    this.myField = addControlToAlgorithmBar("Text", "");
+	//    this.myField = this.addControlToAlgorithmBar("Text", "");
 	//    this.myField.onkeydown = this.returnSubmit(this.myField,  
 	//                                               this.anotherCallback.bind(this), // callback to make when return is pressed
 	//                                               maxFieldLen,                     // integer, max number of characters allowed in field
@@ -73,12 +70,12 @@ MyAlgorithm.prototype.addControls =  function()
 	//    this.controls.push(this.myField);
 	//
     // To add a textbox:
-	//   	this.myCheckbox = addCheckboxToAlgorithmBar("Checkbox Label");
+	//   	this.myCheckbox = this.addCheckboxToAlgorithmBar("Checkbox Label");
 	//      this.myCheckbox.onclick = this.checkboxCallback.bind(this);
 	//      this.controls.push(myCheckbox);
 	//
 	// To add a radio button group:
-	//	  this.radioButtonList = addRadioButtonGroupToAlgorithmBar(["radio button label 1", 
+	//	  this.radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["radio button label 1", 
 	//                                                              "radio button label 2", 
 	//                                                              "radio button label 3"], 
     //                                                             "MyButtonGroupName");

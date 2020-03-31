@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -28,13 +28,10 @@
 
 function RecFact(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	RecFact.superclass.constructor.call(this, am, w, h);
 }
-
-RecFact.prototype = new Recursive();
-RecFact.prototype.constructor = RecFact;
-RecFact.superclass = Recursive.prototype;
+RecFact.inheritFrom(Recursive);
 
 
 RecFact.MAX_VALUE = 20;
@@ -78,11 +75,11 @@ RecFact.prototype.init = function(am, w, h)
 RecFact.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.factorialField = addControlToAlgorithmBar("Text", "");
+	this.factorialField = this.addControlToAlgorithmBar("Text", "");
 	this.factorialField.onkeydown = this.returnSubmit(this.factorialField,  this.factorialCallback.bind(this), 2, true);
 	this.controls.push(this.factorialField);
 
-	this.factorialButton = addControlToAlgorithmBar("Button", "Factorial");
+	this.factorialButton = this.addControlToAlgorithmBar("Button", "Factorial");
 	this.factorialButton.onclick = this.factorialCallback.bind(this);
 	this.controls.push(this.factorialButton);
 		

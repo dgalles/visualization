@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -32,9 +32,7 @@ function ChangeCoordinate2D(am, w, h)
 }
 
 
-ChangeCoordinate2D.prototype = new Algorithm();
-ChangeCoordinate2D.prototype.constructor = ChangeCoordinate2D;
-ChangeCoordinate2D.superclass = Algorithm.prototype;
+ChangeCoordinate2D.inheritFrom(Algorithm);
 
 ChangeCoordinate2D.XAxisYPos = 300;
 ChangeCoordinate2D.XAxisStart = 100;
@@ -503,26 +501,26 @@ ChangeCoordinate2D.prototype.addControls =  function()
 {
 	this.controls = [];
 	
-	addLabelToAlgorithmBar("x");
+	this.addLabelToAlgorithmBar("x");
 						   
-	this.xField = addControlToAlgorithmBar("Text", "");
+	this.xField = this.addControlToAlgorithmBar("Text", "");
 	this.xField.onkeydown = this.returnSubmitFloat(this.xField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.xField);
 	
-	addLabelToAlgorithmBar("y");
+	this.addLabelToAlgorithmBar("y");
 	
-	this.yField = addControlToAlgorithmBar("Text", "");
+	this.yField = this.addControlToAlgorithmBar("Text", "");
 	this.yField.onkeydown = this.returnSubmitFloat(this.yField,  this.transformPointCallback.bind(this), 4, true);
 	this.controls.push(this.yField);
 
-	var transformButton = addControlToAlgorithmBar("Button", "Transform Point");
+	var transformButton = this.addControlToAlgorithmBar("Button", "Transform Point");
 	transformButton.onclick = this.transformPointCallback.bind(this);
 	this.controls.push(transformButton);
 	
 	
 	
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Hand Space -> World Space", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Hand Space -> World Space", 
 															 "World Space -> Hand Space", 
 															 ], 
 															"Transform Type");
@@ -541,7 +539,7 @@ ChangeCoordinate2D.prototype.addControls =  function()
 	
 	
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Row Major", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Row Major", 
 															 "Column Major", 
 															 ], 
 															"RankType");
@@ -557,7 +555,7 @@ ChangeCoordinate2D.prototype.addControls =  function()
 	this.colMajorButton.checked = !this.rowMajor;
 	
 	
-	this.showAxisBox = addCheckboxToAlgorithmBar("Show all axes");
+	this.showAxisBox = this.addCheckboxToAlgorithmBar("Show all axes");
 	this.showAxisBox.onclick = this.showAllAxesCallback.bind(this);
 	this.showAxisBox.checked = true;
 	
@@ -565,7 +563,7 @@ ChangeCoordinate2D.prototype.addControls =  function()
 	
 	
 
-	var moveObjectsButton = addControlToAlgorithmBar("Button", "Move Objects");
+	var moveObjectsButton = this.addControlToAlgorithmBar("Button", "Move Objects");
 	moveObjectsButton.onclick = this.moveObjectsCallback.bind(this);
 	
 	this.controls.push(moveObjectsButton);

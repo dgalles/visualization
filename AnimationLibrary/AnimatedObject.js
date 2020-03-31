@@ -26,11 +26,6 @@
 
 function AnimatedObject()
 {
-	this.init();
-}
-
-AnimatedObject.prototype.init  = function()
-{
 	this.backgroundColor = "#FFFFFF";
 	this.foregroundColor = "#000000";
 	this.highlighted = false;
@@ -44,9 +39,9 @@ AnimatedObject.prototype.init  = function()
 	this.y = 0;
 	this.minHeightDiff = 3;
 	this.range = 5;
-        this.highlightIndex = -1;
-        this.highlightIndexDirty = true;
-        this.textHeight = 10;
+	this.highlightIndex = -1;
+	this.highlightIndexDirty = true;
+	this.textHeight = 10;
 }
 
 AnimatedObject.prototype.alwaysOnTop = false;

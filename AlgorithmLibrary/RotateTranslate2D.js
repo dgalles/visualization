@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -32,9 +32,7 @@ function RotateTranslate2D(am, w, h)
 }
 
 
-RotateTranslate2D.prototype = new Algorithm();
-RotateTranslate2D.prototype.constructor = RotateTranslate2D;
-RotateTranslate2D.superclass = Algorithm.prototype;
+RotateTranslate2D.inheritFrom(Algorithm);
 
 RotateTranslate2D.XAxisYPos = 300;
 RotateTranslate2D.XAxisStart = 100;
@@ -271,32 +269,32 @@ RotateTranslate2D.prototype.addControls =  function()
 {
 	this.controls = [];
 	
-	addLabelToAlgorithmBar("Rotation Angle");
+	this.addLabelToAlgorithmBar("Rotation Angle");
 						   
-	this.rotationField = addControlToAlgorithmBar("Text", "");
+	this.rotationField = this.addControlToAlgorithmBar("Text", "");
 	this.rotationField.onkeydown = this.returnSubmitFloat(this.rotationField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.rotationField);
 	
-	addLabelToAlgorithmBar("Translate X");
+	this.addLabelToAlgorithmBar("Translate X");
 	
-	this.scaleXField = addControlToAlgorithmBar("Text", "");
+	this.scaleXField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleXField.onkeydown = this.returnSubmitFloat(this.scaleXField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.scaleXField);
 
 	
-	addLabelToAlgorithmBar("Translate Y");
+	this.addLabelToAlgorithmBar("Translate Y");
 	
-	this.scaleYField = addControlToAlgorithmBar("Text", "");
+	this.scaleYField = this.addControlToAlgorithmBar("Text", "");
 	this.scaleYField.onkeydown = this.returnSubmitFloat(this.scaleYField,  this.transformCallback.bind(this), 4, true);
 	this.controls.push(this.scaleYField);
 	
 
-	var transformButton = addControlToAlgorithmBar("Button", "Transform");
+	var transformButton = this.addControlToAlgorithmBar("Button", "Transform");
 	transformButton.onclick = this.transformCallback.bind(this);
 	
 	this.controls.push(transformButton);
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Row Major", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Row Major", 
 															 "Column Major", 
 															 ], 
 															"RankType");
@@ -311,7 +309,7 @@ RotateTranslate2D.prototype.addControls =  function()
 	this.rowMajorButton.checked = this.rowMajor;
 	this.colMajorButton.checked = !this.rowMajor;
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["+y Up", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["+y Up", 
 															 "+y Down", 
 															 ], 
 															"yAxisDirection");
@@ -327,7 +325,7 @@ RotateTranslate2D.prototype.addControls =  function()
 	this.posYDownButton.checked = !this.posYUp;
 
 	
-	var changeShapeButton = addControlToAlgorithmBar("Button", "Change Shape");
+	var changeShapeButton = this.addControlToAlgorithmBar("Button", "Change Shape");
 	changeShapeButton.onclick = this.changeShapeCallback.bind(this);
 	
 	this.controls.push(changeShapeButton);

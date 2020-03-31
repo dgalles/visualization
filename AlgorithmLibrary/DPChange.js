@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -32,9 +32,7 @@ function DPChange(am, w, h)
 	
 }
 
-DPChange.prototype = new Algorithm();
-DPChange.prototype.constructor = DPChange;
-DPChange.superclass = Algorithm.prototype;
+DPChange.inheritFrom(Algorithm);
 
 DPChange.TABLE_ELEM_WIDTH = 30;
 DPChange.TABLE_ELEM_HEIGHT = 30;
@@ -168,24 +166,24 @@ DPChange.prototype.init = function(am, w, h)
 DPChange.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.fibField = addControlToAlgorithmBar("Text", "");
+	this.fibField = this.addControlToAlgorithmBar("Text", "");
 	this.fibField.onkeydown = this.returnSubmit(this.fibField,  this.emptyCallback.bind(this), 2, true);
 	this.controls.push(this.fibField);
 
-	this.recursiveButton = addControlToAlgorithmBar("Button", "Change Recursive");
+	this.recursiveButton = this.addControlToAlgorithmBar("Button", "Change Recursive");
 	this.recursiveButton.onclick = this.recursiveCallback.bind(this);
 	this.controls.push(this.recursiveButton);
 
-	this.tableButton = addControlToAlgorithmBar("Button", "Change Table");
+	this.tableButton = this.addControlToAlgorithmBar("Button", "Change Table");
 	this.tableButton.onclick = this.tableCallback.bind(this);
 	this.controls.push(this.tableButton);
 
-	this.memoizedButton = addControlToAlgorithmBar("Button", "Change Memoized");
+	this.memoizedButton = this.addControlToAlgorithmBar("Button", "Change Memoized");
 	this.memoizedButton.onclick = this.memoizedCallback.bind(this);
 	this.controls.push(this.memoizedButton);
 
 	
-	this.greedyButton = addControlToAlgorithmBar("Button", "Change Greedy");
+	this.greedyButton = this.addControlToAlgorithmBar("Button", "Change Greedy");
 	this.greedyButton.onclick = this.greedyCallback.bind(this);
 	this.controls.push(this.greedyButton);
 	
@@ -205,7 +203,7 @@ DPChange.prototype.addControls =  function()
 		coinLabels.push(nextLabel);
 	}
 	
-	this.coinTypeButtons = addRadioButtonGroupToAlgorithmBar(coinLabels, "CoinType");
+	this.coinTypeButtons = this.addRadioButtonGroupToAlgorithmBar(coinLabels, "CoinType");
 		
 	for (i = 0; i < this.coinTypeButtons.length; i++)
 	{
@@ -819,9 +817,9 @@ DPChange.prototype.memoizedChange = function(value)
 	this.cmd("SetText", functionCallID,  "change(" + String(value)+ ", [" +String(DPChange.COINS[this.coinIndex]) +"])	= " + String(final[0]));
 	return this.commands;
 	
-	this.currentY = DPChange.RECURSIVE_START_Y;
+	// this.currentY = DPChange.RECURSIVE_START_Y;
 	
-	return this.commands;
+	// return this.commands;
 }
 
 

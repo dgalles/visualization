@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -29,18 +29,16 @@
 
 function Graph(am, w, h, dir, dag)
 {
-	if (am == undefined)
-	{
-		return;
-	}
-	this.init(am, w, h, dir,dag);
+	// this shouldn't happen if subclassing is done properly
+	if (!am)
+		throw "this shouldn't happen";
+
+	this.init(am, w, h, dir, dag);
 }
 
-Graph.prototype = new Algorithm();
-Graph.prototype.constructor = Graph;
-Graph.superclass = Algorithm.prototype;
+Graph.inheritFrom(Algorithm);
 
-var LARGE_ALLOWED = [[false, true, true, false, true, false, false, true, false, false, false, false, false, false, true, false, false, false],
+Graph.LARGE_ALLOWED = [[false, true, true, false, true, false, false, true, false, false, false, false, false, false, true, false, false, false],
 									[true, false, true, false, true, true,  false, false, false, false, false, false, false, false, false, false, false, false],
 									[true, true, false, true,  false, true, true,  false, false, false, false, false, false, false, false, false, false, false],
 									[false, false, true, false, false,false, true, false, false, false, true, false, false,  false, false, false, false, true],
@@ -59,7 +57,7 @@ var LARGE_ALLOWED = [[false, true, true, false, true, false, false, true, false,
 									[false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, true, false, true],
 									[false, false, false, false, false, false, false, false, false, false, true, false, false, true, false, true, true, false]];
 
-var LARGE_CURVE  = [[0, 0, -0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0, 0],
+Graph.LARGE_CURVE  = [[0, 0, -0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0, 0],
 								   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 								   [0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 								   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.25],
@@ -80,21 +78,21 @@ var LARGE_CURVE  = [[0, 0, -0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25, 0, 0, 0]
 
 
 
-var LARGE_X_POS_LOGICAL = [600, 700, 800, 900,
+Graph.LARGE_X_POS_LOGICAL = [600, 700, 800, 900,
 										  650, 750, 850,
 										  600, 700, 800, 900,
 										  650, 750, 850,
 										  600, 700, 800, 900];
 
 
-var LARGE_Y_POS_LOGICAL = [50, 50, 50, 50,
+Graph.LARGE_Y_POS_LOGICAL = [50, 50, 50, 50,
 										  150, 150, 150,
 										  250, 250, 250, 250, 
 										  350, 350, 350, 
 										  450,  450, 450, 450];
 
 
-var SMALL_ALLLOWED = [[false, true,  true,  true,  true,  false, false, false],
+Graph.SMALL_ALLLOWED = [[false, true,  true,  true,  true,  false, false, false],
 									 [true,  false, true,  true,  false, true,  true,  false],
 									 [true,  true,  false, false, true,  true,  true,  false],
 									 [true,  true,  false, false, false, true,  false, true],
@@ -103,7 +101,7 @@ var SMALL_ALLLOWED = [[false, true,  true,  true,  true,  false, false, false],
 									 [false, true,  true,  false, true,  true,  false, true],
 									 [false, false, false, true,  true,  true,  true,  false]];
 
-var SMALL_CURVE = [[0, 0.001, 0, 0.5, -0.5, 0, 0, 0],
+Graph.SMALL_CURVE = [[0, 0.001, 0, 0.5, -0.5, 0, 0, 0],
 								  [0, 0, 0, 0.001, 0, 0.001, -0.2, 0],
 								  [0, 0.001, 0, 0, 0, 0.2, 0, 0],
 								  [-0.5, 0, 0, 0, 0, 0.001, 0, 0.5],
@@ -112,52 +110,52 @@ var SMALL_CURVE = [[0, 0.001, 0, 0.5, -0.5, 0, 0, 0],
 								  [0, 0.2, 0, 0, 0, 0, 0, 0],
 								  [0, 0, 0, -0.5, 0.5, 0, 0, 0]]
 
-var SMALL_X_POS_LOGICAL = [800, 725, 875, 650, 950, 725, 875, 800];
-var SMALL_Y_POS_LOGICAL = [25, 125, 125, 225, 225, 325, 325, 425];
+Graph.SMALL_X_POS_LOGICAL = [800, 725, 875, 650, 950, 725, 875, 800];
+Graph.SMALL_Y_POS_LOGICAL = [25, 125, 125, 225, 225, 325, 325, 425];
 
 
-var SMALL_ADJ_MATRIX_X_START = 700;
-var SMALL_ADJ_MATRIX_Y_START = 40;
-var SMALL_ADJ_MATRIX_WIDTH = 30;
-var SMALL_ADJ_MATRIX_HEIGHT = 30;
+Graph.SMALL_ADJ_MATRIX_X_START = 700;
+Graph.SMALL_ADJ_MATRIX_Y_START = 40;
+Graph.SMALL_ADJ_MATRIX_WIDTH = 30;
+Graph.SMALL_ADJ_MATRIX_HEIGHT = 30;
 
-var SMALL_ADJ_LIST_X_START = 600;
-var SMALL_ADJ_LIST_Y_START = 30;
+Graph.SMALL_ADJ_LIST_X_START = 600;
+Graph.SMALL_ADJ_LIST_Y_START = 30;
 
-var SMALL_ADJ_LIST_ELEM_WIDTH = 50;
-var SMALL_ADJ_LIST_ELEM_HEIGHT = 30;
+Graph.SMALL_ADJ_LIST_ELEM_WIDTH = 50;
+Graph.SMALL_ADJ_LIST_ELEM_HEIGHT = 30;
 
-var SMALL_ADJ_LIST_HEIGHT = 36;
-var SMALL_ADJ_LIST_WIDTH = 36;
+Graph.SMALL_ADJ_LIST_HEIGHT = 36;
+Graph.SMALL_ADJ_LIST_WIDTH = 36;
 
-var SMALL_ADJ_LIST_SPACING = 10;
-
-
-var LARGE_ADJ_MATRIX_X_START = 575;
-var LARGE_ADJ_MATRIX_Y_START = 30;
-var LARGE_ADJ_MATRIX_WIDTH = 23;
-var LARGE_ADJ_MATRIX_HEIGHT = 23;
-
-var LARGE_ADJ_LIST_X_START = 600;
-var LARGE_ADJ_LIST_Y_START = 30;
-
-var LARGE_ADJ_LIST_ELEM_WIDTH = 50;
-var LARGE_ADJ_LIST_ELEM_HEIGHT = 26;
-
-var LARGE_ADJ_LIST_HEIGHT = 30;
-var LARGE_ADJ_LIST_WIDTH = 30;
-
-var LARGE_ADJ_LIST_SPACING = 10;
+Graph.SMALL_ADJ_LIST_SPACING = 10;
 
 
+Graph.LARGE_ADJ_MATRIX_X_START = 575;
+Graph.LARGE_ADJ_MATRIX_Y_START = 30;
+Graph.LARGE_ADJ_MATRIX_WIDTH = 23;
+Graph.LARGE_ADJ_MATRIX_HEIGHT = 23;
 
-var VERTEX_INDEX_COLOR ="#0000FF";
-var EDGE_COLOR = "#000000";
+Graph.LARGE_ADJ_LIST_X_START = 600;
+Graph.LARGE_ADJ_LIST_Y_START = 30;
 
-var SMALL_SIZE = 8;
-var LARGE_SIZE = 18;
+Graph.LARGE_ADJ_LIST_ELEM_WIDTH = 50;
+Graph.LARGE_ADJ_LIST_ELEM_HEIGHT = 26;
 
-var HIGHLIGHT_COLOR = "#0000FF";
+Graph.LARGE_ADJ_LIST_HEIGHT = 30;
+Graph.LARGE_ADJ_LIST_WIDTH = 30;
+
+Graph.LARGE_ADJ_LIST_SPACING = 10;
+
+
+
+Graph.VERTEX_INDEX_COLOR ="#0000FF";
+Graph.EDGE_COLOR = "#000000";
+
+Graph.SMALL_SIZE = 8;
+Graph.LARGE_SIZE = 18;
+
+Graph.HIGHLIGHT_COLOR = "#0000FF";
 
 
 
@@ -186,12 +184,12 @@ Graph.prototype.addControls = function(addDirection)
 	{
 		addDirection = true;
 	}
-	this.newGraphButton = addControlToAlgorithmBar("Button", "New Graph");
+	this.newGraphButton = this.addControlToAlgorithmBar("Button", "New Graph");
 	this.newGraphButton.onclick =  this.newGraphCallback.bind(this);
 
 	if (addDirection)
 	{
-		var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Directed Graph", "Undirected Graph"], "GraphType");
+		var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Directed Graph", "Undirected Graph"], "GraphType");
 		this.directedGraphButton = radioButtonList[0];
 		this.directedGraphButton.onclick = this.directedGraphCallback.bind(this, true);
 		this.undirectedGraphButton = radioButtonList[1];
@@ -201,14 +199,14 @@ Graph.prototype.addControls = function(addDirection)
 	}
 	
 
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Small Graph", "Large Graph"], "GraphSize");
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Small Graph", "Large Graph"], "GraphSize");
 	this.smallGraphButton = radioButtonList[0];
 	this.smallGraphButton.onclick = this.smallGraphCallback.bind(this);
 	this.largeGraphButton = radioButtonList[1];
 	this.largeGraphButton.onclick = this.largeGraphCallback.bind(this);
 	this.smallGraphButton.checked = true;
 	
-	var radioButtonList = addRadioButtonGroupToAlgorithmBar(["Logical Representation", 
+	var radioButtonList = this.addRadioButtonGroupToAlgorithmBar(["Logical Representation", 
 															  "Adjacency List Representation", 
 															  "Adjacency Matrix Representation"
 															], 
@@ -237,7 +235,7 @@ Graph.prototype.directedGraphCallback = function (newDirected, event)
 
 Graph.prototype.smallGraphCallback = function (event)
 {
-	if (this.size != SMALL_SIZE)
+	if (this.size != Graph.SMALL_SIZE)
 	{
 		this.animationManager.resetAll();
 		this.setup_small();		
@@ -246,7 +244,7 @@ Graph.prototype.smallGraphCallback = function (event)
 
 Graph.prototype.largeGraphCallback = function (event)
 {
-	if (this.size != LARGE_SIZE)
+	if (this.size != Graph.LARGE_SIZE)
 	{
 		this.animationManager.resetAll();
 		this.setup_large();		
@@ -277,7 +275,7 @@ Graph.prototype.recolorGraph = function()
 		{
 			if (this.adj_matrix[i][j] >= 0)
 			{
-				this.setEdgeColor(i, j, EDGE_COLOR);				
+				this.setEdgeColor(i, j, Graph.EDGE_COLOR);				
 			}
 		}
 	}
@@ -350,11 +348,11 @@ Graph.prototype.buildEdges = function()
 				}
 				if (this.directed)
 				{
-					this.cmd("Connect", this.circleID[i], this.circleID[j], EDGE_COLOR, this.adjustCurveForDirectedEdges(this.curve[i][j], this.adj_matrix[j][i] >= 0), 1, edgeLabel);
+					this.cmd("Connect", this.circleID[i], this.circleID[j], Graph.EDGE_COLOR, this.adjustCurveForDirectedEdges(this.curve[i][j], this.adj_matrix[j][i] >= 0), 1, edgeLabel);
 				}
 				else if (i < j)
 				{
-					this.cmd("Connect", this.circleID[i], this.circleID[j], EDGE_COLOR, this.curve[i][j], 0, edgeLabel);							
+					this.cmd("Connect", this.circleID[i], this.circleID[j], Graph.EDGE_COLOR, this.curve[i][j], 0, edgeLabel);							
 				}
 			}
 		}
@@ -364,43 +362,43 @@ Graph.prototype.buildEdges = function()
 
 Graph.prototype.setup_small = function()
 {
-	this.allowed = SMALL_ALLLOWED;
-	this.curve = SMALL_CURVE;
-	this. x_pos_logical = SMALL_X_POS_LOGICAL;
-	this. y_pos_logical = SMALL_Y_POS_LOGICAL;
-	this.adj_matrix_x_start = SMALL_ADJ_MATRIX_X_START;
-	this.adj_matrix_y_start = SMALL_ADJ_MATRIX_Y_START;
-	this.adj_matrix_width = SMALL_ADJ_MATRIX_WIDTH;
-	this.adj_matrix_height = SMALL_ADJ_MATRIX_HEIGHT;
-	this.adj_list_x_start = SMALL_ADJ_LIST_X_START;
-	this.adj_list_y_start = SMALL_ADJ_LIST_Y_START;
-	this.adj_list_elem_width = SMALL_ADJ_LIST_ELEM_WIDTH;
-	this.adj_list_elem_height = SMALL_ADJ_LIST_ELEM_HEIGHT;
-	this.adj_list_height = SMALL_ADJ_LIST_HEIGHT;
-	this.adj_list_width = SMALL_ADJ_LIST_WIDTH;
-	this.adj_list_spacing = SMALL_ADJ_LIST_SPACING;
-	this.size = SMALL_SIZE;
+	this.allowed = Graph.SMALL_ALLLOWED;
+	this.curve = Graph.SMALL_CURVE;
+	this. x_pos_logical = Graph.SMALL_X_POS_LOGICAL;
+	this. y_pos_logical = Graph.SMALL_Y_POS_LOGICAL;
+	this.adj_matrix_x_start = Graph.SMALL_ADJ_MATRIX_X_START;
+	this.adj_matrix_y_start = Graph.SMALL_ADJ_MATRIX_Y_START;
+	this.adj_matrix_width = Graph.SMALL_ADJ_MATRIX_WIDTH;
+	this.adj_matrix_height = Graph.SMALL_ADJ_MATRIX_HEIGHT;
+	this.adj_list_x_start = Graph.SMALL_ADJ_LIST_X_START;
+	this.adj_list_y_start = Graph.SMALL_ADJ_LIST_Y_START;
+	this.adj_list_elem_width = Graph.SMALL_ADJ_LIST_ELEM_WIDTH;
+	this.adj_list_elem_height = Graph.SMALL_ADJ_LIST_ELEM_HEIGHT;
+	this.adj_list_height = Graph.SMALL_ADJ_LIST_HEIGHT;
+	this.adj_list_width = Graph.SMALL_ADJ_LIST_WIDTH;
+	this.adj_list_spacing = Graph.SMALL_ADJ_LIST_SPACING;
+	this.size = Graph.SMALL_SIZE;
 	this.setup();
 }
 
 Graph.prototype.setup_large = function()
 {
-	this.allowed = LARGE_ALLOWED;
-	this.curve = LARGE_CURVE;
-	this. x_pos_logical = LARGE_X_POS_LOGICAL;
-	this. y_pos_logical = LARGE_Y_POS_LOGICAL;
-	this.adj_matrix_x_start = LARGE_ADJ_MATRIX_X_START;
-	this.adj_matrix_y_start = LARGE_ADJ_MATRIX_Y_START;
-	this.adj_matrix_width = LARGE_ADJ_MATRIX_WIDTH;
-	this.adj_matrix_height = LARGE_ADJ_MATRIX_HEIGHT;
-	this.adj_list_x_start = LARGE_ADJ_LIST_X_START;
-	this.adj_list_y_start = LARGE_ADJ_LIST_Y_START;
-	this.adj_list_elem_width = LARGE_ADJ_LIST_ELEM_WIDTH;
-	this.adj_list_elem_height = LARGE_ADJ_LIST_ELEM_HEIGHT;
-	this.adj_list_height = LARGE_ADJ_LIST_HEIGHT;
-	this.adj_list_width = LARGE_ADJ_LIST_WIDTH;
-	this.adj_list_spacing = LARGE_ADJ_LIST_SPACING;
-	this.size = LARGE_SIZE;
+	this.allowed = Graph.LARGE_ALLOWED;
+	this.curve = Graph.LARGE_CURVE;
+	this. x_pos_logical = Graph.LARGE_X_POS_LOGICAL;
+	this. y_pos_logical = Graph.LARGE_Y_POS_LOGICAL;
+	this.adj_matrix_x_start = Graph.LARGE_ADJ_MATRIX_X_START;
+	this.adj_matrix_y_start = Graph.LARGE_ADJ_MATRIX_Y_START;
+	this.adj_matrix_width = Graph.LARGE_ADJ_MATRIX_WIDTH;
+	this.adj_matrix_height = Graph.LARGE_ADJ_MATRIX_HEIGHT;
+	this.adj_list_x_start = Graph.LARGE_ADJ_LIST_X_START;
+	this.adj_list_y_start = Graph.LARGE_ADJ_LIST_Y_START;
+	this.adj_list_elem_width = Graph.LARGE_ADJ_LIST_ELEM_WIDTH;
+	this.adj_list_elem_height = Graph.LARGE_ADJ_LIST_ELEM_HEIGHT;
+	this.adj_list_height = Graph.LARGE_ADJ_LIST_HEIGHT;
+	this.adj_list_width = Graph.LARGE_ADJ_LIST_WIDTH;
+	this.adj_list_spacing = Graph.LARGE_ADJ_LIST_SPACING;
+	this.size = Graph.LARGE_SIZE;
 	this.setup();		
 }
 
@@ -425,7 +423,7 @@ Graph.prototype.setup = function()
 	{
 		this.circleID[i] = this.nextIndex++;
 		this.cmd("CreateCircle", this.circleID[i], i, this. x_pos_logical[i], this. y_pos_logical[i]);
-		this.cmd("SetTextColor", this.circleID[i], VERTEX_INDEX_COLOR, 0);
+		this.cmd("SetTextColor", this.circleID[i], Graph.VERTEX_INDEX_COLOR, 0);
 		
 		this.cmd("SetLayer", this.circleID[i], 1);
 	}
@@ -439,7 +437,7 @@ Graph.prototype.setup = function()
 	}
 	
 	var edgePercent;
-	if (this.size == SMALL_SIZE)
+	if (this.size == Graph.SMALL_SIZE)
 	{
 		if (this.directed)
 		{
@@ -524,7 +522,7 @@ Graph.prototype.setup = function()
 					{
 						edgeLabel = "";
 					}
-					this.cmd("Connect", this.circleID[i], this.circleID[j], EDGE_COLOR, this.curve[i][j], 0, edgeLabel);
+					this.cmd("Connect", this.circleID[i], this.circleID[j], Graph.EDGE_COLOR, this.curve[i][j], 0, edgeLabel);
 				}
 				else
 				{
@@ -580,9 +578,9 @@ Graph.prototype.buildAdjMatrix = function()
 		this.adj_matrix_index_x[i] = this.nextIndex++;
 		this.adj_matrix_index_y[i] = this.nextIndex++;
 		this.cmd("CreateLabel", this.adj_matrix_index_x[i], i,   this.adj_matrix_x_start + i*this.adj_matrix_width, this.adj_matrix_y_start - this.adj_matrix_height);
-		this.cmd("SetForegroundColor", this.adj_matrix_index_x[i], VERTEX_INDEX_COLOR);
+		this.cmd("SetForegroundColor", this.adj_matrix_index_x[i], Graph.VERTEX_INDEX_COLOR);
 		this.cmd("CreateLabel", this.adj_matrix_index_y[i], i,   this.adj_matrix_x_start  - this.adj_matrix_width, this.adj_matrix_y_start + i* this.adj_matrix_height);
-		this.cmd("SetForegroundColor", this.adj_matrix_index_y[i], VERTEX_INDEX_COLOR);
+		this.cmd("SetForegroundColor", this.adj_matrix_index_y[i], Graph.VERTEX_INDEX_COLOR);
 		this.cmd("SetLayer", this.adj_matrix_index_x[i], 3);
 		this.cmd("SetLayer", this.adj_matrix_index_y[i], 3);
 		
@@ -641,7 +639,7 @@ Graph.prototype.buildAdjList = function()
 		this.cmd("CreateRectangle", this.adj_list_list[i], "", this.adj_list_width, this.adj_list_height, this.adj_list_x_start, this.adj_list_y_start + i*this.adj_list_height);
 		this.cmd("SetLayer", this.adj_list_list[i], 2);
 		this.cmd("CreateLabel", this.adj_list_index[i], i, this.adj_list_x_start - this.adj_list_width , this.adj_list_y_start + i*this.adj_list_height);
-		this.cmd("SetForegroundColor",  this.adj_list_index[i], VERTEX_INDEX_COLOR);
+		this.cmd("SetForegroundColor",  this.adj_list_index[i], Graph.VERTEX_INDEX_COLOR);
 		this.cmd("SetLayer", this.adj_list_index[i], 2);
 		var lastElem = this.adj_list_list[i];
 		var nextXPos = this.adj_list_x_start + this.adj_list_width + this.adj_list_spacing;
@@ -656,7 +654,7 @@ Graph.prototype.buildAdjList = function()
 					nextXPos, this.adj_list_y_start + i*this.adj_list_height, 0.25, 0, 1, 2);
 				this.cmd("SetNull", this.adj_list_edges[i][j], 1);
 				this.cmd("SetText", this.adj_list_edges[i][j], this.adj_matrix[i][j], 1); 
-				this.cmd("SetTextColor", this.adj_list_edges[i][j], VERTEX_INDEX_COLOR, 0);
+				this.cmd("SetTextColor", this.adj_list_edges[i][j], Graph.VERTEX_INDEX_COLOR, 0);
 				this.cmd("SetLayer", this.adj_list_edges[i][j], 2);
 				
 				nextXPos = nextXPos + this.adj_list_elem_width + this.adj_list_spacing;

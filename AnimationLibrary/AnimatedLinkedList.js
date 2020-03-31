@@ -26,30 +26,22 @@
 
 function AnimatedLinkedList(id, val, wth, hgt, linkPer, verticalOrientation, linkPosEnd, numLab, fillColor, edgeColor)
 {
-	this.init(id, val, wth, hgt, linkPer, verticalOrientation, linkPosEnd, numLab, fillColor, edgeColor);
-}
-
-AnimatedLinkedList.prototype = new AnimatedObject();
-AnimatedLinkedList.prototype.constructor = AnimatedLinkedList;
-AnimatedLinkedList.superclass = AnimatedObject.prototype;
-
-
-AnimatedLinkedList.prototype.init = function(id, val, wth, hgt, linkPer, verticalOrientation, linkPosEnd, numLab, fillColor, edgeColor)
-{
-	
-	AnimatedLinkedList.superclass.init.call(this);
+	// call superclass' constructor, which calls init
+	AnimatedLinkedList.superclass.constructor.call(this);
 
 	this.w = wth;
 	this.h = hgt;
 	this.backgroundColor = fillColor;
 	this.foregroundColor = edgeColor;
+	this.val = val;
 	
 	this.vertical = verticalOrientation;
 	this.linkPositionEnd = linkPosEnd;
 	this.linkPercent = linkPer;
 	
 	this.numLabels = numLab;
-	
+	this.objectID = id;	
+
 	this.labels = [];
 	this.labelPosX = [];
 	this.labelPosY = [];
@@ -60,8 +52,6 @@ AnimatedLinkedList.prototype.init = function(id, val, wth, hgt, linkPer, vertica
 	this.maxHeightDiff = 5;
 	this.minHeightDiff = 3;
 	
-	
-	
 	for (var i = 0; i < this.numLabels; i++)
 	{
 		this.labels[i] = "";
@@ -70,11 +60,10 @@ AnimatedLinkedList.prototype.init = function(id, val, wth, hgt, linkPer, vertica
 		this.labelColors[i] = this.foregroundColor;
 	}
 	
-	this.labels[0] = val;
+	this.labels[0] = this.val;
 	this.highlighted = false;
-	this.objectID = id;	
 }
-
+AnimatedLinkedList.inheritFrom(AnimatedObject);
 		
 		
 AnimatedLinkedList.prototype.left = function()
@@ -454,8 +443,7 @@ function UndoDeleteLinkedList(id, numlab, lab, x, y, w, h, linkper, posEnd, vert
 	this.nullPointer = np;
 }
 
-UndoDeleteLinkedList.prototype = new UndoBlock();
-UndoDeleteLinkedList.prototype.constructor = UndoDeleteLinkedList;
+UndoDeleteLinkedList.inheritFrom(UndoBlock);
 
 
 

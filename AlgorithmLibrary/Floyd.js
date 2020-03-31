@@ -26,10 +26,13 @@
 
 
 
-function Floyd(am, w, h)
+function Floyd(am, w, h, dir)
 {
-	this.init(am, w, h);
+	// call superclass' constructor, which calls init
+	Floyd.superclass.constructor.call(this, am, w, h, dir);
 }
+
+Floyd.inheritFrom(Graph);
 
 
 Floyd.SMALL_COST_TABLE_WIDTH = 30;
@@ -73,14 +76,10 @@ Floyd.LARGE_NODE_3_Y_POS = 500;
 Floyd.LARGE_MESSAGE_X = 300;
 Floyd.LARGE_MESSAGE_Y = 450;
 
-Floyd.prototype = new Graph();
-Floyd.prototype.constructor = Floyd;
-Floyd.superclass = Graph.prototype;
-
 Floyd.prototype.addControls =  function()
 {		
 	
-	this.startButton = addControlToAlgorithmBar("Button", "Run Floyd-Warshall");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run Floyd-Warshall");
 	this.startButton.onclick = this.startCallback.bind(this);
 
 	Floyd.superclass.addControls.call(this);
@@ -89,10 +88,10 @@ Floyd.prototype.addControls =  function()
 }	
 
 
-Floyd.prototype.init = function(am, w, h)
+Floyd.prototype.init = function(am, w, h, dir)
 {
 	this.showEdgeCosts = true;
-	Floyd.superclass.init.call(this, am, w, h, true, false); // TODO:  add no edge label flag to this?
+	Floyd.superclass.init.call(this, am, w, h, dir, false); // TODO:  add no edge label flag to this?
 	// Setup called in base class init function
 }
 
@@ -121,7 +120,7 @@ Floyd.prototype.reset = function()
 
 Floyd.prototype.smallGraphCallback = function (event)
 {
-	if (this.size != SMALL_SIZE)
+	if (this.size != Graph.SMALL_SIZE)
 	{
 		this.animationManager.resetAll();
 		this.animationManager.setAllLayers([0,this.currentLayer]);
@@ -134,7 +133,7 @@ Floyd.prototype.smallGraphCallback = function (event)
 
 Graph.prototype.largeGraphCallback = function (event)
 {
-	if (this.size != LARGE_SIZE)
+	if (this.size != Graph.LARGE_SIZE)
 	{
 		this.animationManager.resetAll();
 		//this.animationManager.setAllLayers([0]);
@@ -155,7 +154,7 @@ Floyd.prototype.getCostLabel = function(value, alwaysUseINF)
 	{
 		return String(value);
 	}
-	else if (this.size == SMALL_SIZE || alwaysUseINF)
+	else if (this.size == Graph.SMALL_SIZE || alwaysUseINF)
 	{
 		return "INF";
 	}
@@ -284,7 +283,7 @@ Floyd.prototype.setup = function()
 	this.animationManager.StartNewAnimation(this.commands);
 	this.animationManager.skipForward();
 	this.animationManager.clearHistory();
-	if (this.size == LARGE_SIZE)
+	if (this.size == Graph.LARGE_SIZE)
 	{
 		this.animationManager.setAllLayers([0]);
 	}

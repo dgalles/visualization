@@ -24,49 +24,48 @@
 // authors and should not be interpreted as representing official policies, either expressed
 // or implied, of the University of San Francisco
 
-var AUX_ARRAY_WIDTH = 25;
-var AUX_ARRAY_HEIGHT = 25;
-var AUX_ARRAY_START_Y = 50;
 
-var VISITED_START_X = 475;
-var PARENT_START_X = 400;
-
-var HIGHLIGHT_CIRCLE_COLOR = "#000000";
-var BFS_TREE_COLOR = "#0000FF";
-var BFS_QUEUE_HEAD_COLOR = "#0000FF";
-
-
-var QUEUE_START_X = 30;
-var QUEUE_START_Y = 50;
-var QUEUE_SPACING = 30;
-
-
-function BFS(am)
+function BFS(am, w, h, dir)
 {
-	this.init(am);
-	
+	// call superclass' constructor, which calls init
+	BFS.superclass.constructor.call(this, am, w, h, dir);
 }
+BFS.inheritFrom(Graph);
 
-BFS.prototype = new Graph();
-BFS.prototype.constructor = BFS;
-BFS.superclass = Graph.prototype;
+
+BFS.AUX_ARRAY_WIDTH = 25;
+BFS.AUX_ARRAY_HEIGHT = 25;
+BFS.AUX_ARRAY_START_Y = 50;
+
+BFS.VISITED_START_X = 475;
+BFS.PARENT_START_X = 400;
+
+BFS.HIGHLIGHT_CIRCLE_COLOR = "#000000";
+BFS.BFS_TREE_COLOR = "#0000FF";
+BFS.BFS_QUEUE_HEAD_COLOR = "#0000FF";
+
+
+BFS.QUEUE_START_X = 30;
+BFS.QUEUE_START_Y = 50;
+BFS.QUEUE_SPACING = 30;
+
 
 BFS.prototype.addControls =  function()
 {		
-	addLabelToAlgorithmBar("Start Vertex: ");
-	this.startField = addControlToAlgorithmBar("Text", "");
+	this.addLabelToAlgorithmBar("Start Vertex: ");
+	this.startField = this.addControlToAlgorithmBar("Text", "");
 	this.startField.onkeydown = this.returnSubmit(this.startField,  this.startCallback.bind(this), 2, true);
 	this.startField.size = 2;
-	this.startButton = addControlToAlgorithmBar("Button", "Run BFS");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run BFS");
 	this.startButton.onclick = this.startCallback.bind(this);
 	BFS.superclass.addControls.call(this);
 }	
 
 
-BFS.prototype.init = function(am, w, h)
+BFS.prototype.init = function(am, w, h, dir)
 {
 	showEdgeCosts = false;
-	BFS.superclass.init.call(this, am, w, h); // TODO:  add no edge label flag to this?
+	BFS.superclass.init.call(this, am, w, h, dir); // TODO:  add no edge label flag to this?
 	// Setup called in base class constructor
 }
 
@@ -87,21 +86,21 @@ BFS.prototype.setup = function()
 		this.visitedIndexID[i] = this.nextIndex++;
 		this.parentID[i] = this.nextIndex++;
 		this.parentIndexID[i] = this.nextIndex++;
-		this.cmd("CreateRectangle", this.visitedID[i], "f", AUX_ARRAY_WIDTH, AUX_ARRAY_HEIGHT, VISITED_START_X, AUX_ARRAY_START_Y + i*AUX_ARRAY_HEIGHT);
-		this.cmd("CreateLabel", this.visitedIndexID[i], i, VISITED_START_X - AUX_ARRAY_WIDTH , AUX_ARRAY_START_Y + i*AUX_ARRAY_HEIGHT);
-		this.cmd("SetForegroundColor",  this.visitedIndexID[i], VERTEX_INDEX_COLOR);
-		this.cmd("CreateRectangle", this.parentID[i], "", AUX_ARRAY_WIDTH, AUX_ARRAY_HEIGHT, PARENT_START_X, AUX_ARRAY_START_Y + i*AUX_ARRAY_HEIGHT);
-		this.cmd("CreateLabel", this.parentIndexID[i], i, PARENT_START_X - AUX_ARRAY_WIDTH , AUX_ARRAY_START_Y + i*AUX_ARRAY_HEIGHT);
-		this.cmd("SetForegroundColor",  this.parentIndexID[i], VERTEX_INDEX_COLOR);
+		this.cmd("CreateRectangle", this.visitedID[i], "f", BFS.AUX_ARRAY_WIDTH, BFS.AUX_ARRAY_HEIGHT, BFS.VISITED_START_X, BFS.AUX_ARRAY_START_Y + i*BFS.AUX_ARRAY_HEIGHT);
+		this.cmd("CreateLabel", this.visitedIndexID[i], i, BFS.VISITED_START_X - BFS.AUX_ARRAY_WIDTH , BFS.AUX_ARRAY_START_Y + i*BFS.AUX_ARRAY_HEIGHT);
+		this.cmd("SetForegroundColor",  this.visitedIndexID[i], BFS.VERTEX_INDEX_COLOR);
+		this.cmd("CreateRectangle", this.parentID[i], "", BFS.AUX_ARRAY_WIDTH, BFS.AUX_ARRAY_HEIGHT, BFS.PARENT_START_X, BFS.AUX_ARRAY_START_Y + i*BFS.AUX_ARRAY_HEIGHT);
+		this.cmd("CreateLabel", this.parentIndexID[i], i, BFS.PARENT_START_X - BFS.AUX_ARRAY_WIDTH , BFS.AUX_ARRAY_START_Y + i*BFS.AUX_ARRAY_HEIGHT);
+		this.cmd("SetForegroundColor",  this.parentIndexID[i], BFS.VERTEX_INDEX_COLOR);
 		
 	}
-	this.cmd("CreateLabel", this.nextIndex++, "Parent", PARENT_START_X - AUX_ARRAY_WIDTH, AUX_ARRAY_START_Y - AUX_ARRAY_HEIGHT * 1.5, 0);
-	this.cmd("CreateLabel", this.nextIndex++, "Visited", VISITED_START_X - AUX_ARRAY_WIDTH, AUX_ARRAY_START_Y - AUX_ARRAY_HEIGHT * 1.5, 0);
-	this.cmd("CreateLabel", this.nextIndex++, "BFS Queue", QUEUE_START_X, QUEUE_START_Y - 30, 0);
-	animationManager.setAllLayers([0, this.currentLayer]);
-	animationManager.StartNewAnimation(this.commands);
-	animationManager.skipForward();
-	animationManager.clearHistory();
+	this.cmd("CreateLabel", this.nextIndex++, "Parent", BFS.PARENT_START_X - BFS.AUX_ARRAY_WIDTH, BFS.AUX_ARRAY_START_Y - BFS.AUX_ARRAY_HEIGHT * 1.5, 0);
+	this.cmd("CreateLabel", this.nextIndex++, "Visited", BFS.VISITED_START_X - BFS.AUX_ARRAY_WIDTH, BFS.AUX_ARRAY_START_Y - BFS.AUX_ARRAY_HEIGHT * 1.5, 0);
+	this.cmd("CreateLabel", this.nextIndex++, "BFS Queue", BFS.QUEUE_START_X, BFS.QUEUE_START_Y - 30, 0);
+	this.animationManager.setAllLayers([0, this.currentLayer]);
+	this.animationManager.StartNewAnimation(this.commands);
+	this.animationManager.skipForward();
+	this.animationManager.clearHistory();
 	this.highlightCircleL = this.nextIndex++;
 	this.highlightCircleAL = this.nextIndex++;
 	this.highlightCircleAM= this.nextIndex++
@@ -153,7 +152,7 @@ BFS.prototype.doBFS = function(startVetex)
 	var vertex = parseInt(startVetex);
 	this.visited[vertex] = true;
 	this.queue[tail] = vertex;			
-	this.cmd("CreateLabel", queueID[tail],  vertex, QUEUE_START_X + queueSize * QUEUE_SPACING, QUEUE_START_Y);
+	this.cmd("CreateLabel", queueID[tail],  vertex, BFS.QUEUE_START_X + queueSize * BFS.QUEUE_SPACING, BFS.QUEUE_START_Y);
 	queueSize = queueSize + 1;
 	tail = (tail + 1) % (this.size);
 	
@@ -161,14 +160,14 @@ BFS.prototype.doBFS = function(startVetex)
 	while (queueSize > 0)
 	{
 		vertex = this.queue[head];
-		this.cmd("CreateHighlightCircle", this.highlightCircleL, HIGHLIGHT_CIRCLE_COLOR, this.x_pos_logical[vertex], this.y_pos_logical[vertex]);
+		this.cmd("CreateHighlightCircle", this.highlightCircleL, BFS.HIGHLIGHT_CIRCLE_COLOR, this.x_pos_logical[vertex], this.y_pos_logical[vertex]);
 		this.cmd("SetLayer", this.highlightCircleL, 1);
-		this.cmd("CreateHighlightCircle", this.highlightCircleAL, HIGHLIGHT_CIRCLE_COLOR,this.adj_list_x_start - this.adj_list_width, this.adj_list_y_start + vertex*this.adj_list_height);
+		this.cmd("CreateHighlightCircle", this.highlightCircleAL, BFS.HIGHLIGHT_CIRCLE_COLOR,this.adj_list_x_start - this.adj_list_width, this.adj_list_y_start + vertex*this.adj_list_height);
 		this.cmd("SetLayer", this.highlightCircleAL, 2);
-		this.cmd("CreateHighlightCircle", this.highlightCircleAM, HIGHLIGHT_CIRCLE_COLOR,this.adj_matrix_x_start  - this.adj_matrix_width, this.adj_matrix_y_start + vertex*this.adj_matrix_height);
+		this.cmd("CreateHighlightCircle", this.highlightCircleAM, BFS.HIGHLIGHT_CIRCLE_COLOR,this.adj_matrix_x_start  - this.adj_matrix_width, this.adj_matrix_y_start + vertex*this.adj_matrix_height);
 		this.cmd("SetLayer", this.highlightCircleAM, 3);
 		
-		this.cmd("SetTextColor", queueID[head], BFS_QUEUE_HEAD_COLOR);
+		this.cmd("SetTextColor", queueID[head], BFS.BFS_QUEUE_HEAD_COLOR);
 		
 		
 		for (var neighbor = 0; neighbor < this.size; neighbor++)
@@ -185,9 +184,9 @@ BFS.prototype.doBFS = function(startVetex)
 					this.cmd("SetText", this.parentID[neighbor], vertex);
 					this.highlightEdge(vertex, neighbor, 0);
 					this.cmd("Disconnect", this.circleID[vertex], this.circleID[neighbor]);
-					this.cmd("Connect", this.circleID[vertex], this.circleID[neighbor], BFS_TREE_COLOR, this.curve[vertex][neighbor], 1, "");
+					this.cmd("Connect", this.circleID[vertex], this.circleID[neighbor], BFS.BFS_TREE_COLOR, this.curve[vertex][neighbor], 1, "");
 					this.queue[tail] = neighbor;
-					this.cmd("CreateLabel", queueID[tail],  neighbor, QUEUE_START_X + queueSize * QUEUE_SPACING, QUEUE_START_Y);
+					this.cmd("CreateLabel", queueID[tail],  neighbor, BFS.QUEUE_START_X + queueSize * BFS.QUEUE_SPACING, BFS.QUEUE_START_Y);
 					tail = (tail + 1) % (this.size);
 					queueSize = queueSize + 1;
 				}
@@ -206,7 +205,7 @@ BFS.prototype.doBFS = function(startVetex)
 		for (i = 0; i < queueSize; i++)
 		{
 			var nextQueueIndex = (i + head) % this.size;
-			this.cmd("Move", queueID[nextQueueIndex], QUEUE_START_X + i * QUEUE_SPACING, QUEUE_START_Y);
+			this.cmd("Move", queueID[nextQueueIndex], BFS.QUEUE_START_X + i * BFS.QUEUE_SPACING, BFS.QUEUE_START_Y);
 		}
 		
 		this.cmd("Delete", this.highlightCircleL);
@@ -225,6 +224,8 @@ BFS.prototype.doBFS = function(startVetex)
 BFS.prototype.reset = function()
 {
 	// Throw an error?
+
+	this.messageID = new Array();
 }
 
 

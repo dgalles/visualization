@@ -28,8 +28,12 @@
 
 function Kruskal(am, w, h)
 {
-	this.init(am, w, h);
+	// call superclass' constructor, which calls init
+	Kruskal.superclass.constructor.call(this, am, w, h);
 }
+
+Kruskal.inheritFrom(Graph);
+
 
 
 Kruskal.HIGHLIGHT_CIRCLE_COLOR = "#000000";
@@ -60,14 +64,10 @@ Kruskal.HIGHLIGHT_CIRCLE_COLOR = "#000000";
  Kruskal.HIGHLIGHT_CIRCLE_COLOR_2 = "#FF0000";
 
 
-Kruskal.prototype = new Graph();
-Kruskal.prototype.constructor = Kruskal;
-Kruskal.superclass = Graph.prototype;
-
 Kruskal.prototype.addControls =  function()
 {		
 	
-	this.startButton = addControlToAlgorithmBar("Button", "Run Kruskal");
+	this.startButton = this.addControlToAlgorithmBar("Button", "Run Kruskal");
 	this.startButton.onclick = this.startCallback.bind(this);
 
 	Kruskal.superclass.addControls.call(this, false);
@@ -99,7 +99,7 @@ Kruskal.prototype.setup = function()
 		this.setIndexID[i] = this.nextIndex++;
 		this.cmd("CreateRectangle", this.setID[i], "-1", Kruskal.SET_ARRAY_ELEM_WIDTH, Kruskal.SET_ARRAY_ELEM_HEIGHT, Kruskal.SET_ARRAY_START_X, Kruskal.SET_ARRAY_START_Y + i*Kruskal.SET_ARRAY_ELEM_HEIGHT);
 		this.cmd("CreateLabel", this.setIndexID[i], i, Kruskal.SET_ARRAY_START_X - Kruskal.SET_ARRAY_ELEM_WIDTH ,Kruskal.SET_ARRAY_START_Y + i*Kruskal.SET_ARRAY_ELEM_HEIGHT);
-		this.cmd("SetForegroundColor",  this.setIndexID[i], VERTEX_INDEX_COLOR);				
+		this.cmd("SetForegroundColor",  this.setIndexID[i], Graph.VERTEX_INDEX_COLOR);				
 	}
 	this.cmd("CreateLabel", this.nextIndex++, "Disjoint Set", Kruskal.SET_ARRAY_START_X - 1 * Kruskal.SET_ARRAY_ELEM_WIDTH, Kruskal.SET_ARRAY_START_Y - Kruskal.SET_ARRAY_ELEM_HEIGHT * 1.5, 0);
 	this.animationManager.setAllLayers([0, this.currentLayer]);
@@ -172,7 +172,7 @@ Kruskal.prototype.doKruskal = function(ignored)
 					Kruskal.EDGE_LIST_START_Y + (top % Kruskal.EDGE_LIST_MAX_PER_COLUMN) * Kruskal.EDGE_LIST_ELEM_HEIGHT);
 				this.cmd("CreateLabel", this.edgesListRightID[top], j, Kruskal.EDGE_LIST_START_X +Kruskal.EDGE_LIST_ELEM_WIDTH +  Math.floor(top / Kruskal.EDGE_LIST_MAX_PER_COLUMN) * Kruskal.EDGE_LIST_COLUMN_WIDTH,
 					Kruskal.EDGE_LIST_START_Y + (top % Kruskal.EDGE_LIST_MAX_PER_COLUMN) * Kruskal.EDGE_LIST_ELEM_HEIGHT);
-				this.cmd("Connect", this.edgesListLeftID[top], this.edgesListRightID[top], EDGE_COLOR, 0, 0, this.adj_matrix[i][j])
+				this.cmd("Connect", this.edgesListLeftID[top], this.edgesListRightID[top], Graph.EDGE_COLOR, 0, 0, this.adj_matrix[i][j])
 			}					
 		}
 	}

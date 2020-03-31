@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -28,13 +28,11 @@
 
 function Queens(am, w, h)
 {
-	this.init(am, w, h);
-	
+	// call superclass' constructor, which calls init
+	Queens.superclass.constructor.call(this, am, w, h);
 }
 
-Queens.prototype = new Recursive();
-Queens.prototype.constructor = Queens;
-Queens.superclass = Recursive.prototype;
+Queens.inheritFrom(Recursive);
 
 Queens.CALC_QUEENS_ACTIVATION_FIELDS = ["  size  ", "  board  "];
 Queens.QUEENS_ACTIVATION_FIELDS = ["  board  ", "  current  ", "  size  ", "  i  ", "  done  "];
@@ -109,13 +107,13 @@ Queens.prototype.init = function(am, w, h)
 Queens.prototype.addControls =  function()
 {
 	this.controls = [];
-	addLabelToAlgorithmBar("Board size:  (1-8)");
+	this.addLabelToAlgorithmBar("Board size:  (1-8)");
 
-	this.sizeField = addControlToAlgorithmBar("Text", "");
+	this.sizeField = this.addControlToAlgorithmBar("Text", "");
 	this.sizeField.onkeydown = this.returnSubmit(this.sizeField,  this.queensCallback.bind(this), 2, true);
 	this.controls.push(this.sizeField);
 
-	this.queensButton = addControlToAlgorithmBar("Button", "Queens");
+	this.queensButton = this.addControlToAlgorithmBar("Button", "Queens");
 	this.queensButton.onclick = this.queensCallback.bind(this);
 	this.controls.push(this.queensButton);
 		

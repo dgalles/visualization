@@ -1,4 +1,4 @@
-﻿// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
+// Copyright 2011 David Galles, University of San Francisco. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
@@ -24,43 +24,41 @@
 // authors and should not be interpreted as representing official policies, either expressed
 // or implied, of the University of San Francisco
 
-var LINKED_LIST_START_X = 100;
-var LINKED_LIST_START_Y = 200;
-var LINKED_LIST_ELEM_WIDTH = 70;
-var LINKED_LIST_ELEM_HEIGHT = 30;
-
-
-var LINKED_LIST_INSERT_X = 250;
-var LINKED_LIST_INSERT_Y = 50;
-
-var LINKED_LIST_ELEMS_PER_LINE = 8;
-var LINKED_LIST_ELEM_SPACING = 100;
-var LINKED_LIST_LINE_SPACING = 100;
-
-var TOP_POS_X = 180;
-var TOP_POS_Y = 100;
-var TOP_LABEL_X = 130;
-var TOP_LABEL_Y =  100;
-
-var TOP_ELEM_WIDTH = 30;
-var TOP_ELEM_HEIGHT = 30;
-
-var PUSH_LABEL_X = 50;
-var PUSH_LABEL_Y = 30;
-var PUSH_ELEMENT_X = 120;
-var PUSH_ELEMENT_Y = 30;
-
-var SIZE = 32;
-
 function StackLL(am, w, h)
 {
 	this.init(am, w, h);
 	
 }
+StackLL.inheritFrom(Algorithm);
 
-StackLL.prototype = new Algorithm();
-StackLL.prototype.constructor = StackLL;
-StackLL.superclass = Algorithm.prototype;
+
+StackLL.LINKED_LIST_START_X = 100;
+StackLL.LINKED_LIST_START_Y = 200;
+StackLL.LINKED_LIST_ELEM_WIDTH = 70;
+StackLL.LINKED_LIST_ELEM_HEIGHT = 30;
+
+
+StackLL.LINKED_LIST_INSERT_X = 250;
+StackLL.LINKED_LIST_INSERT_Y = 50;
+
+StackLL.LINKED_LIST_ELEMS_PER_LINE = 8;
+StackLL.LINKED_LIST_ELEM_SPACING = 100;
+StackLL.LINKED_LIST_LINE_SPACING = 100;
+
+StackLL.TOP_POS_X = 180;
+StackLL.TOP_POS_Y = 100;
+StackLL.TOP_LABEL_X = 130;
+StackLL.TOP_LABEL_Y =  100;
+
+StackLL.TOP_ELEM_WIDTH = 30;
+StackLL.TOP_ELEM_HEIGHT = 30;
+
+StackLL.PUSH_LABEL_X = 50;
+StackLL.PUSH_LABEL_Y = 30;
+StackLL.PUSH_ELEMENT_X = 120;
+StackLL.PUSH_ELEMENT_Y = 30;
+
+StackLL.SIZE = 32;
 
 
 StackLL.prototype.init = function(am, w, h)
@@ -77,18 +75,18 @@ StackLL.prototype.init = function(am, w, h)
 StackLL.prototype.addControls =  function()
 {
 	this.controls = [];
-	this.pushField = addControlToAlgorithmBar("Text", "");
+	this.pushField = this.addControlToAlgorithmBar("Text", "");
 	this.pushField.onkeydown = this.returnSubmit(this.pushField,  this.pushCallback.bind(this), 6);
-	this.pushButton = addControlToAlgorithmBar("Button", "Push");
+	this.pushButton = this.addControlToAlgorithmBar("Button", "Push");
 	this.pushButton.onclick = this.pushCallback.bind(this);
 	this.controls.push(this.pushField);
 	this.controls.push(this.pushButton);
 
-	this.popButton = addControlToAlgorithmBar("Button", "Pop");
+	this.popButton = this.addControlToAlgorithmBar("Button", "Pop");
 	this.popButton.onclick = this.popCallback.bind(this);
 	this.controls.push(this.popButton);
 	
-	this.clearButton = addControlToAlgorithmBar("Button", "Clear Stack");
+	this.clearButton = this.addControlToAlgorithmBar("Button", "Clear Stack");
 	this.clearButton.onclick = this.clearCallback.bind(this);
 	this.controls.push(this.clearButton);
 	
@@ -115,8 +113,8 @@ StackLL.prototype.disableUI = function(event)
 StackLL.prototype.setup = function()
 {
 	
-	this.linkedListElemID = new Array(SIZE);
-	for (var i = 0; i < SIZE; i++)
+	this.linkedListElemID = new Array(StackLL.SIZE);
+	for (var i = 0; i < StackLL.SIZE; i++)
 	{
 		
 		this.linkedListElemID[i]= this.nextIndex++;
@@ -124,15 +122,15 @@ StackLL.prototype.setup = function()
 	this.topID = this.nextIndex++;
 	this.topLabelID = this.nextIndex++;
 	
-	this.arrayData = new Array(SIZE);
+	this.arrayData = new Array(StackLL.SIZE);
 	this.top = 0;
 	this.leftoverLabelID = this.nextIndex++;
 		
-	this.cmd("CreateLabel", this.topLabelID, "Top", TOP_LABEL_X, TOP_LABEL_Y);
-	this.cmd("CreateRectangle", this.topID, "", TOP_ELEM_WIDTH, TOP_ELEM_HEIGHT, TOP_POS_X, TOP_POS_Y);
+	this.cmd("CreateLabel", this.topLabelID, "Top", StackLL.TOP_LABEL_X, StackLL.TOP_LABEL_Y);
+	this.cmd("CreateRectangle", this.topID, "", StackLL.TOP_ELEM_WIDTH, StackLL.TOP_ELEM_HEIGHT, StackLL.TOP_POS_X, StackLL.TOP_POS_Y);
 	this.cmd("SetNull", this.topID, 1);
 	
-	this.cmd("CreateLabel", this.leftoverLabelID, "", PUSH_LABEL_X, PUSH_LABEL_Y);
+	this.cmd("CreateLabel", this.leftoverLabelID, "", StackLL.PUSH_LABEL_X, StackLL.PUSH_LABEL_Y);
 	
 	this.animationManager.StartNewAnimation(this.commands);
 	this.animationManager.skipForward();
@@ -144,8 +142,8 @@ StackLL.prototype.resetLinkedListPositions = function()
 {
 	for (var i = this.top - 1; i >= 0; i--)
 	{
-		var nextX = (this.top - 1 - i) % LINKED_LIST_ELEMS_PER_LINE * LINKED_LIST_ELEM_SPACING + LINKED_LIST_START_X;
-		var nextY = Math.floor((this.top - 1 - i) / LINKED_LIST_ELEMS_PER_LINE) * LINKED_LIST_LINE_SPACING + LINKED_LIST_START_Y;
+		var nextX = (this.top - 1 - i) % StackLL.LINKED_LIST_ELEMS_PER_LINE * StackLL.LINKED_LIST_ELEM_SPACING + StackLL.LINKED_LIST_START_X;
+		var nextY = Math.floor((this.top - 1 - i) / StackLL.LINKED_LIST_ELEMS_PER_LINE) * StackLL.LINKED_LIST_LINE_SPACING + StackLL.LINKED_LIST_START_Y;
 		this.cmd("Move", this.linkedListElemID[i], nextX, nextY);				
 	}
 	
@@ -164,7 +162,7 @@ StackLL.prototype.reset = function()
 		
 StackLL.prototype.pushCallback = function(event)
 {
-	if (this.top < SIZE && this.pushField.value != "")
+	if (this.top < StackLL.SIZE && this.pushField.value != "")
 	{
 		var pushVal = this.pushField.value;
 		this.pushField.value = ""
@@ -199,17 +197,17 @@ StackLL.prototype.push = function(elemToPush)
 	
 	this.cmd("SetText", this.leftoverLabelID, "");
 	
-	this.cmd("CreateLinkedList",this.linkedListElemID[this.top], "" ,LINKED_LIST_ELEM_WIDTH, LINKED_LIST_ELEM_HEIGHT, 
-		LINKED_LIST_INSERT_X, LINKED_LIST_INSERT_Y, 0.25, 0, 1, 1);
+	this.cmd("CreateLinkedList",this.linkedListElemID[this.top], "" ,StackLL.LINKED_LIST_ELEM_WIDTH, StackLL.LINKED_LIST_ELEM_HEIGHT, 
+		StackLL.LINKED_LIST_INSERT_X, StackLL.LINKED_LIST_INSERT_Y, 0.25, 0, 1, 1);
 	
-	this.cmd("CreateLabel", labPushID, "Pushing Value: ", PUSH_LABEL_X, PUSH_LABEL_Y);
-	this.cmd("CreateLabel", labPushValID,elemToPush, PUSH_ELEMENT_X, PUSH_ELEMENT_Y);
+	this.cmd("CreateLabel", labPushID, "Pushing Value: ", StackLL.PUSH_LABEL_X, StackLL.PUSH_LABEL_Y);
+	this.cmd("CreateLabel", labPushValID,elemToPush, StackLL.PUSH_ELEMENT_X, StackLL.PUSH_ELEMENT_Y);
 	
 	this.cmd("Step");
 	
 	
 	
-	this.cmd("Move", labPushValID, LINKED_LIST_INSERT_X, LINKED_LIST_INSERT_Y);
+	this.cmd("Move", labPushValID, StackLL.LINKED_LIST_INSERT_X, StackLL.LINKED_LIST_INSERT_Y);
 	
 	this.cmd("Step");
 	this.cmd("SetText", this.linkedListElemID[this.top], elemToPush);
@@ -247,10 +245,10 @@ StackLL.prototype.pop = function(ignored)
 	this.cmd("SetText", this.leftoverLabelID, "");
 	
 	
-	this.cmd("CreateLabel", labPopID, "Popped Value: ", PUSH_LABEL_X, PUSH_LABEL_Y);
-	this.cmd("CreateLabel", labPopValID,this.arrayData[this.top - 1], LINKED_LIST_START_X, LINKED_LIST_START_Y);
+	this.cmd("CreateLabel", labPopID, "Popped Value: ", StackLL.PUSH_LABEL_X, StackLL.PUSH_LABEL_Y);
+	this.cmd("CreateLabel", labPopValID,this.arrayData[this.top - 1], StackLL.LINKED_LIST_START_X, StackLL.LINKED_LIST_START_Y);
 	
-	this.cmd("Move", labPopValID,  PUSH_ELEMENT_X, PUSH_ELEMENT_Y);
+	this.cmd("Move", labPopValID,  StackLL.PUSH_ELEMENT_X, StackLL.PUSH_ELEMENT_Y);
 	this.cmd("Step");
 	this.cmd("Disconnect", this.topID, this.linkedListElemID[this.top - 1]);
 	
